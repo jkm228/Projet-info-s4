@@ -2,11 +2,12 @@
 body, html {
     margin: 0;
     padding: 0;
-    height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
     overflow-x: hidden;
+    background-color: #f4f4f4; /* Fond gris très clair général */
 }
 
 /* --- BANDEAU DU HAUT --- */
@@ -19,6 +20,7 @@ header {
     align-items: center;
     z-index: 10;
     min-height: 60px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
 .header-title {
@@ -45,7 +47,6 @@ header {
     transition: all 0.3s ease;
 }
 
-/* S'INSCRIRE EN VERT */
 .auth-buttons a.signup {
     background-color: #00843d;
     border-color: #00843d;
@@ -58,23 +59,31 @@ header {
     color: #000;
 }
 
-/* --- ZONE CENTRALE (HERO SECTION) --- */
+/* --- MAIN CONTAINER --- */
 main {
     flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+}
+
+/* --- SECTION HERO (ACCUEIL) --- */
+.hero-section {
+    position: relative;
+    height: 70vh; 
+    min-height: 500px;
     background-image: url('mafé.webp'); 
     background-size: cover;
     background-position: center;
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-main::before {
+.hero-section::before {
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0, 0, 0, 0.4); 
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .hero-content {
@@ -84,10 +93,10 @@ main::before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 30px;
+    width: 100%;
 }
 
-/* NOM EN ROUGE */
 h1 {
     font-size: clamp(2.5rem, 10vw, 6rem);
     color: #ce1126;
@@ -97,10 +106,110 @@ h1 {
     text-shadow: 2px 4px 20px rgba(0, 0, 0, 0.9);
 }
 
-/* BOUTON CARTE EN JAUNE */
+/* --- BARRE DE RECHERCHE --- */
+.search-container {
+    display: flex;
+    background: white;
+    padding: 5px;
+    border-radius: 50px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.search-container input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 15px 20px;
+    border-radius: 50px 0 0 50px;
+    font-size: 1rem;
+}
+
+.search-container button {
+    background-color: #00843d;
+    border: none;
+    color: white;
+    padding: 0 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background 0.3s;
+}
+
+.search-container button:hover {
+    background-color: #00602c;
+}
+
+/* --- SECTION LISTE DES PLATS (ACCUEIL) --- */
+.plats-section {
+    background-color: #f8f8f8;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.plats-section h2 {
+    color: #ce1126;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    letter-spacing: 2px;
+}
+
+.plats-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.plat-card {
+    background: white;
+    width: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-bottom: 5px solid #fcd116;
+    transition: transform 0.3s ease;
+}
+
+.plat-card:hover { transform: translateY(-10px); }
+
+.plat-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.plat-info h3 { margin: 0; color: #333; }
+.plat-info p { color: #666; font-size: 0.95rem; min-height: 45px; }
+
+.price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #00843d;
+}
+
+.btn-commander {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-commander:hover { background-color: #ce1126; }
+
 .btn-carte {
     display: inline-block;
-    padding: 18px 45px;
+    padding: 15px 40px;
     background-color: #fcd116;
     color: #000;
     text-decoration: none;
@@ -109,14 +218,120 @@ h1 {
     text-transform: uppercase;
     border-radius: 50px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .btn-carte:hover {
-    background-color: #ffffff;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+    background-color: #ffdb4d;
+    transform: scale(1.05);
 }
+
+/* ========================================= */
+/* --- PAGE PRÉSENTATION (Ex-Carte) --- */
+/* ========================================= */
+
+.presentation-page {
+    padding: 40px 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.presentation-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.presentation-header h1 {
+    font-size: 3rem;
+    color: #000;
+    text-shadow: none;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.presentation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Responsive Grid */
+    gap: 30px;
+    padding-bottom: 40px;
+}
+
+/* STYLE D'UNE CARTE MENU */
+.menu-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #eee;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* En-tête de la carte (Drapeau) */
+.menu-flag {
+    background-color: #000;
+    color: #fcd116; /* Jaune */
+    padding: 10px 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+/* Titre du Menu */
+.menu-title {
+    background-color: #ce1126; /* Rouge */
+    color: white;
+    padding: 15px 20px;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+/* Liste des plats */
+.menu-items {
+    list-style: none;
+    padding: 20px;
+    margin: 0;
+    flex: 1; /* Pousse le footer vers le bas */
+}
+
+.menu-items li {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: #444;
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 8px;
+}
+
+.menu-items li:last-child {
+    border-bottom: none;
+}
+
+/* Bas de la carte (Prix + Bouton) */
+.menu-footer {
+    padding: 20px;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eee;
+}
+
+.menu-price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #00843d; /* Vert */
+}
+
+/* ========================================= */
 
 /* --- BANDEAU DU BAS (FOOTER) --- */
 footer {
@@ -124,6 +339,7 @@ footer {
     color: #fff;
     padding: 50px 20px;
     z-index: 10;
+    margin-top: auto;
 }
 
 .footer-container {
@@ -140,7 +356,6 @@ footer {
     min-width: 250px;
 }
 
-/* TITRES DU BAS EN JAUNE */
 .footer-section h3 {
     border-bottom: 1px solid #333;
     padding-bottom: 12px;
@@ -158,15 +373,8 @@ footer {
     line-height: 1.8;
 }
 
-.footer-section a:hover {
-    color: #fff;
-}
-
-/* FERMÉ EN ROUGE */
-.closed {
-    color: #ce1126;
-    font-weight: bold;
-}
+.footer-section a:hover { color: #fff; }
+.closed { color: #ce1126; font-weight: bold; }
 
 /* --- RESPONSIVE MOBILE --- */
 @media (max-width: 850px) {
@@ -175,5 +383,14 @@ footer {
         flex-direction: column;
         padding: 20px;
         gap: 15px;
+    }
+    
+    .hero-section {
+        height: auto;
+        padding: 100px 20px;
+    }
+    
+    .presentation-grid {
+        grid-template-columns: 1fr; /* Une seule colonne sur mobile */
     }
 }
