@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Africa United - Présentation des Menus</title>
+    <title>Africa United - La Carte</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,163 +21,252 @@
     <main class="presentation-page">
         
         <div class="presentation-header">
-            <h1>Nos Escales Gourmandes</h1>
-            <p>Choisissez votre destination et laissez-vous transporter.</p>
+            <h1>Composez votre voyage</h1>
+            <p>De Marrakech au Cap, savourez l'Afrique.</p>
+            
+            <div class="search-container search-carte">
+                <input type="text" placeholder="Rechercher un plat (ex: Mafé, Yassa...)">
+                <button type="button">🔍</button>
+            </div>
         </div>
 
-        <div class="presentation-grid">
-
-            <div class="menu-card">
-                <div class="menu-flag">🇸🇳 Sénégal</div>
-                <div class="menu-title">L'Escale Dakaroise</div>
-                <ul class="menu-items">
-                    <li><strong>Boisson :</strong> Jus de Bissap (Fleurs d'hibiscus)</li>
-                    <li><strong>Entrée :</strong> Pastels (Chaussons farcis)</li>
-                    <li><strong>Plat :</strong> Thiéboudienne (Riz au poisson)</li>
-                    <li><strong>Dessert :</strong> Thiakry (Couscous de mil au yaourt)</li>
-                </ul>
-                <div class="menu-footer">
-                    <span class="menu-price">25€</span>
-                    <button class="btn-commander">Choisir</button>
-                </div>
+        <div class="filters-container">
+            <div class="category-buttons sticky-nav">
+                <a href="#boissons" class="filter-btn">Boissons</a>
+                <a href="#entrees" class="filter-btn">Entrées</a>
+                <a href="#plats" class="filter-btn">Plats</a>
+                <a href="#desserts" class="filter-btn">Desserts</a>
             </div>
-
-            <div class="menu-card">
-                <div class="menu-flag">🇲🇦 Maroc</div>
-                <div class="menu-title">Nuit à Marrakech</div>
-                <ul class="menu-items">
-                    <li><strong>Boisson :</strong> Thé à la menthe</li>
-                    <li><strong>Entrée :</strong> Briouates au fromage</li>
-                    <li><strong>Plat :</strong> Tajine d'Agneau aux Pruneaux</li>
-                    <li><strong>Dessert :</strong> Cornes de Gazelle</li>
-                </ul>
-                <div class="menu-footer">
-                    <span class="menu-price">26€</span>
-                    <button class="btn-commander">Choisir</button>
-                </div>
-            </div>
-
-            <div class="menu-card">
-                <div class="menu-flag">🇪🇹 Éthiopie</div>
-                <div class="menu-title">Le Festin d'Addis</div>
-                <ul class="menu-items">
-                    <li><strong>Boisson :</strong> Tej (Hydromel) ou Café</li>
-                    <li><strong>Entrée :</strong> Sambusas aux lentilles</li>
-                    <li><strong>Plat :</strong> Doro Wat sur Injera</li>
-                    <li><strong>Dessert :</strong> Himbasha (Pain sucré)</li>
-                </ul>
-                <div class="menu-footer">
-                    <span class="menu-price">24€</span>
-                    <button class="btn-commander">Choisir</button>
-                </div>
-            </div>
-
-            <div class="menu-card">
-                <div class="menu-flag">🇨🇲 Cameroun</div>
-                <div class="menu-title">Saveurs de Yaoundé</div>
-                <ul class="menu-items">
-                    <li><strong>Boisson :</strong> Jus de Foléré</li>
-                    <li><strong>Entrée :</strong> Brochettes de bœuf kan-kan</li>
-                    <li><strong>Plat :</strong> Ndolé aux crevettes & Plantain</li>
-                    <li><strong>Dessert :</strong> Beignets soufflés</li>
-                </ul>
-                <div class="menu-footer">
-                    <span class="menu-price">25€</span>
-                    <button class="btn-commander">Choisir</button>
-                </div>
-            </div>
-
-            <div class="menu-card">
-                <div class="menu-flag">🇿🇦 Afrique du Sud</div>
-                <div class="menu-title">Safari au Cap</div>
-                <ul class="menu-items">
-                    <li><strong>Boisson :</strong> Thé Rooibos glacé</li>
-                    <li><strong>Entrée :</strong> Biltong (Viande séchée)</li>
-                    <li><strong>Plat :</strong> Bobotie (Gratin épicé)</li>
-                    <li><strong>Dessert :</strong> Malva Pudding</li>
-                </ul>
-                <div class="menu-footer">
-                    <span class="menu-price">27€</span>
-                    <button class="btn-commander">Choisir</button>
-                </div>
-            </div>
-
-            <div class="menu-card">
-                <div class="menu-flag">🇨🇮 Côte d'Ivoire</div>
-                <div class="menu-title">Ambiance Abidjan</div>
-                <ul class="menu-items">
-                    <li><strong>Boisson :</strong> Gnamankoudji (Gingembre)</li>
-                    <li><strong>Entrée :</strong> Alloco (Bananes frites)</li>
-                    <li><strong>Plat :</strong> Garba (Thon & Attiéké)</li>
-                    <li><strong>Dessert :</strong> Degue (Yaourt au mil)</li>
-                </ul>
-                <div class="menu-footer">
-                    <span class="menu-price">23€</span>
-                    <button class="btn-commander">Choisir</button>
-                </div>
-            </div>
-
-            <div class="menu-card">
-                <div class="menu-flag">🇲🇬 Madagascar</div>
-                <div class="menu-title">L'Île Rouge</div>
-                <ul class="menu-items">
-                    <li><strong>Boisson :</strong> Jus de Litchi</li>
-                    <li><strong>Entrée :</strong> Sambos</li>
-                    <li><strong>Plat :</strong> Romazava (Bouillon & Brèdes)</li>
-                    <li><strong>Dessert :</strong> Koba (Gâteau banane-cacahuète)</li>
-                </ul>
-                <div class="menu-footer">
-                    <span class="menu-price">24€</span>
-                    <button class="btn-commander">Choisir</button>
-                </div>
-            </div>
-
-            <div class="menu-card">
-                <div class="menu-flag">🇳🇬 Nigeria</div>
-                <div class="menu-title">Lagos By Night</div>
-                <ul class="menu-items">
-                    <li><strong>Boisson :</strong> Chapman (Cocktail)</li>
-                    <li><strong>Entrée :</strong> Suya (Brochettes épicées)</li>
-                    <li><strong>Plat :</strong> Jollof Rice & Poulet</li>
-                    <li><strong>Dessert :</strong> Puff-Puff (Beignets)</li>
-                </ul>
-                <div class="menu-footer">
-                    <span class="menu-price">25€</span>
-                    <button class="btn-commander">Choisir</button>
-                </div>
-            </div>
-
-            <div class="menu-card">
-                <div class="menu-flag">🇰🇪 Kenya</div>
-                <div class="menu-title">Esprit Massaï</div>
-                <ul class="menu-items">
-                    <li><strong>Boisson :</strong> Dawa (Miel & Citron)</li>
-                    <li><strong>Entrée :</strong> Kachumbari (Salade)</li>
-                    <li><strong>Plat :</strong> Nyama Choma (Grillade) & Ugali</li>
-                    <li><strong>Dessert :</strong> Mandazi (Beignet coco)</li>
-                </ul>
-                <div class="menu-footer">
-                    <span class="menu-price">26€</span>
-                    <button class="btn-commander">Choisir</button>
-                </div>
-            </div>
-
-            <div class="menu-card">
-                <div class="menu-flag">🇪🇬 Égypte</div>
-                <div class="menu-title">Secret du Pharaon</div>
-                <ul class="menu-items">
-                    <li><strong>Boisson :</strong> Karkadé (Hibiscus froid)</li>
-                    <li><strong>Entrée :</strong> Ta'ameya (Falafel de fèves)</li>
-                    <li><strong>Plat :</strong> Koshary (Mélange Riz/Pâtes)</li>
-                    <li><strong>Dessert :</strong> Om Ali (Pudding)</li>
-                </ul>
-                <div class="menu-footer">
-                    <span class="menu-price">24€</span>
-                    <button class="btn-commander">Choisir</button>
-                </div>
-            </div>
-
         </div>
+
+        <section id="boissons" class="menu-section">
+            <h2 class="section-title">🍹 Nos Boissons</h2>
+            <div class="presentation-grid">
+                <div class="menu-card">
+                    <div class="menu-flag">🇸🇳 Sénégal</div>
+                    <div class="menu-title bg-vert">Jus de Bissap</div>
+                    <div class="menu-items"><p>Fleurs d'hibiscus, menthe et vanille.</p></div>
+                    <div class="menu-footer"><span class="menu-price">4€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇲🇦 Maroc</div>
+                    <div class="menu-title bg-vert">Thé à la menthe</div>
+                    <div class="menu-items"><p>Servi chaud, traditionnellement sucré.</p></div>
+                    <div class="menu-footer"><span class="menu-price">3€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇨🇮 Côte d'Ivoire</div>
+                    <div class="menu-title bg-vert">Gnamankoudji</div>
+                    <div class="menu-items"><p>Jus de gingembre puissant et citron.</p></div>
+                    <div class="menu-footer"><span class="menu-price">4€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇨🇲 Cameroun</div>
+                    <div class="menu-title bg-vert">Jus de Foléré</div>
+                    <div class="menu-items"><p>Variante locale douce de l'hibiscus.</p></div>
+                    <div class="menu-footer"><span class="menu-price">4€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇳🇬 Nigeria</div>
+                    <div class="menu-title bg-vert">Chapman</div>
+                    <div class="menu-items"><p>Cocktail fruité gazeux (Grenadine/Orange).</p></div>
+                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇲🇬 Madagascar</div>
+                    <div class="menu-title bg-vert">Jus de Litchi</div>
+                    <div class="menu-items"><p>Nectar de litchis frais de l'île.</p></div>
+                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇪🇹 Éthiopie</div>
+                    <div class="menu-title bg-vert">Café Buna</div>
+                    <div class="menu-items"><p>Café noir traditionnel éthiopien fort.</p></div>
+                    <div class="menu-footer"><span class="menu-price">3€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇰🇪 Kenya</div>
+                    <div class="menu-title bg-vert">Dawa</div>
+                    <div class="menu-items"><p>Vodka, miel, citron vert et glace pilée.</p></div>
+                    <div class="menu-footer"><span class="menu-price">8€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="entrees" class="menu-section">
+            <h2 class="section-title">🥟 Nos Entrées</h2>
+            <div class="presentation-grid">
+                <div class="menu-card">
+                    <div class="menu-flag">🇸🇳 Sénégal</div>
+                    <div class="menu-title bg-orange">Pastels</div>
+                    <div class="menu-items"><p>Petits chaussons farcis au thon.</p></div>
+                    <div class="menu-footer"><span class="menu-price">6€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇲🇦 Maroc</div>
+                    <div class="menu-title bg-orange">Briouates</div>
+                    <div class="menu-items"><p>Feuilletés triangulaires chèvre/miel.</p></div>
+                    <div class="menu-footer"><span class="menu-price">6€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇪🇹 Éthiopie</div>
+                    <div class="menu-title bg-orange">Sambusas</div>
+                    <div class="menu-items"><p>Triangles frits aux lentilles épicées.</p></div>
+                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇨🇮 Côte d'Ivoire</div>
+                    <div class="menu-title bg-orange">Alloco</div>
+                    <div class="menu-items"><p>Bananes plantains frites, sauce piment.</p></div>
+                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇿🇦 Afrique du Sud</div>
+                    <div class="menu-title bg-orange">Biltong</div>
+                    <div class="menu-items"><p>Lamelles de viande de bœuf séchée.</p></div>
+                    <div class="menu-footer"><span class="menu-price">7€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇪🇬 Égypte</div>
+                    <div class="menu-title bg-orange">Ta'ameya</div>
+                    <div class="menu-items"><p>Le falafel égyptien à base de fèves.</p></div>
+                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇰🇪 Kenya</div>
+                    <div class="menu-title bg-orange">Kachumbari</div>
+                    <div class="menu-items"><p>Salade fraîche tomates, oignons, coriandre.</p></div>
+                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                 <div class="menu-card">
+                    <div class="menu-flag">🇳🇬 Nigeria</div>
+                    <div class="menu-title bg-orange">Suya Beef</div>
+                    <div class="menu-items"><p>Mini-brochettes très épicées (piment).</p></div>
+                    <div class="menu-footer"><span class="menu-price">7€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="plats" class="menu-section">
+            <h2 class="section-title">🥘 Nos Plats de Résistance</h2>
+            <div class="presentation-grid">
+                <div class="menu-card">
+                    <div class="menu-flag">🇸🇳 Sénégal</div>
+                    <div class="menu-title bg-rouge">Thiéboudienne</div>
+                    <div class="menu-items"><p>Riz wolof au poisson et légumes mijotés.</p></div>
+                    <div class="menu-footer"><span class="menu-price">15€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇲🇦 Maroc</div>
+                    <div class="menu-title bg-rouge">Tajine d'Agneau</div>
+                    <div class="menu-items"><p>Confit aux pruneaux et amandes grillées.</p></div>
+                    <div class="menu-footer"><span class="menu-price">16€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇪🇹 Éthiopie</div>
+                    <div class="menu-title bg-rouge">Doro Wat</div>
+                    <div class="menu-items"><p>Ragoût de poulet épicé servi sur Injera.</p></div>
+                    <div class="menu-footer"><span class="menu-price">14€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇨🇲 Cameroun</div>
+                    <div class="menu-title bg-rouge">Ndolé Royal</div>
+                    <div class="menu-items"><p>Feuilles amères, arachides et crevettes.</p></div>
+                    <div class="menu-footer"><span class="menu-price">15€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇨🇮 Côte d'Ivoire</div>
+                    <div class="menu-title bg-rouge">Garba</div>
+                    <div class="menu-items"><p>Thon frit rouge et semoule de manioc.</p></div>
+                    <div class="menu-footer"><span class="menu-price">13€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇳🇬 Nigeria</div>
+                    <div class="menu-title bg-rouge">Jollof Rice</div>
+                    <div class="menu-items"><p>Le célèbre riz rouge épicé au poulet.</p></div>
+                    <div class="menu-footer"><span class="menu-price">14€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇲🇬 Madagascar</div>
+                    <div class="menu-title bg-rouge">Romazava</div>
+                    <div class="menu-items"><p>Bouillon clair de bœuf et brèdes.</p></div>
+                    <div class="menu-footer"><span class="menu-price">14€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇿🇦 Afrique du Sud</div>
+                    <div class="menu-title bg-rouge">Bobotie</div>
+                    <div class="menu-items"><p>Gratin de viande hachée au curry doux.</p></div>
+                    <div class="menu-footer"><span class="menu-price">15€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                 <div class="menu-card">
+                    <div class="menu-flag">🇪🇬 Égypte</div>
+                    <div class="menu-title bg-rouge">Koshary</div>
+                    <div class="menu-items"><p>Mix réconfortant riz, pâtes, lentilles.</p></div>
+                    <div class="menu-footer"><span class="menu-price">13€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                 <div class="menu-card">
+                    <div class="menu-flag">🇰🇪 Kenya</div>
+                    <div class="menu-title bg-rouge">Nyama Choma</div>
+                    <div class="menu-items"><p>Grillade de chèvre au barbecue et Ugali.</p></div>
+                    <div class="menu-footer"><span class="menu-price">16€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="desserts" class="menu-section">
+            <h2 class="section-title">🍰 Nos Douceurs Sucrées</h2>
+            <div class="presentation-grid">
+                <div class="menu-card">
+                    <div class="menu-flag">🇸🇳 Sénégal</div>
+                    <div class="menu-title bg-violet">Thiakry</div>
+                    <div class="menu-items"><p>Couscous de mil, yaourt et muscade.</p></div>
+                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇲🇦 Maroc</div>
+                    <div class="menu-title bg-violet">Cornes de Gazelle</div>
+                    <div class="menu-items"><p>Pâtisserie fine à la fleur d'oranger.</p></div>
+                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇿🇦 Afrique du Sud</div>
+                    <div class="menu-title bg-violet">Malva Pudding</div>
+                    <div class="menu-items"><p>Gâteau moelleux chaud à l'abricot.</p></div>
+                    <div class="menu-footer"><span class="menu-price">6€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇳🇬 Nigeria</div>
+                    <div class="menu-title bg-violet">Puff-Puff</div>
+                    <div class="menu-items"><p>Petits beignets ronds moelleux.</p></div>
+                    <div class="menu-footer"><span class="menu-price">4€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-flag">🇰🇪 Kenya</div>
+                    <div class="menu-title bg-violet">Mandazi</div>
+                    <div class="menu-items"><p>Beignet triangulaire au lait de coco.</p></div>
+                    <div class="menu-footer"><span class="menu-price">4€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                 <div class="menu-card">
+                    <div class="menu-flag">🇲🇬 Madagascar</div>
+                    <div class="menu-title bg-violet">Koba</div>
+                    <div class="menu-items"><p>Gâteau banane/cacahuète en feuille.</p></div>
+                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                 <div class="menu-card">
+                    <div class="menu-flag">🇨🇲 Cameroun</div>
+                    <div class="menu-title bg-violet">Beignets Koki</div>
+                    <div class="menu-items"><p>Gâteau de haricots (version sucrée).</p></div>
+                    <div class="menu-footer"><span class="menu-price">4€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+                 <div class="menu-card">
+                    <div class="menu-flag">🇪🇬 Égypte</div>
+                    <div class="menu-title bg-violet">Om Ali</div>
+                    <div class="menu-items"><p>Pudding au pain, lait, noix et raisins.</p></div>
+                    <div class="menu-footer"><span class="menu-price">6€</span><button class="btn-commander">Ajouter</button></div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <footer>
