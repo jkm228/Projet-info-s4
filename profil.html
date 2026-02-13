@@ -1,1 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Profil - Africa United</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <header>
+        <div class="brand">
+            <h1>Africa United</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="carte.html">La Carte</a></li>
+                <li><a href="profil.html" class="active">Mon Compte</a></li>
+                <li><a href="panier.html">Panier</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        
+        <header class="page-header">
+            <h2>Mon Profil</h2>
+            <p>Complétez vos informations pour finaliser votre inscription.</p>
+        </header>
+
+        <div class="profile-layout">
+            
+            <section class="card info-card">
+                <h3>Mes Informations Personnelles</h3>
+                <p class="instruction">Veuillez renseigner vos coordonnées :</p>
+                
+                <form class="profile-form">
+                    <div class="form-group">
+                        <label for="nom">Nom :</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="nom" placeholder="Votre nom..." class="virgin-input">
+                            <span class="edit-icon" title="Modifier">&#9998;</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prenom">Prénom :</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="prenom" placeholder="Votre prénom..." class="virgin-input">
+                            <span class="edit-icon" title="Modifier">&#9998;</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email :</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="email" placeholder="exemple@email.com" class="virgin-input">
+                            <span class="edit-icon" title="Modifier">&#9998;</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tel">Téléphone :</label>
+                        <div class="input-wrapper">
+                            <input type="tel" id="tel" placeholder="06..." class="virgin-input">
+                            <span class="edit-icon" title="Modifier">&#9998;</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adresse">Adresse complète :</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="adresse" placeholder="N°, Rue, Ville..." class="virgin-input">
+                            <span class="edit-icon" title="Modifier">&#9998;</span>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <section class="card loyalty-card">
+                <h3>Mon Solde Fidélité</h3>
+                <div class="empty-state-loyalty">
+                    <div class="circle-zero">
+                        <span class="big-zero">0</span>
+                        <span class="pts-label">Points</span>
+                    </div>
+                    <p>Commencez à commander pour cumuler des Points !</p>
+                    <div class="progress-track">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <p class="next-level">Prochaine récompense à <strong>100 points</strong></p>
+                </div>
+            </section>
+
+            <section class="card history-card">
+                <h3>Historique de Commandes</h3>
+                
+                <div class="empty-history">
+                    <p>Vous n'avez pas encore passé de commande.</p>
+                    <a href="carte.html" class="btn-cta">Découvrir la carte</a>
+                </div>
+
+                <table class="orders-table hidden-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>N°</th>
+                            <th>Total</th>
+                            <th>Statut</th>
+                            <th>Détail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Africa United</p>
+    </footer>
+
+</body>
+</html>
