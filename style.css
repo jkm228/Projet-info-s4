@@ -7,7 +7,8 @@ body, html {
     flex-direction: column;
     min-height: 100vh;
     overflow-x: hidden;
-    background-color: #f4f4f4; /* Fond gris très clair général */
+    background-color: #f4f4f4;
+    scroll-behavior: smooth; /* Défilement fluide */
 }
 
 /* --- BANDEAU DU HAUT --- */
@@ -18,9 +19,10 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 10;
+    z-index: 100;
     min-height: 60px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    position: relative; 
 }
 
 .header-title {
@@ -31,7 +33,7 @@ header {
     margin-left: 160px; 
 }
 
-/* Boutons de connexion / inscription */
+/* Boutons */
 .auth-buttons {
     display: flex;
     gap: 12px;
@@ -66,12 +68,12 @@ main {
     flex-direction: column;
 }
 
-/* --- SECTION HERO (ACCUEIL) --- */
+/* --- SECTION HERO --- */
 .hero-section {
     position: relative;
     height: 70vh; 
     min-height: 500px;
-    background-image: url('mafé.webp'); 
+    background-image: url('acceuil_img.jpeg'); 
     background-size: cover;
     background-position: center;
     display: flex;
@@ -83,7 +85,7 @@ main {
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5); 
 }
 
 .hero-content {
@@ -141,7 +143,71 @@ h1 {
     background-color: #00602c;
 }
 
-/* --- SECTION LISTE DES PLATS (ACCUEIL) --- */
+/* --- STYLES SPÉCIFIQUES PAGE PRÉSENTATION --- */
+
+.search-carte {
+    margin: 0 auto 30px auto; 
+    border: 1px solid #ddd;
+    /* Opacité retirée ici */
+}
+
+.filters-container {
+    max-width: 1200px;
+    margin: 0 auto 20px auto;
+    padding: 10px 20px;
+    text-align: center;
+    background: white;
+    position: sticky; /* Menu collant */
+    top: 0; 
+    z-index: 90;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+}
+
+.category-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Réduit un peu l'écart */
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    text-decoration: none;
+    padding: 8px 20px; /* Boutons un peu plus fins */
+    border: 2px solid #000;
+    color: #000;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.95rem;
+    background: white;
+}
+
+.filter-btn:hover {
+    background-color: #ce1126;
+    color: white;
+    border-color: #ce1126;
+}
+
+.section-title {
+    text-align: center;
+    color: #ce1126;
+    font-size: 2rem;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #fcd116;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.menu-section {
+    text-align: center;
+    margin-bottom: 60px;
+    scroll-margin-top: 150px; 
+}
+
+/* --- SECTION LISTE DES PLATS (Général) --- */
 .plats-section {
     background-color: #f8f8f8;
     padding: 60px 20px;
@@ -156,46 +222,110 @@ h1 {
     letter-spacing: 2px;
 }
 
-.plats-grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-    max-width: 1200px;
+/* --- GRILLES (Modification ici pour la densité) --- */
+.presentation-grid {
+    display: grid;
+    /* On passe à 260px min pour en mettre plus par ligne */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px; /* Espace un peu réduit */
+    padding-bottom: 40px;
+    max-width: 1300px;
     margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.plat-card {
+/* --- STYLE CARTE MENU (BASE) --- */
+.menu-card {
     background: white;
-    width: 300px;
-    border-radius: 12px;
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    border-bottom: 5px solid #fcd116;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
     transition: transform 0.3s ease;
-}
-
-.plat-card:hover { transform: translateY(-10px); }
-
-.plat-info {
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    border: 1px solid #eee;
 }
 
-.plat-info h3 { margin: 0; color: #333; }
-.plat-info p { color: #666; font-size: 0.95rem; min-height: 45px; }
+.menu-card:hover { transform: translateY(-5px); }
 
-.price {
-    font-size: 1.2rem;
+.menu-flag {
+    background-color: #000;
+    color: #fcd116;
+    padding: 8px 20px;
     font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+}
+
+/* TITRE PAR DÉFAUT (ACCUEIL) */
+.menu-title {
+    background-color: #ce1126; 
+    color: white;
+    padding: 12px 20px;
+    font-size: 1.25rem; /* Un peu plus petit pour que ça rentre */
+    font-weight: bold;
+}
+
+/* COULEURS SPÉCIFIQUES (PRÉSENTATION) */
+.bg-vert { background-color: #00843d !important; }
+.bg-orange { background-color: #e67e22 !important; }
+.bg-rouge { background-color: #ce1126 !important; }
+.bg-violet { background-color: #8e44ad !important; }
+
+/* CONTENU MENU */
+.menu-items {
+    padding: 15px;
+    margin: 0;
+    flex: 1;
+}
+
+/* STYLE LISTE À PUCES (ACCUEIL) */
+ul.menu-items {
+    list-style: none;
+    text-align: left; 
+}
+
+ul.menu-items li {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: #444;
+    border-bottom: 1px dashed #eee; 
+    padding-bottom: 8px;
+}
+
+ul.menu-items li:last-child {
+    border-bottom: none;
+}
+
+/* STYLE TEXTE CENTRÉ (PRÉSENTATION - div) */
+div.menu-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #555;
+    font-size: 0.95rem; /* Texte un peu plus compact */
+}
+
+.menu-footer {
+    padding: 15px 20px;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eee;
+}
+
+.menu-price {
+    font-size: 1.3rem;
+    font-weight: 800;
     color: #00843d;
 }
 
 .btn-commander {
-    margin-top: 10px;
-    padding: 10px;
+    padding: 8px 15px;
     background-color: #000;
     color: #fff;
     border: none;
@@ -203,10 +333,12 @@ h1 {
     cursor: pointer;
     font-weight: bold;
     transition: background 0.3s;
+    font-size: 0.9rem;
 }
 
 .btn-commander:hover { background-color: #ce1126; }
 
+/* BOUTON VOIR CARTE (ACCUEIL) */
 .btn-carte {
     display: inline-block;
     padding: 15px 40px;
@@ -226,114 +358,39 @@ h1 {
     transform: scale(1.05);
 }
 
-/* ========================================= */
-/* --- PAGE PRÉSENTATION (Ex-Carte) --- */
-/* ========================================= */
+/* --- MODE COMPACT (ACCUEIL) --- */
+.compact-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 20px;
+}
+.compact-card .menu-title { font-size: 1.1rem; padding: 10px 15px; }
+.compact-card .menu-items { padding: 15px; }
+.compact-card ul.menu-items li { font-size: 0.85rem; margin-bottom: 8px; padding-bottom: 5px; }
+.compact-card .menu-footer { padding: 10px 15px; }
+.compact-card .menu-price { font-size: 1.2rem; }
+.compact-card .btn-commander { font-size: 0.8rem; padding: 6px 12px; }
 
+/* --- PRESENTATION PAGE LAYOUT --- */
 .presentation-page {
-    padding: 40px 20px;
-    max-width: 1300px;
+    padding: 40px 0;
+    max-width: 100%;
     margin: 0 auto;
     width: 100%;
-    box-sizing: border-box;
 }
 
 .presentation-header {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+    padding: 0 20px;
 }
 
 .presentation-header h1 {
     font-size: 3rem;
     color: #000;
-    text-shadow: none;
-    letter-spacing: 2px;
     margin-bottom: 10px;
 }
 
-.presentation-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Responsive Grid */
-    gap: 30px;
-    padding-bottom: 40px;
-}
-
-/* STYLE D'UNE CARTE MENU */
-.menu-card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #eee;
-}
-
-.menu-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-}
-
-/* En-tête de la carte (Drapeau) */
-.menu-flag {
-    background-color: #000;
-    color: #fcd116; /* Jaune */
-    padding: 10px 20px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.9rem;
-}
-
-/* Titre du Menu */
-.menu-title {
-    background-color: #ce1126; /* Rouge */
-    color: white;
-    padding: 15px 20px;
-    font-size: 1.4rem;
-    font-weight: bold;
-}
-
-/* Liste des plats */
-.menu-items {
-    list-style: none;
-    padding: 20px;
-    margin: 0;
-    flex: 1; /* Pousse le footer vers le bas */
-}
-
-.menu-items li {
-    margin-bottom: 12px;
-    font-size: 0.95rem;
-    color: #444;
-    border-bottom: 1px dashed #eee;
-    padding-bottom: 8px;
-}
-
-.menu-items li:last-child {
-    border-bottom: none;
-}
-
-/* Bas de la carte (Prix + Bouton) */
-.menu-footer {
-    padding: 20px;
-    background-color: #f9f9f9;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #eee;
-}
-
-.menu-price {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #00843d; /* Vert */
-}
-
-/* ========================================= */
-
-/* --- BANDEAU DU BAS (FOOTER) --- */
+/* --- FOOTER --- */
 footer {
     background-color: #000;
     color: #fff;
@@ -384,13 +441,11 @@ footer {
         padding: 20px;
         gap: 15px;
     }
-    
     .hero-section {
         height: auto;
         padding: 100px 20px;
     }
-    
-    .presentation-grid {
-        grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+    .presentation-grid, .compact-grid {
+        grid-template-columns: 1fr;
     }
 }
