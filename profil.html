@@ -3,124 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Profil - Africa United</title>
+    <title>Africa United - Mon Profil</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <div class="brand">
-            <h1>Africa United</h1>
+        <div class="header-title">
+            <a href="accueil.html" style="color: white; text-decoration: none;">AFRICA UNITED</a>
         </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="carte.html">La Carte</a></li>
-                <li><a href="profil.html" class="active">Mon Compte</a></li>
-                <li><a href="panier.html">Panier</a></li>
-            </ul>
-        </nav>
+        <div class="auth-buttons">
+            <a href="accueil.html">Accueil</a>
+            <a href="presentation.html">La Carte</a>
+            <a href="accueil.html" class="login" style="border-color: #ce1126; color: #ce1126;">Déconnexion</a>
+        </div>
     </header>
 
-    <main class="main-container">
+    <main class="profile-page">
         
-        <header class="page-header">
-            <h2>Mon Profil</h2>
-            <p>Complétez vos informations pour finaliser votre inscription.</p>
-        </header>
+        <div class="profile-header">
+            <h1>Mon Profil</h1>
+            <p>Gérez vos informations et consultez votre fidélité.</p>
+        </div>
 
-        <div class="profile-layout">
+        <div class="dashboard-container">
             
-            <section class="card info-card">
-                <h3>Mes Informations Personnelles</h3>
-                <p class="instruction">Veuillez renseigner vos coordonnées :</p>
+            <div class="dashboard-left">
                 
-                <form class="profile-form">
-                    <div class="form-group">
-                        <label for="nom">Nom :</label>
-                        <div class="input-wrapper">
-                            <input type="text" id="nom" placeholder="Votre nom..." class="virgin-input">
-                            <span class="edit-icon" title="Modifier">&#9998;</span>
+                <div class="dashboard-card info-card">
+                    <h3>👤 Mes Informations Personnelles</h3>
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Veuillez renseigner vos coordonnées :</p>
+                    
+                    <form class="profile-form">
+                        <div class="form-group">
+                            <label for="nom">Nom :</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="nom" placeholder="Votre nom..." class="profile-input">
+                                <span class="edit-icon" title="Modifier">✏️</span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="prenom">Prénom :</label>
-                        <div class="input-wrapper">
-                            <input type="text" id="prenom" placeholder="Votre prénom..." class="virgin-input">
-                            <span class="edit-icon" title="Modifier">&#9998;</span>
+                        <div class="form-group">
+                            <label for="prenom">Prénom :</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="prenom" placeholder="Votre prénom..." class="profile-input">
+                                <span class="edit-icon" title="Modifier">✏️</span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="email">Email :</label>
-                        <div class="input-wrapper">
-                            <input type="email" id="email" placeholder="exemple@email.com" class="virgin-input">
-                            <span class="edit-icon" title="Modifier">&#9998;</span>
+                        <div class="form-group">
+                            <label for="email">Email :</label>
+                            <div class="input-wrapper">
+                                <input type="email" id="email" placeholder="exemple@email.com" class="profile-input">
+                                <span class="edit-icon" title="Modifier">✏️</span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="tel">Téléphone :</label>
-                        <div class="input-wrapper">
-                            <input type="tel" id="tel" placeholder="06..." class="virgin-input">
-                            <span class="edit-icon" title="Modifier">&#9998;</span>
+                        <div class="form-group">
+                            <label for="tel">Téléphone :</label>
+                            <div class="input-wrapper">
+                                <input type="tel" id="tel" placeholder="06..." class="profile-input">
+                                <span class="edit-icon" title="Modifier">✏️</span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="adresse">Adresse complète :</label>
-                        <div class="input-wrapper">
-                            <input type="text" id="adresse" placeholder="N°, Rue, Ville..." class="virgin-input">
-                            <span class="edit-icon" title="Modifier">&#9998;</span>
+                        <div class="form-group">
+                            <label for="adresse">Adresse complète :</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="adresse" placeholder="N°, Rue, Ville..." class="profile-input">
+                                <span class="edit-icon" title="Modifier">✏️</span>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </section>
-
-            <section class="card loyalty-card">
-                <h3>Mon Solde Fidélité</h3>
-                <div class="empty-state-loyalty">
-                    <div class="circle-zero">
-                        <span class="big-zero">0</span>
-                        <span class="pts-label">Points</span>
-                    </div>
-                    <p>Commencez à commander pour cumuler des Points !</p>
-                    <div class="progress-track">
-                        <div class="progress-fill" style="width: 0%;"></div>
-                    </div>
-                    <p class="next-level">Prochaine récompense à <strong>100 points</strong></p>
-                </div>
-            </section>
-
-            <section class="card history-card">
-                <h3>Historique de Commandes</h3>
-                
-                <div class="empty-history">
-                    <p>Vous n'avez pas encore passé de commande.</p>
-                    <a href="carte.html" class="btn-cta">Découvrir la carte</a>
+                    </form>
                 </div>
 
-                <table class="orders-table hidden-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>N°</th>
-                            <th>Total</th>
-                            <th>Statut</th>
-                            <th>Détail</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
-            </section>
+            </div>
 
+            <div class="dashboard-right">
+                
+                <div class="dashboard-card loyalty-card">
+                    <h3>✈️ Mon Solde Fidélité</h3>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <div class="zero-points-circle">
+                            <span style="font-size: 2.5rem; font-weight: 900; line-height: 1;">0</span>
+                            <span style="font-size: 0.9rem; font-weight: bold; text-transform: uppercase;">Points</span>
+                        </div>
+                        <p style="margin-bottom: 20px; font-size: 0.95rem;">Commencez à commander pour cumuler des Points !</p>
+                        
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 0%;"></div>
+                        </div>
+                        <p class="progress-text">Prochaine récompense à <strong>100 points</strong></p>
+                    </div>
+                </div>
+
+                <div class="dashboard-card history-card">
+                    <h3>📦 Historique de Commandes</h3>
+                    
+                    <div style="text-align: center; color: #666; margin-top: 40px; margin-bottom: 20px;">
+                        <p>Vous n'avez pas encore passé de commande.</p>
+                        <a href="presentation.html" class="btn-submit" style="display: inline-block; text-decoration: none; width: auto; padding: 10px 30px; margin-top: 15px;">Découvrir la carte</a>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Africa United</p>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Notre Adresse</h3>
+                <p>123 Avenue des Saveurs<br>75010 Paris, France</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>📞 +33 1 23 45 67 89</p>
+                <p>📧 contact@africaunited.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Horaires</h3>
+                <p>Lun-Ven : 12h-23h / Sam : 18h-00h</p>
+            </div>
+        </div>
     </footer>
 
 </body>
