@@ -449,3 +449,398 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* ========================================= */
+/* --- PAGES CONNEXION ET INSCRIPTION --- */
+/* ========================================= */
+
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    background-color: #f4f4f4; /* Maintient le fond gris clair */
+}
+
+.form-container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+    border-top: 5px solid #ce1126; /* Ligne rouge en haut pour le style Africa United */
+}
+
+.form-container h2 {
+    text-align: center;
+    color: #000;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.form-group input {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #00843d; /* Bordure verte lors de la saisie */
+    box-shadow: 0 0 5px rgba(0, 132, 61, 0.2);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 15px;
+    background-color: #fcd116; /* Bouton Jaune */
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.btn-submit:hover {
+    background-color: #ffdb4d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.form-footer a {
+    color: #ce1126; /* Lien rouge */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.form-footer a:hover {
+    color: #000;
+}
+
+/* ========================================= */
+/* --- PAGE PROFIL & FIDÉLITÉ --- */
+/* ========================================= */
+
+.profile-page {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.profile-header h1 {
+    font-size: 2.5rem;
+    color: #000;
+    margin-bottom: 10px;
+    text-shadow: none;
+    letter-spacing: 2px;
+}
+
+.profile-header p {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Grille du Dashboard */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* Cartes génériques du Dashboard */
+.dashboard-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    border-top: 5px solid #000; /* Par défaut noir */
+}
+
+.dashboard-card h3 {
+    margin-top: 0;
+    font-size: 1.4rem;
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+/* --- CARTE DE FIDÉLITÉ (Miles Gourmands) --- */
+.loyalty-card {
+    border-top: none;
+    background: linear-gradient(135deg, #00843d 0%, #00602c 100%); /* Fond vert dégradé */
+    color: white;
+}
+
+.loyalty-card h3 {
+    color: white;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    border: none;
+    margin-bottom: 0;
+}
+
+.loyalty-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.points-badge {
+    background-color: #fcd116; /* Jaune */
+    color: #000;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 1.5rem;
+    font-weight: 900;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.loyalty-text {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+/* Barre de progression de fidélité */
+.progress-container {
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 50px;
+    height: 12px;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    background-color: #fcd116; /* Barre de remplissage jaune */
+    height: 100%;
+    border-radius: 50px;
+    transition: width 1s ease-in-out;
+}
+
+.progress-text {
+    font-size: 0.85rem;
+    margin-top: 0;
+    opacity: 0.9;
+}
+
+.progress-text strong {
+    color: #fcd116;
+}
+
+.btn-loyalty {
+    background: white;
+    color: #00843d;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.btn-loyalty:hover {
+    background: #fcd116;
+    color: #000;
+}
+
+/* --- CARTE INFORMATIONS --- */
+.info-card {
+    border-top-color: #fcd116; /* Ligne jaune */
+}
+
+.info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-list li {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #555;
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 10px;
+}
+
+.info-list li:last-child {
+    border-bottom: none;
+}
+
+.info-list strong {
+    color: #000;
+    display: inline-block;
+    width: 100px;
+}
+
+.btn-edit {
+    background: transparent;
+    border: 2px solid #000;
+    color: #000;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.btn-edit:hover {
+    background: #000;
+    color: white;
+}
+
+/* --- CARTE HISTORIQUE --- */
+.history-card {
+    border-top-color: #ce1126; /* Ligne rouge */
+    height: calc(100% - 30px); /* Aligne la hauteur avec la colonne de gauche */
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.history-item:last-of-type {
+    border-bottom: none;
+    margin-bottom: 20px;
+}
+
+.history-date {
+    font-weight: bold;
+    color: #888;
+    font-size: 0.9rem;
+    width: 80px;
+}
+
+.history-details {
+    flex: 1;
+    padding: 0 15px;
+}
+
+.history-details strong {
+    color: #000;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.history-details p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.history-status {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-weight: bold;
+}
+
+.status-delivered {
+    background-color: #e8f5e9;
+    color: #00843d;
+}
+
+.history-price {
+    text-align: right;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #000;
+    margin-left: 15px;
+}
+
+.history-price small {
+    color: #00843d; /* Les miles gagnés en vert */
+    font-size: 0.8rem;
+}
+
+.btn-history {
+    width: 100%;
+    padding: 12px;
+    background: #f4f4f4;
+    border: none;
+    color: #333;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-history:hover {
+    background: #ddd;
+}
+
+/* --- RESPONSIVE MOBILE POUR LE PROFIL --- */
+@media (max-width: 900px) {
+    .dashboard-container {
+        grid-template-columns: 1fr; /* Passe sur 1 seule colonne */
+    }
+    
+    .history-card {
+        height: auto;
+    }
+    
+    .history-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .history-details {
+        padding: 0;
+    }
+    
+    .history-price {
+        margin-left: 0;
+        text-align: left;
+    }
+}
