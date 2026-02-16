@@ -903,3 +903,102 @@ footer {
     margin: 0 auto 15px; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+/* ========================================= */
+/* --- ESPACE ADMINISTRATEUR (Back-Office) --- */
+/* ========================================= */
+
+.admin-page {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.admin-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.admin-header h1 {
+    font-size: 2.5rem;
+    color: #ce1126; /* Rouge pour l'admin */
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Conteneur pour que le tableau soit scrollable sur mobile */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Style du tableau */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    min-width: 800px; /* Force une largeur min pour éviter d'écraser le texte */
+}
+
+.admin-table th, .admin-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.admin-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Badges de statut (Commandes) */
+.badge {
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.badge-green {
+    background-color: #e8f5e9;
+    color: #00843d;
+}
+
+.badge-gray {
+    background-color: #f4f4f4;
+    color: #888;
+}
+
+/* Bouton d'action (Voir Profil) */
+.btn-action {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-action:hover {
+    background-color: #fcd116;
+    color: #000;
+    transform: scale(1.05);
+}
