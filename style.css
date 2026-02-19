@@ -1002,3 +1002,117 @@ footer {
     color: #000;
     transform: scale(1.05);
 }
+/* --- PAGE GESTION COMMANDES (RESTO) --- */
+
+/* Bordures spécifiques pour différencier les états */
+.border-rouge { border-top: 5px solid #ce1126 !important; }
+.border-vert { border-top: 5px solid #00843d !important; }
+
+/* Liste des produits dans la commande */
+.order-list {
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    text-align: left;
+    width: 100%;
+}
+
+.order-list li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+    font-size: 1rem;
+    color: #333;
+}
+
+.order-list li strong {
+    color: #ce1126;
+    margin-right: 10px;
+}
+
+/* Informations de statut pour les livraisons en cours */
+.status-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.status-info p {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Adaptation du bouton d'action pour le restaurateur */
+.btn-action {
+    background-color: #00843d; /* Vert pour valider la préparation */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-action:hover {
+    background-color: #000;
+    color: #fcd116;
+}
+
+/* Optimisation pour tablette (tactile) */
+@media (max-width: 1024px) {
+    .presentation-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 15px;
+    }
+    
+    .btn-action {
+        padding: 15px 20px; /* Plus grand pour les doigts */
+    }
+}
+
+/* --- PAGE DE NOTATION --- */
+.rating-group {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rating-group label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Système de notation par étoiles */
+.stars {
+    display: flex;
+    flex-direction: row-reverse; /* Inverser pour gérer le survol facilement */
+    justify-content: center;
+    gap: 5px;
+}
+
+.stars input {
+    display: none; /* Cache les boutons radio */
+}
+
+.stars label {
+    font-size: 2.5rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+/* Effets au survol et quand sélectionné */
+.stars input:checked ~ label,
+.stars label:hover,
+.stars label:hover ~ label {
+    color: #fcd116; /* Jaune Yumland */
+}
+
+/* Style spécifique pour le champ commentaire */
+textarea:focus {
+    border-color: #00843d;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 132, 61, 0.2);
+}
