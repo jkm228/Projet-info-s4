@@ -1041,6 +1041,20 @@ footer {
     color: #666;
 }
 
+/* Style pour le message vide */
+.empty-message {
+    grid-column: 1 / -1; /* Prend toute la largeur de la grille */
+    text-align: center;
+    padding: 40px;
+    background-color: #f9f9f9;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    color: #888;
+    font-style: italic;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
 /* Adaptation du bouton d'action pour le restaurateur */
 .btn-action {
     background-color: #00843d; /* Vert pour valider la préparation */
