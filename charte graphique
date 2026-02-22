@@ -1,1 +1,62 @@
+CHARTE GRAPHIQUE - AFRICA UNITED
+1. PALETTE DE COULEURS
+Couleurs Principales (Identité)
 
+Rouge : #ce1126 (Titres principaux, section Plats)
+
+Vert : #00843d (Prix, boutons de validation, section Boissons)
+
+Jaune : #fcd116 (Boutons d'action principaux, badges)
+
+Noir : #000000 (En-tête, pied de page, boutons secondaires)
+
+Couleurs Secondaires (Catégories)
+
+Orange : #e67e22 (Section Entrées)
+
+Violet : #8e44ad (Section Desserts)
+
+Fonds et Textes
+
+Blanc : #ffffff (Fond des cartes et formulaires)
+
+Gris Clair : #f4f4f4 et #f8f8f8 (Couleur d'arrière-plan du site)
+
+Gris Foncé : #333333, #666666, #888888 (Textes courants et descriptions)
+
+2. TYPOGRAPHIE
+Police principale : Segoe UI (Alternatives : Tahoma, Geneva, Verdana, sans-serif).
+
+Titres (h1, h2, h3) : Majuscules, texte en gras, espacement des lettres (letter-spacing) de 2px à 10px.
+
+Textes courants (p, li) : Taille de police entre 0.95rem et 1rem.
+
+3. ÉLÉMENTS D'INTERFACE (UI)
+Cartes (Conteneurs de menus et formulaires)
+
+Fond : Blanc
+
+Bordures : Coins arrondis (border-radius: 15px)
+
+Ombre : box-shadow: 0 10px 20px rgba(0,0,0,0.08)
+
+Interaction : Élévation de 5px au survol (transform: translateY(-5px))
+
+Boutons
+
+Principaux (Commander, S'inscrire) : Forme pilule (border-radius: 50px), fond Jaune (#fcd116), texte Noir en majuscule et gras.
+
+Secondaires (Connexion, Ajouter) : Angles légèrement arrondis (border-radius: 4px), fond Noir ou Vert, texte Blanc. Passage au Rouge au survol.
+
+Champs de saisie (Formulaires)
+
+Défaut : Fond gris très clair ou blanc, bordure 1px solid #ddd, angles arrondis (8px).
+
+Au focus (clic) : La bordure passe en Vert (#00843d) avec une légère ombre externe verte.
+
+4. MISE EN PAGE (LAYOUT)
+Conteneur principal : Largeur maximale contrainte à 1200px ou 1300px centré sur la page.
+
+Grilles (Grid) : Disposition en colonnes d'une largeur minimale de 260px ou 280px. Passage automatique sur une seule colonne sur les écrans mobiles (max-width: 850px).
+
+Navigation : En-tête fixe (position: sticky) sur certaines pages et défilement fluide (scroll-behavior: smooth) pour les ancres de la carte.
