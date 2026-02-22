@@ -15,7 +15,7 @@
             <a href="accueil.html" style="color: white; text-decoration: none;">AFRICA UNITED - LIVREUR</a>
         </div>
         <div class="auth-buttons">
-            <a href="index.html" class="login" style="border-color: #ce1126; color: #ce1126;">Déconnexion</a>
+            <a href="index.html" class="login btn-logout">Déconnexion</a>
         </div>
     </header>
 
@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <label>Adresse :</label>
                     <div class="input-wrapper">
-                        <ul style="margin: 0; padding-left: 20px; list-style-type: none;">
+                        <ul class="delivery-address-list">
                             <li><strong>Ville :</strong>...</li>
                             <li><strong>Rue :</strong>...</li>
                             <li><strong>Numéro :</strong>...</li>
@@ -55,33 +55,21 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Adresse :</label>
-                    <div class="input-wrapper">
-                        <ul style="margin: 0; padding-left: 20px; list-style-type: none;">
-                            <li><strong>Ville :</strong>...</li>
-                            <li><strong>Rue :</strong>...</li>
-                            <li><strong>Numéro :</strong>...</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label>Indications spéciales :</label>
                     <div class="input-wrapper">
-                        <span class="commande-texte" style="font-style: italic; color: #e67e22;">
-                            "..." </span>
+                        <span class="commande-texte special-instructions">"..." </span>
                     </div>
                 </div>
 
-                <div class="form-group" style="margin-top: 25px;">
-                    <a href="https://maps.google.com/?q=Paris" target="_blank" class="btn-submit" style="background-color: #3498db; text-align: center; display: block; text-decoration: none;">
+                <div class="form-group gps-container">
+                    <a href="https://maps.google.com/?q=Paris" target="_blank" class="btn-submit btn-gps">
                         📍 Ouvrir dans le GPS
                     </a>
                 </div>
     
-                <hr style="border: 1px solid #eee; margin: 20px 0;">
+                <hr class="delivery-divider">
     
-                <button class="btn-submit" style="background-color: #27ae60; width: 100%; height: 60px; font-size: 1.2rem;">
+                <button class="btn-submit btn-delivered">
                     ✅ LIVRAISON TERMINÉE
                 </button>
                 
