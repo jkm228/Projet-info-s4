@@ -15,7 +15,7 @@
         <div class="auth-buttons">
             <a href="accueil.html">Accueil</a>
             <a href="presentation.html">La Carte</a>
-            <a href="accueil.html" class="login" style="border-color: #ce1126; color: #ce1126;">Déconnexion</a>
+            <a href="accueil.html" class="login btn-logout">Déconnexion</a>
         </div>
     </header>
 
@@ -32,7 +32,7 @@
                 
                 <div class="dashboard-card info-card">
                     <h3>👤 Mes Informations Personnelles</h3>
-                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Veuillez renseigner vos coordonnées :</p>
+                    <p class="profile-instruction">Veuillez renseigner vos coordonnées :</p>
                     
                     <form class="profile-form">
                         <div class="form-group">
@@ -84,12 +84,12 @@
                 <div class="dashboard-card loyalty-card">
                     <h3>✈️ Mon Solde Fidélité</h3>
                     
-                    <div style="text-align: center; margin-top: 20px;">
+                    <div class="loyalty-center">
                         <div class="zero-points-circle">
-                            <span style="font-size: 2.5rem; font-weight: 900; line-height: 1;">0</span>
-                            <span style="font-size: 0.9rem; font-weight: bold; text-transform: uppercase;">Points</span>
+                            <span class="big-number">0</span>
+                            <span class="points-label">Points</span>
                         </div>
-                        <p style="margin-bottom: 20px; font-size: 0.95rem;">Commencez à commander pour cumuler des Points !</p>
+                        <p class="loyalty-prompt">Commencez à commander pour cumuler des Points !</p>
                         
                         <div class="progress-container">
                             <div class="progress-bar" style="width: 0%;"></div>
@@ -101,9 +101,9 @@
                 <div class="dashboard-card history-card">
                     <h3>📦 Historique de Commandes</h3>
                     
-                    <div style="text-align: center; color: #666; margin-top: 40px; margin-bottom: 20px;">
+                    <div class="history-empty-state">
                         <p>Vous n'avez pas encore passé de commande.</p>
-                        <a href="presentation.html" class="btn-submit" style="display: inline-block; text-decoration: none; width: auto; padding: 10px 30px; margin-top: 15px;">Découvrir la carte</a>
+                        <a href="presentation.html" class="btn-submit btn-discover-menu">Découvrir la carte</a>
                     </div>
                 </div>
 
