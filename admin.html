@@ -8,44 +8,44 @@
 </head>
 <body>
 
-    <header style="background-color: #ce1126; min-height: 50px; padding: 5px 30px;">
+    <header class="admin-topbar">
         <div class="header-title">
-            <span style="color: white; letter-spacing: 2px; font-size: 1.1rem;">AFRICA UNITED - BACK-OFFICE</span>
+            <span class="admin-brand">AFRICA UNITED - BACK-OFFICE</span>
         </div>
         <div class="auth-buttons">
-            <a href="accueil.html" class="login" style="border-color: #fff; color: #fff; padding: 5px 12px; font-size: 0.8rem;">Quitter l'admin</a>
+            <a href="accueil.html" class="login btn-exit-admin">Quitter l'admin</a>
         </div>
     </header>
 
-    <main class="admin-page" style="padding: 20px 20px;">
-        <div class="admin-header" style="margin-bottom: 20px;">
-            <h1 style="font-size: 1.8rem; margin-bottom: 5px;">Gestion de la Clientèle</h1>
-            <p style="font-size: 0.9rem; color: #666;">Suivi des utilisateurs inscrits et de leur activité.</p>
+    <main class="admin-page admin-compact">
+        <div class="admin-header compact-header">
+            <h1>Gestion de la Clientèle</h1>
+            <p>Suivi des utilisateurs inscrits et de leur activité.</p>
         </div>
 
         <div class="admin-container">
             
-            <div class="dashboard-card" style="box-sizing: border-box; padding: 20px; border-top: 3px solid #000; margin-bottom: 0;">
+            <div class="dashboard-card admin-card">
                 
-                <div style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
-                    <h3 style="border-bottom: none; padding-bottom: 0; margin-bottom: 0; font-size: 1.2rem;">📋 Liste des Utilisateurs</h3>
+                <div class="admin-card-header">
+                    <h3>📋 Liste des Utilisateurs</h3>
                 </div>
                 
                 <div class="table-responsive">
-                    <table class="admin-table" style="min-width: 600px; font-size: 0.9rem;">
+                    <table class="admin-table compact-table">
                         <thead>
                             <tr>
-                                <th style="padding: 10px; background-color: #f4f4f4;">ID Client</th>
-                                <th style="padding: 10px; background-color: #f4f4f4;">Nom / Prénom</th>
-                                <th style="padding: 10px; background-color: #f4f4f4;">Email</th>
-                                <th style="padding: 10px; background-color: #f4f4f4;">Activité</th>
-                                <th style="padding: 10px; background-color: #f4f4f4;">Total Dépensé</th>
-                                <th style="padding: 10px; background-color: #f4f4f4;">Action (Phase 2)</th>
+                                <th>ID Client</th>
+                                <th>Nom / Prénom</th>
+                                <th>Email</th>
+                                <th>Activité</th>
+                                <th>Total Dépensé</th>
+                                <th>Action (Phase 2)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td colspan="6" style="text-align: center; padding: 30px; color: #888; font-style: italic; border-bottom: none;">
+                                <td colspan="6" class="empty-row">
                                     Aucun utilisateur enregistré pour le moment.
                                 </td>
                             </tr>
@@ -57,11 +57,9 @@
         </div>
     </main>
 
-    <footer style="margin-top: auto; padding: 15px;">
+    <footer class="admin-footer">
         <div class="footer-container">
-            <p style="text-align: center; width: 100%; color: #666; font-size: 0.8rem; margin: 0;">
-                &copy; 2026 Africa United - Interface d'administration sécurisée.
-            </p>
+            <p>&copy; 2026 Africa United - Interface d'administration sécurisée.</p>
         </div>
     </footer>
 
