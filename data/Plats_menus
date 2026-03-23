@@ -1,0 +1,340 @@
+[
+  {
+    "id": 1,
+    "catégorie": "boissons",
+    "pays": "Sénégal",
+    "nom": "Jus de Bissap",
+    "description": "Boisson rafraîchissante à base de fleurs d'hibiscus, sucrée et acidulée.",
+    "prix": 4.00,
+    "disponible": true
+  },
+  {
+    "id": 2,
+    "categorie": "Boisson",
+    "origine": "🇲🇦 Maroc",
+    "nom": "Thé à la menthe",
+    "description": "Servi chaud, traditionnellement sucré.",
+    "prix": 3.00,
+    "disponible": true
+  },
+  {
+    "id": 3,
+    "categorie": "Boisson",
+    "origine": "🇨🇮 Côte d'Ivoire",
+    "nom": "Gnamankoudji",
+    "description": "Jus de gingembre puissant et citron.",
+    "prix": 4.00,
+    "disponible": true
+  },
+  {
+    "id": 4,
+    "categorie": "Boisson",
+    "origine": "🇨🇲 Cameroun",
+    "nom": "Jus de Foléré",
+    "description": "Variante locale douce de l'hibiscus.",
+    "prix": 4.00,
+    "disponible": true
+  },
+  {
+    "id": 5,
+    "categorie": "Boisson",
+    "origine": "🇳🇬 Nigeria",
+    "nom": "Chapman",
+    "description": "Cocktail fruité gazeux (Grenadine/Orange).",
+    "prix": 5.00,
+    "disponible": true
+  },
+  {
+    "id": 6,
+    "categorie": "Boisson",
+    "origine": "🇲🇬 Madagascar",
+    "nom": "Jus de Litchi",
+    "description": "Nectar de litchis frais de l'île.",
+    "prix": 5.00,
+    "disponible": true
+  },
+  {
+    "id": 7,
+    "categorie": "Boisson",
+    "origine": "🇪🇹 Éthiopie",
+    "nom": "Café Buna",
+    "description": "Café noir traditionnel éthiopien fort.",
+    "prix": 3.00,
+    "disponible": true
+  },
+  {
+    "id": 8,
+    "categorie": "Boisson",
+    "origine": "🇰🇪 Kenya",
+    "nom": "Dawa",
+    "description": "Vodka, miel, citron vert et glace pilée.",
+    "prix": 8.00,
+    "disponible": true
+  },
+  {
+    "id": 9,
+    "categorie": "Entree",
+    "origine": "🇸🇳 Sénégal",
+    "nom": "Pastels",
+    "description": "Petits chaussons farcis au thon.",
+    "prix": 6.00,
+    "disponible": true
+  },
+  {
+    "id": 10,
+    "categorie": "Entree",
+    "origine": "🇲🇦 Maroc",
+    "nom": "Briouates",
+    "description": "Feuilletés triangulaires chèvre/miel.",
+    "prix": 6.00,
+    "disponible": true
+  },
+  {
+    "id": 11,
+    "categorie": "Entree",
+    "origine": "🇪🇹 Éthiopie",
+    "nom": "Sambusas",
+    "description": "Triangles frits aux lentilles épicées.",
+    "prix": 5.00,
+    "disponible": true
+  },
+  {
+    "id": 12,
+    "categorie": "Entree",
+    "origine": "🇨🇮 Côte d'Ivoire",
+    "nom": "Alloco",
+    "description": "Bananes plantains frites, sauce piment.",
+    "prix": 5.00,
+    "disponible": true
+  },
+  {
+    "id": 13,
+    "categorie": "Entree",
+    "origine": "🇿🇦 Afrique du Sud",
+    "nom": "Biltong",
+    "description": "Lamelles de viande de bœuf séchée.",
+    "prix": 7.00,
+    "disponible": true
+  },
+  {
+    "id": 14,
+    "categorie": "Entree",
+    "origine": "🇪🇬 Égypte",
+    "nom": "Ta'ameya",
+    "description": "Le falafel égyptien à base de fèves.",
+    "prix": 5.00,
+    "disponible": true
+  },
+  {
+    "id": 15,
+    "categorie": "Entree",
+    "origine": "🇰🇪 Kenya",
+    "nom": "Kachumbari",
+    "description": "Salade fraîche tomates, oignons, coriandre.",
+    "prix": 5.00,
+    "disponible": true
+  },
+  {
+    "id": 16,
+    "categorie": "Entree",
+    "origine": "🇳🇬 Nigeria",
+    "nom": "Suya Beef",
+    "description": "Mini-brochettes très épicées (piment).",
+    "prix": 7.00,
+    "disponible": true
+  },
+  {
+    "id": 17,
+    "categorie": "Plat",
+    "origine": "🇸🇳 Sénégal",
+    "nom": "Thiéboudienne",
+    "description": "Riz wolof au poisson et légumes mijotés.",
+    "prix": 15.00,
+    "disponible": true
+  },
+  {
+    "id": 18,
+    "categorie": "Plat",
+    "origine": "🇲🇦 Maroc",
+    "nom": "Tajine d'Agneau",
+    "description": "Confit aux pruneaux et amandes grillées.",
+    "prix": 16.00,
+    "disponible": true
+  },
+  {
+    "id": 19,
+    "categorie": "Plat",
+    "origine": "🇪🇹 Éthiopie",
+    "nom": "Doro Wat",
+    "description": "Ragoût de poulet épicé servi sur Injera.",
+    "prix": 14.00,
+    "disponible": true
+  },
+  {
+    "id": 20,
+    "categorie": "Plat",
+    "origine": "🇨🇲 Cameroun",
+    "nom": "Ndolé Royal",
+    "description": "Feuilles amères, arachides et crevettes.",
+    "prix": 15.00,
+    "disponible": true
+  },
+  {
+    "id": 21,
+    "categorie": "Plat",
+    "origine": "🇨🇮 Côte d'Ivoire",
+    "nom": "Garba",
+    "description": "Thon frit rouge et semoule de manioc.",
+    "prix": 13.00,
+    "disponible": true
+  },
+  {
+    "id": 22,
+    "categorie": "Plat",
+    "origine": "🇳🇬 Nigeria",
+    "nom": "Jollof Rice",
+    "description": "Le célèbre riz rouge épicé au poulet.",
+    "prix": 14.00,
+    "disponible": true
+  },
+  {
+    "id": 23,
+    "categorie": "Plat",
+    "origine": "🇲🇬 Madagascar",
+    "nom": "Romazava",
+    "description": "Bouillon clair de bœuf et brèdes.",
+    "prix": 14.00,
+    "disponible": true
+  },
+  {
+    "id": 24,
+    "categorie": "Plat",
+    "origine": "🇿🇦 Afrique du Sud",
+    "nom": "Bobotie",
+    "description": "Gratin de viande hachée au curry doux.",
+    "prix": 15.00,
+    "disponible": true
+  },
+  {
+    "id": 25,
+    "categorie": "Plat",
+    "origine": "🇪🇬 Égypte",
+    "nom": "Koshary",
+    "description": "Mix réconfortant riz, pâtes, lentilles.",
+    "prix": 13.00,
+    "disponible": true
+  },
+  {
+    "id": 26,
+    "categorie": "Plat",
+    "origine": "🇰🇪 Kenya",
+    "nom": "Nyama Choma",
+    "description": "Grillade de chèvre au barbecue et Ugali.",
+    "prix": 16.00,
+    "disponible": true
+  },
+  {
+    "id": 27,
+    "categorie": "Dessert",
+    "origine": "🇸🇳 Sénégal",
+    "nom": "Thiakry",
+    "description": "Couscous de mil, yaourt et muscade.",
+    "prix": 5.00,
+    "disponible": true
+  },
+  {
+    "id": 28,
+    "categorie": "Dessert",
+    "origine": "🇲🇦 Maroc",
+    "nom": "Cornes de Gazelle",
+    "description": "Pâtisserie fine à la fleur d'oranger.",
+    "prix": 5.00,
+    "disponible": true
+  },
+  {
+    "id": 29,
+    "categorie": "Dessert",
+    "origine": "🇿🇦 Afrique du Sud",
+    "nom": "Malva Pudding",
+    "description": "Gâteau moelleux chaud à l'abricot.",
+    "prix": 6.00,
+    "disponible": true
+  },
+  {
+    "id": 30,
+    "categorie": "Dessert",
+    "origine": "🇳🇬 Nigeria",
+    "nom": "Puff-Puff",
+    "description": "Petits beignets ronds moelleux.",
+    "prix": 4.00,
+    "disponible": true
+  },
+  {
+    "id": 31,
+    "categorie": "Dessert",
+    "origine": "🇰🇪 Kenya",
+    "nom": "Mandazi",
+    "description": "Beignet triangulaire au lait de coco.",
+    "prix": 4.00,
+    "disponible": true
+  },
+  {
+    "id": 32,
+    "categorie": "Dessert",
+    "origine": "🇲🇬 Madagascar",
+    "nom": "Koba",
+    "description": "Gâteau banane/cacahuète en feuille.",
+    "prix": 5.00,
+    "disponible": true
+  },
+  {
+    "id": 33,
+    "categorie": "Dessert",
+    "origine": "🇨🇲 Cameroun",
+    "nom": "Beignets Koki",
+    "description": "Gâteau de haricots (version sucrée).",
+    "prix": 4.00,
+    "disponible": true
+  },
+  {
+    "id": 34,
+    "categorie": "Dessert",
+    "origine": "🇪🇬 Égypte",
+    "nom": "Om Ali",
+    "description": "Pudding au pain, lait, noix et raisins.",
+    "prix": 6.00,
+    "disponible": true
+  }
+  {
+    "id": 35,
+    "catégorie": "Menu",
+    "pays": "Sénégal",
+    "nom": "L'Escale Dakaroise",
+    "plats": [
+      {
+        "id": 1,
+        "nom": "Jus de Bissap",
+        "description": "Boisson rafraîchissante à base de fleurs d'hibiscus, sucrée et acidulée.",
+        "prix": 4.00
+      },
+      {
+        "id": 9,
+        "nom": "Pastels",
+        "description": "Petits chaussons farcis au thon.",
+        "prix": 6.00
+      },
+      {
+        "id": 17,
+        "nom": "Thiéboudienne",
+        "description": "Riz wolof au poisson et légumes mijotés.",
+        "prix": 15.00
+      },
+      {
+        "id": 27,
+        "nom": "Thiakry",
+        "description": "Couscous de mil, yaourt et muscade.",
+        "prix": 5.00
+      }
+    ]
+  }
+]
