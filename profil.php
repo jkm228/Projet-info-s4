@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Africa United - Mon Profil</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-title">
+            <a href="accueil.html" style="color: white; text-decoration: none;">AFRICA UNITED</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="accueil.html">Accueil</a>
+            <a href="presentation.html">La Carte</a>
+            <a href="accueil.html" class="login btn-logout">Déconnexion</a>
+        </div>
+    </header>
+
+    <main class="profile-page">
+        
+        <div class="profile-header">
+            <h1>Mon Profil</h1>
+            <p>Gérez vos informations et consultez votre fidélité.</p>
+        </div>
+
+        <div class="dashboard-container">
+            
+            <div class="dashboard-left">
+                
+                <div class="dashboard-card info-card">
+                    <h3>👤 Mes Informations Personnelles</h3>
+                    <p class="profile-instruction">Veuillez renseigner vos coordonnées :</p>
+                    
+                    <form class="profile-form">
+                        <div class="form-group">
+                            <label for="nom">Nom :</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="nom" placeholder="Votre nom..." class="profile-input">
+                                <span class="edit-icon" title="Modifier">✏️</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prenom">Prénom :</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="prenom" placeholder="Votre prénom..." class="profile-input">
+                                <span class="edit-icon" title="Modifier">✏️</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email :</label>
+                            <div class="input-wrapper">
+                                <input type="email" id="email" placeholder="exemple@email.com" class="profile-input">
+                                <span class="edit-icon" title="Modifier">✏️</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tel">Téléphone :</label>
+                            <div class="input-wrapper">
+                                <input type="tel" id="tel" placeholder="06..." class="profile-input">
+                                <span class="edit-icon" title="Modifier">✏️</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="adresse">Adresse complète :</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="adresse" placeholder="N°, Rue, Ville..." class="profile-input">
+                                <span class="edit-icon" title="Modifier">✏️</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="dashboard-right">
+                
+                <div class="dashboard-card loyalty-card">
+                    <h3>✈️ Mon Solde Fidélité</h3>
+                    
+                    <div class="loyalty-center">
+                        <div class="zero-points-circle">
+                            <span class="big-number">0</span>
+                            <span class="points-label">Points</span>
+                        </div>
+                        <p class="loyalty-prompt">Commencez à commander pour cumuler des Points !</p>
+                        
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 0%;"></div>
+                        </div>
+                        <p class="progress-text">Prochaine récompense à <strong>100 points</strong></p>
+                    </div>
+                </div>
+
+                <div class="dashboard-card history-card">
+                    <h3>📦 Historique de Commandes</h3>
+                    
+                    <div class="history-empty-state">
+                        <p>Vous n'avez pas encore passé de commande.</p>
+                        <a href="presentation.html" class="btn-submit btn-discover-menu">Découvrir la carte</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Notre Adresse</h3>
+                <p>123 Avenue des Saveurs<br>75010 Paris, France</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>📞 +33 1 23 45 67 89</p>
+                <p>📧 contact@africaunited.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Horaires</h3>
+                <p>Lun-Ven : 12h-23h / Sam : 18h-00h</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

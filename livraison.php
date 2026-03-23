@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Africa United - Commandes</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="auth-buttons">
+            <a href="profil.html">Profil Livreur</a>
+        </div>
+        <div class="header-title">
+            <a href="accueil.html" style="color: white; text-decoration: none;">AFRICA UNITED - LIVREUR</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="index.html" class="login btn-logout">Déconnexion</a>
+        </div>
+    </header>
+
+    <main class="delivery-page">
+        <div class="delivery-header">
+            <h1>Commandes à livrer</h1>
+
+        </div>
+        <div class="delivery-container">
+             <div class="dashboard-card info-card">
+                <div class="form-group">
+                    <label>Commande :</label>
+                    <div class="input-wrapper">
+                        <span class="delivery-text">...</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Téléphone :</label>
+                    <div class="input-wrapper">
+                        <span class="delivery-text">...</span>
+                        <span class="edit-icon" title="Appeler">📞</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Adresse :</label>
+                    <div class="input-wrapper">
+                        <ul class="delivery-address-list">
+                            <li><strong>Ville :</strong>...</li>
+                            <li><strong>Rue :</strong>...</li>
+                            <li><strong>Numéro :</strong>...</li>
+                            <li><strong>Etage :</strong>...</li>
+                            <li><strong>Interphone :</strong>...</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Indications spéciales :</label>
+                    <div class="input-wrapper">
+                        <span class="commande-texte special-instructions">"..." </span>
+                    </div>
+                </div>
+
+                <div class="form-group gps-container">
+                    <a href="https://maps.google.com/?q=Paris" target="_blank" class="btn-submit btn-gps">
+                        📍 Ouvrir dans le GPS
+                    </a>
+                </div>
+    
+                <hr class="delivery-divider">
+    
+                <button class="btn-submit btn-delivered">
+                    ✅ LIVRAISON TERMINÉE
+                </button>
+                
+             </div>
+        </div>
+    </main>
+</body>
+</html>
