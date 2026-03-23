@@ -1,0 +1,155 @@
+[
+    {
+        "id": "A-001",
+        "login": "admin_boss",
+        "mot_de_passe": "admin123",
+        "role": "admin",
+        "informations": {
+            "nom": "Diop",
+            "prenom": "Amadou",
+            "email": "direction@africaunited.com",
+            "telephone": "0601020304"
+        },
+        "dates": {
+            "inscription": "2024-01-10",
+            "derniere_connexion": "2024-05-20"
+        }
+    },
+    {
+        "id": "R-001",
+        "login": "chef_cuistot",
+        "mot_de_passe": "resto123",
+        "role": "restaurateur",
+        "informations": {
+            "nom": "Kone",
+            "prenom": "Awa",
+            "email": "cuisine@africaunited.com",
+            "telephone": "0601020305"
+        },
+        "dates": {
+            "inscription": "2024-01-12",
+            "derniere_connexion": "2024-05-21"
+        }
+    },
+    {
+        "id": "L-001",
+        "login": "livreur_1",
+        "mot_de_passe": "livreur123",
+        "role": "livreur",
+        "informations": {
+            "nom": "Dubois",
+            "prenom": "Lucas",
+            "email": "lucas.livraison@email.com",
+            "telephone": "0611223344"
+        },
+        "dates": {
+            "inscription": "2024-02-05",
+            "derniere_connexion": "2024-05-21"
+        }
+    },
+    {
+        "id": "C-001",
+        "login": "sophie_m",
+        "mot_de_passe": "client123",
+        "role": "client",
+        "informations": {
+            "nom": "Martin",
+            "prenom": "Sophie",
+            "email": "s.martin@email.com",
+            "telephone": "0699887766",
+            "adresse": "12 Rue de la Paix, 75002 Paris"
+        },
+        "fidelite": {
+            "statut": "VIP",
+            "points": 150
+        },
+        "dates": {
+            "inscription": "2024-03-01",
+            "derniere_connexion": "2024-05-18"
+        }
+    },
+    {
+        "id": "C-002",
+        "login": "issa_t",
+        "mot_de_passe": "client123",
+        "role": "client",
+        "informations": {
+            "nom": "Traoré",
+            "prenom": "Issa",
+            "email": "traore.issa@email.com",
+            "telephone": "0788990011",
+            "adresse": "45 Avenue Jean Jaurès, 69007 Lyon"
+        },
+        "fidelite": {
+            "statut": "Standard",
+            "points": 20
+        },
+        "dates": {
+            "inscription": "2024-04-15",
+            "derniere_connexion": "2024-05-19"
+        }
+    },
+    {
+        "id": "C-003",
+        "login": "marie_c",
+        "mot_de_passe": "client123",
+        "role": "client",
+        "informations": {
+            "nom": "Curie",
+            "prenom": "Marie",
+            "email": "marie.c@email.com",
+            "telephone": "0677889900",
+            "adresse": "8 Boulevard Pasteur, 75015 Paris"
+        },
+        "fidelite": {
+            "statut": "Standard",
+            "points": 0
+        },
+        "dates": {
+            "inscription": "2024-05-10",
+            "derniere_connexion": "2024-05-10"
+        }
+    },
+    {
+        "id": "C-004",
+        "login": "paul_d",
+        "mot_de_passe": "client123",
+        "role": "client",
+        "informations": {
+            "nom": "Durand",
+            "prenom": "Paul",
+            "email": "paul.durand@email.com",
+            "telephone": "0655443322",
+            "adresse": "10 Place Bellecour, 69002 Lyon"
+        },
+        "fidelite": {
+            "statut": "Premium",
+            "points": 350
+        },
+        "dates": {
+            "inscription": "2024-01-20",
+            "derniere_connexion": "2024-05-15"
+        }
+    },
+    {
+        "id": "C-005",
+        "login": "fatou_n",
+        "mot_de_passe": "client123",
+        "role": "client",
+        "informations": {
+            "nom": "Ndiaye",
+            "prenom": "Fatou",
+            "email": "fatou.n@email.com",
+            "telephone": "0744556677",
+            "adresse": "22 Rue des Dames, 75017 Paris"
+        },
+        "fidelite": {
+            "statut": "Standard",
+            "points": 50
+        },
+        "dates": {
+            "inscription": "2024-04-25",
+            "derniere_connexion": "2024-05-21"
+        }
+    }
+]
