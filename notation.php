@@ -1,28 +1,13 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AFRICA UNITED - Notez votre commande</title>
-    <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
-
-    <header>
-        <div class="auth-buttons">
-            <a href="index.html">Accueil</a>
-        </div>
-        <div class="header-title">AFRICA UNITED - VOTRE AVIS</div>
-        <div class="auth-buttons">
-            <a href="profil.html" class="signup">Mon Profil</a>
-        </div>
-    </header>
+<?php 
+$page_title = "Africa United - Notation"; 
+include 'includes/header.php'; 
+?>
 
     <main class="auth-page">
         <div class="form-container">
             <h2>Votre avis compte !</h2>
             <p class="notation-subtitle">
-                Merci d'avoir commandé chez Yumland. Notez votre expérience ci-dessous.
+                Merci d'avoir commandé chez Africa United. Notez votre expérience ci-dessous.
             </p>
 
             <form action="#">
@@ -58,18 +43,6 @@
         </div>
     </main>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Africa United</h3>
-                <p>Cuisiner pour vous est notre passion.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Besoin d'aide ?</h3>
-                <a href="#">Support Client</a>
-            </div>
-        </div>
-    </footer>
-
-</body>
-</html>
+<?php 
+include 'includes/footer.php'; 
+?>

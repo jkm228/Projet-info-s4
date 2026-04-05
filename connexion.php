@@ -1,28 +1,62 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Africa United - Connexion</title>
-    <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
+<?php 
+$page_title = "Africa United - Connexion"; 
+include 'includes/header.php'; 
 
-    <header>
-        <div class="header-title">
-            <a href="accueil.html" style="color: white; text-decoration: none;">AFRICA UNITED</a>
-        </div>
-        <div class="auth-buttons">
-            <a href="accueil.html">Accueil</a>
-            <a href="presentation.html">La Carte</a>
-            <a href="inscription.html" class="signup">S'inscrire</a>
-        </div>
-    </header>
+$erreur = ""; // Message d'erreur par défaut vide
+
+// Si le client a cliqué sur le bouton "Se connecter" (Envoi du formulaire en POST)
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email_saisi = $_POST['email'];
+    $mdp_saisi = $_POST['password'];
+
+    // 1. On lit la base de données JSON
+    $json_data = file_get_contents('data/utilisateurs.json');
+    $utilisateurs = json_decode($json_data, true);
+    
+    $utilisateur_trouve = false;
+
+    // 2. On cherche si l'utilisateur existe
+    foreach ($utilisateurs as $user) {
+        if ($user['informations']['email'] == $email_saisi && $user['mot_de_passe'] == $mdp_saisi) {
+            
+            // BINGO ! L'utilisateur est trouvé et le mot de passe est bon.
+            // 3. On stocke ses infos dans la "Session" pour s'en souvenir sur les autres pages
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_role'] = $user['role'];
+            $_SESSION['user_prenom'] = $user['informations']['prenom'];
+            
+            $utilisateur_trouve = true;
+
+            // 4. On le redirige vers la bonne page selon son rôle !
+            if ($user['role'] == 'admin' || $user['role'] == 'restaurateur') {
+                header("Location: admin.php");
+            } elseif ($user['role'] == 'livreur') {
+                header("Location: livraison.php");
+            } else {
+                header("Location: profil.php"); // Les clients normaux vont sur leur profil
+            }
+            exit(); // On stoppe le code après une redirection
+        }
+    }
+
+    // Si la boucle s'est terminée sans trouver l'utilisateur
+    if (!$utilisateur_trouve) {
+        $erreur = "Adresse e-mail ou mot de passe incorrect.";
+    }
+}
+?>
 
     <main class="auth-page">
         <div class="form-container">
             <h2>Connexion</h2>
-         <form action="profil.html" method="GET">
+            
+            <?php if($erreur != ""): ?>
+                <p style="color: red; text-align: center; font-weight: bold; margin-bottom: 15px;">
+                    <?php echo $erreur; ?>
+                </p>
+            <?php endif; ?>
+
+            <form action="connexion.php" method="POST">
                 
                 <div class="form-group">
                     <label for="email">Adresse E-mail</label>
@@ -38,28 +72,11 @@
             </form>
             
             <div class="form-footer">
-                Pas encore de compte ? <a href="inscription.html">S'inscrire ici</a>
+                Pas encore de compte ? <a href="inscription.php">S'inscrire ici</a>
             </div>
         </div>
     </main>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Notre Adresse</h3>
-                <p>123 Avenue des Saveurs<br>75010 Paris, France</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p>📞 +33 1 23 45 67 89</p>
-                <p>📧 contact@africaunited.com</p>
-            </div>
-            <div class="footer-section">
-                <h3>Horaires</h3>
-                <p>Lun-Ven : 12h-23h / Sam : 18h-00h</p>
-            </div>
-        </div>
-    </footer>
-
-</body>
-</html>
+<?php 
+include 'includes/footer.php'; 
+?>

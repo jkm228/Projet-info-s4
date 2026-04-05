@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Africa United - La Carte</title>
-    <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
+<?php 
+$page_title = "Africa United - La Carte"; 
+include 'includes/header.php'; 
 
-    <header>
-        <div class="header-title">
-            <a href="accueil.html" style="color: white; text-decoration: none;">AFRICA UNITED</a>
-        </div>
-        <div class="auth-buttons">
-            <a href="accueil.html">Accueil</a>
-            <a href="connexion.html" class="login">Connexion</a>
-            <a href="inscription.html" class="signup">S'inscrire</a>
-        </div>
-    </header>
+// 1. PHP va lire ton fichier JSON
+$json_data = file_get_contents('data/plats.json');
+// 2. PHP le transforme en un tableau compréhensible
+$plats = json_decode($json_data, true);
+?>
 
     <main class="presentation-page">
         
@@ -43,250 +32,102 @@
         <section id="boissons" class="menu-section">
             <h2 class="section-title">🍹 Nos Boissons</h2>
             <div class="presentation-grid">
-                <div class="menu-card">
-                    <div class="menu-flag">🇸🇳 Sénégal</div>
-                    <div class="menu-title bg-vert">Jus de Bissap</div>
-                    <div class="menu-items"><p>Fleurs d'hibiscus, menthe et vanille.</p></div>
-                    <div class="menu-footer"><span class="menu-price">4€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇲🇦 Maroc</div>
-                    <div class="menu-title bg-vert">Thé à la menthe</div>
-                    <div class="menu-items"><p>Servi chaud, traditionnellement sucré.</p></div>
-                    <div class="menu-footer"><span class="menu-price">3€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇨🇮 Côte d'Ivoire</div>
-                    <div class="menu-title bg-vert">Gnamankoudji</div>
-                    <div class="menu-items"><p>Jus de gingembre puissant et citron.</p></div>
-                    <div class="menu-footer"><span class="menu-price">4€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇨🇲 Cameroun</div>
-                    <div class="menu-title bg-vert">Jus de Foléré</div>
-                    <div class="menu-items"><p>Variante locale douce de l'hibiscus.</p></div>
-                    <div class="menu-footer"><span class="menu-price">4€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇳🇬 Nigeria</div>
-                    <div class="menu-title bg-vert">Chapman</div>
-                    <div class="menu-items"><p>Cocktail fruité gazeux (Grenadine/Orange).</p></div>
-                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇲🇬 Madagascar</div>
-                    <div class="menu-title bg-vert">Jus de Litchi</div>
-                    <div class="menu-items"><p>Nectar de litchis frais de l'île.</p></div>
-                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇪🇹 Éthiopie</div>
-                    <div class="menu-title bg-vert">Café Buna</div>
-                    <div class="menu-items"><p>Café noir traditionnel éthiopien fort.</p></div>
-                    <div class="menu-footer"><span class="menu-price">3€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇰🇪 Kenya</div>
-                    <div class="menu-title bg-vert">Dawa</div>
-                    <div class="menu-items"><p>Vodka, miel, citron vert et glace pilée.</p></div>
-                    <div class="menu-footer"><span class="menu-price">8€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
+                <?php foreach ($plats as $plat): 
+                    // On vérifie le nom de la catégorie (pour éviter les bugs d'accents ou majuscules)
+                    $cat = isset($plat['categorie']) ? strtolower($plat['categorie']) : (isset($plat['catégorie']) ? strtolower($plat['catégorie']) : '');
+                    if ($cat == 'boisson' || $cat == 'boissons'): 
+                ?>
+                    <div class="menu-card">
+                        <?php if(isset($plat['image'])): ?>
+                            <img src="<?php echo $plat['image']; ?>" alt="<?php echo $plat['nom']; ?>" style="width:100%; height:200px; object-fit:cover; border-radius: 10px 10px 0 0;">
+                        <?php endif; ?>
+                        
+                        <div class="menu-flag"><?php echo $plat['pays']; ?></div>
+                        <div class="menu-title bg-vert"><?php echo $plat['nom']; ?></div>
+                        <div class="menu-items"><p><?php echo $plat['description']; ?></p></div>
+                        <div class="menu-footer">
+                            <span class="menu-price"><?php echo number_format($plat['prix'], 2); ?>€</span>
+                            <a href="panier.php?ajouter=<?php echo $plat['id']; ?>" class="btn-commander" style="text-decoration: none; text-align: center; display: block; box-sizing: border-box;">Ajouter</a>
+                        </div>
+                    </div>
+                <?php endif; endforeach; ?>
             </div>
         </section>
 
         <section id="entrees" class="menu-section">
             <h2 class="section-title">🥟 Nos Entrées</h2>
             <div class="presentation-grid">
-                <div class="menu-card">
-                    <div class="menu-flag">🇸🇳 Sénégal</div>
-                    <div class="menu-title bg-orange">Pastels</div>
-                    <div class="menu-items"><p>Petits chaussons farcis au thon.</p></div>
-                    <div class="menu-footer"><span class="menu-price">6€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇲🇦 Maroc</div>
-                    <div class="menu-title bg-orange">Briouates</div>
-                    <div class="menu-items"><p>Feuilletés triangulaires chèvre/miel.</p></div>
-                    <div class="menu-footer"><span class="menu-price">6€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇪🇹 Éthiopie</div>
-                    <div class="menu-title bg-orange">Sambusas</div>
-                    <div class="menu-items"><p>Triangles frits aux lentilles épicées.</p></div>
-                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇨🇮 Côte d'Ivoire</div>
-                    <div class="menu-title bg-orange">Alloco</div>
-                    <div class="menu-items"><p>Bananes plantains frites, sauce piment.</p></div>
-                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇿🇦 Afrique du Sud</div>
-                    <div class="menu-title bg-orange">Biltong</div>
-                    <div class="menu-items"><p>Lamelles de viande de bœuf séchée.</p></div>
-                    <div class="menu-footer"><span class="menu-price">7€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇪🇬 Égypte</div>
-                    <div class="menu-title bg-orange">Ta'ameya</div>
-                    <div class="menu-items"><p>Le falafel égyptien à base de fèves.</p></div>
-                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇰🇪 Kenya</div>
-                    <div class="menu-title bg-orange">Kachumbari</div>
-                    <div class="menu-items"><p>Salade fraîche tomates, oignons, coriandre.</p></div>
-                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                 <div class="menu-card">
-                    <div class="menu-flag">🇳🇬 Nigeria</div>
-                    <div class="menu-title bg-orange">Suya Beef</div>
-                    <div class="menu-items"><p>Mini-brochettes très épicées (piment).</p></div>
-                    <div class="menu-footer"><span class="menu-price">7€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
+                <?php foreach ($plats as $plat): 
+                    $cat = isset($plat['categorie']) ? strtolower($plat['categorie']) : (isset($plat['catégorie']) ? strtolower($plat['catégorie']) : '');
+                    if ($cat == 'entree' || $cat == 'entrée' || $cat == 'entrées'): 
+                ?>
+                    <div class="menu-card">
+                        <?php if(isset($plat['image'])): ?>
+                            <img src="<?php echo $plat['image']; ?>" alt="<?php echo $plat['nom']; ?>" style="width:100%; height:200px; object-fit:cover; border-radius: 10px 10px 0 0;">
+                        <?php endif; ?>
+                        
+                        <div class="menu-flag"><?php echo $plat['pays']; ?></div>
+                        <div class="menu-title bg-orange"><?php echo $plat['nom']; ?></div>
+                        <div class="menu-items"><p><?php echo $plat['description']; ?></p></div>
+                        <div class="menu-footer">
+                            <span class="menu-price"><?php echo number_format($plat['prix'], 2); ?>€</span>
+                            <a href="panier.php?ajouter=<?php echo $plat['id']; ?>" class="btn-commander" style="text-decoration: none; text-align: center; display: block; box-sizing: border-box;">Ajouter</a>
+                        </div>
+                    </div>
+                <?php endif; endforeach; ?>
             </div>
         </section>
 
         <section id="plats" class="menu-section">
             <h2 class="section-title">🥘 Nos Plats de Résistance</h2>
             <div class="presentation-grid">
-                <div class="menu-card">
-                    <div class="menu-flag">🇸🇳 Sénégal</div>
-                    <div class="menu-title bg-rouge">Thiéboudienne</div>
-                    <div class="menu-items"><p>Riz wolof au poisson et légumes mijotés.</p></div>
-                    <div class="menu-footer"><span class="menu-price">15€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇲🇦 Maroc</div>
-                    <div class="menu-title bg-rouge">Tajine d'Agneau</div>
-                    <div class="menu-items"><p>Confit aux pruneaux et amandes grillées.</p></div>
-                    <div class="menu-footer"><span class="menu-price">16€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇪🇹 Éthiopie</div>
-                    <div class="menu-title bg-rouge">Doro Wat</div>
-                    <div class="menu-items"><p>Ragoût de poulet épicé servi sur Injera.</p></div>
-                    <div class="menu-footer"><span class="menu-price">14€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇨🇲 Cameroun</div>
-                    <div class="menu-title bg-rouge">Ndolé Royal</div>
-                    <div class="menu-items"><p>Feuilles amères, arachides et crevettes.</p></div>
-                    <div class="menu-footer"><span class="menu-price">15€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇨🇮 Côte d'Ivoire</div>
-                    <div class="menu-title bg-rouge">Garba</div>
-                    <div class="menu-items"><p>Thon frit rouge et semoule de manioc.</p></div>
-                    <div class="menu-footer"><span class="menu-price">13€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇳🇬 Nigeria</div>
-                    <div class="menu-title bg-rouge">Jollof Rice</div>
-                    <div class="menu-items"><p>Le célèbre riz rouge épicé au poulet.</p></div>
-                    <div class="menu-footer"><span class="menu-price">14€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇲🇬 Madagascar</div>
-                    <div class="menu-title bg-rouge">Romazava</div>
-                    <div class="menu-items"><p>Bouillon clair de bœuf et brèdes.</p></div>
-                    <div class="menu-footer"><span class="menu-price">14€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇿🇦 Afrique du Sud</div>
-                    <div class="menu-title bg-rouge">Bobotie</div>
-                    <div class="menu-items"><p>Gratin de viande hachée au curry doux.</p></div>
-                    <div class="menu-footer"><span class="menu-price">15€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                 <div class="menu-card">
-                    <div class="menu-flag">🇪🇬 Égypte</div>
-                    <div class="menu-title bg-rouge">Koshary</div>
-                    <div class="menu-items"><p>Mix réconfortant riz, pâtes, lentilles.</p></div>
-                    <div class="menu-footer"><span class="menu-price">13€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                 <div class="menu-card">
-                    <div class="menu-flag">🇰🇪 Kenya</div>
-                    <div class="menu-title bg-rouge">Nyama Choma</div>
-                    <div class="menu-items"><p>Grillade de chèvre au barbecue et Ugali.</p></div>
-                    <div class="menu-footer"><span class="menu-price">16€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
+                <?php foreach ($plats as $plat): 
+                    $cat = isset($plat['categorie']) ? strtolower($plat['categorie']) : (isset($plat['catégorie']) ? strtolower($plat['catégorie']) : '');
+                    if ($cat == 'plat' || $cat == 'plats'): 
+                ?>
+                    <div class="menu-card">
+                        <?php if(isset($plat['image'])): ?>
+                            <img src="<?php echo $plat['image']; ?>" alt="<?php echo $plat['nom']; ?>" style="width:100%; height:200px; object-fit:cover; border-radius: 10px 10px 0 0;">
+                        <?php endif; ?>
+                        
+                        <div class="menu-flag"><?php echo $plat['pays']; ?></div>
+                        <div class="menu-title bg-rouge"><?php echo $plat['nom']; ?></div>
+                        <div class="menu-items"><p><?php echo $plat['description']; ?></p></div>
+                        <div class="menu-footer">
+                            <span class="menu-price"><?php echo number_format($plat['prix'], 2); ?>€</span>
+                            <a href="panier.php?ajouter=<?php echo $plat['id']; ?>" class="btn-commander" style="text-decoration: none; text-align: center; display: block; box-sizing: border-box;">Ajouter</a>
+                        </div>
+                    </div>
+                <?php endif; endforeach; ?>
             </div>
         </section>
 
         <section id="desserts" class="menu-section">
             <h2 class="section-title">🍰 Nos Douceurs Sucrées</h2>
             <div class="presentation-grid">
-                <div class="menu-card">
-                    <div class="menu-flag">🇸🇳 Sénégal</div>
-                    <div class="menu-title bg-violet">Thiakry</div>
-                    <div class="menu-items"><p>Couscous de mil, yaourt et muscade.</p></div>
-                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇲🇦 Maroc</div>
-                    <div class="menu-title bg-violet">Cornes de Gazelle</div>
-                    <div class="menu-items"><p>Pâtisserie fine à la fleur d'oranger.</p></div>
-                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇿🇦 Afrique du Sud</div>
-                    <div class="menu-title bg-violet">Malva Pudding</div>
-                    <div class="menu-items"><p>Gâteau moelleux chaud à l'abricot.</p></div>
-                    <div class="menu-footer"><span class="menu-price">6€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇳🇬 Nigeria</div>
-                    <div class="menu-title bg-violet">Puff-Puff</div>
-                    <div class="menu-items"><p>Petits beignets ronds moelleux.</p></div>
-                    <div class="menu-footer"><span class="menu-price">4€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-flag">🇰🇪 Kenya</div>
-                    <div class="menu-title bg-violet">Mandazi</div>
-                    <div class="menu-items"><p>Beignet triangulaire au lait de coco.</p></div>
-                    <div class="menu-footer"><span class="menu-price">4€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                 <div class="menu-card">
-                    <div class="menu-flag">🇲🇬 Madagascar</div>
-                    <div class="menu-title bg-violet">Koba</div>
-                    <div class="menu-items"><p>Gâteau banane/cacahuète en feuille.</p></div>
-                    <div class="menu-footer"><span class="menu-price">5€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                 <div class="menu-card">
-                    <div class="menu-flag">🇨🇲 Cameroun</div>
-                    <div class="menu-title bg-violet">Beignets Koki</div>
-                    <div class="menu-items"><p>Gâteau de haricots (version sucrée).</p></div>
-                    <div class="menu-footer"><span class="menu-price">4€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
-                 <div class="menu-card">
-                    <div class="menu-flag">🇪🇬 Égypte</div>
-                    <div class="menu-title bg-violet">Om Ali</div>
-                    <div class="menu-items"><p>Pudding au pain, lait, noix et raisins.</p></div>
-                    <div class="menu-footer"><span class="menu-price">6€</span><button class="btn-commander">Ajouter</button></div>
-                </div>
+                <?php foreach ($plats as $plat): 
+                    $cat = isset($plat['categorie']) ? strtolower($plat['categorie']) : (isset($plat['catégorie']) ? strtolower($plat['catégorie']) : '');
+                    if ($cat == 'dessert' || $cat == 'desserts'): 
+                ?>
+                    <div class="menu-card">
+                        <?php if(isset($plat['image'])): ?>
+                            <img src="<?php echo $plat['image']; ?>" alt="<?php echo $plat['nom']; ?>" style="width:100%; height:200px; object-fit:cover; border-radius: 10px 10px 0 0;">
+                        <?php endif; ?>
+                        
+                        <div class="menu-flag"><?php echo $plat['pays']; ?></div>
+                        <div class="menu-title bg-violet"><?php echo $plat['nom']; ?></div>
+                        <div class="menu-items"><p><?php echo $plat['description']; ?></p></div>
+                        <div class="menu-footer">
+                            <span class="menu-price"><?php echo number_format($plat['prix'], 2); ?>€</span>
+                            <a href="panier.php?ajouter=<?php echo $plat['id']; ?>" class="btn-commander" style="text-decoration: none; text-align: center; display: block; box-sizing: border-box;">Ajouter</a>
+                        </div>
+                    </div>
+                <?php endif; endforeach; ?>
             </div>
         </section>
 
     </main>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Notre Adresse</h3>
-                <p>123 Avenue des Saveurs<br>75010 Paris, France</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p>📞 +33 1 23 45 67 89</p>
-                <p>📧 contact@africaunited.com</p>
-            </div>
-            <div class="footer-section">
-                <h3>Horaires</h3>
-                <p>Lun-Ven : 12h-23h / Sam : 18h-00h</p>
-            </div>
-        </div>
-    </footer>
-
-</body>
-</html>
+<?php 
+include 'includes/footer.php'; 
+?>
