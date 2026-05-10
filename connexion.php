@@ -2,81 +2,70 @@
 $page_title = "Africa United - Connexion"; 
 include 'includes/header.php'; 
 
-$erreur = ""; // Message d'erreur par défaut vide
+$erreur = "";
 
-// Si le client a cliqué sur le bouton "Se connecter" (Envoi du formulaire en POST)
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email_saisi = $_POST['email'];
-    $mdp_saisi = $_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // On sécurise la récupération des données envoyées par le formulaire
+    $email_saisi = $_POST['email'] ?? '';
+    $mdp_saisi = $_POST['password'] ?? '';
 
-    // 1. On lit la base de données JSON
     $json_data = file_get_contents('data/utilisateurs.json');
     $utilisateurs = json_decode($json_data, true);
     
-    $utilisateur_trouve = false;
+ foreach ($utilisateurs as $user) {
+        // LE CORRECTIF EST ICI : mot_de_passe est à la racine, pas dans 'informations'
+        $mdp_enregistre = $user['mot_de_passe'] ?? '';
+        $email_enregistre = $user['informations']['email'] ?? '';
 
-    // 2. On cherche si l'utilisateur existe
-    foreach ($utilisateurs as $user) {
-        if ($user['informations']['email'] == $email_saisi && $user['mot_de_passe'] == $mdp_saisi) {
-            
-            // BINGO ! L'utilisateur est trouvé et le mot de passe est bon.
-            // 3. On stocke ses infos dans la "Session" pour s'en souvenir sur les autres pages
+        // Si ça correspond parfaitement
+        if ($email_enregistre === $email_saisi && $mdp_enregistre === $mdp_saisi) {
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_role'] = $user['role'];
             $_SESSION['user_prenom'] = $user['informations']['prenom'];
+            $_SESSION['user_role'] = $user['role'];
             
-            $utilisateur_trouve = true;
-
-            // 4. On le redirige vers la bonne page selon son rôle !
-            if ($user['role'] == 'admin' || $user['role'] == 'restaurateur') {
-                header("Location: admin.php");
-            } elseif ($user['role'] == 'livreur') {
-                header("Location: livraison.php");
-            } else {
-                header("Location: profil.php"); // Les clients normaux vont sur leur profil
-            }
-            exit(); // On stoppe le code après une redirection
+            header("Location: profil.php");
+            exit();
         }
     }
-
-    // Si la boucle s'est terminée sans trouver l'utilisateur
-    if (!$utilisateur_trouve) {
-        $erreur = "Adresse e-mail ou mot de passe incorrect.";
-    }
+    
+    // Si la boucle se termine sans avoir redirigé, c'est que c'est incorrect
+    $erreur = "Adresse e-mail ou mot de passe incorrect.";
 }
 ?>
 
-    <main class="auth-page">
-        <div class="form-container">
-            <h2>Connexion</h2>
-            
-            <?php if($erreur != ""): ?>
-                <p style="color: red; text-align: center; font-weight: bold; margin-bottom: 15px;">
-                    <?php echo $erreur; ?>
-                </p>
-            <?php endif; ?>
+<main style="padding: 40px 20px; max-width: 500px; margin: 0 auto; min-height: 60vh;">
+    <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" class="dashboard-card">
+       <h1 style="text-align: center; margin-bottom: 20px; font-size: 28px; letter-spacing: 2px;">CONNEXION</h1>
+        
+        <?php if (!empty($erreur)): ?>
+            <p style="color: #e74c3c; text-align: center; font-weight: bold; margin-bottom: 15px;"><?php echo $erreur; ?></p>
+        <?php endif; ?>
 
-            <form action="connexion.php" method="POST">
+        <form action="connexion.php" method="POST" id="form-validation">
+            
+            <div style="margin-bottom: 15px;">
+                <label style="font-weight: bold; display: block; margin-bottom: 5px;">Adresse E-mail :</label>
+                <input type="email" name="email" id="email" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
                 
-                <div class="form-group">
-                    <label for="email">Adresse E-mail</label>
-                    <input type="email" id="email" name="email" required placeholder="votre@email.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" required placeholder="••••••••">
-                </div>
-
-                <button type="submit" class="btn-submit">Se connecter</button>
-            </form>
-            
-            <div class="form-footer">
-                Pas encore de compte ? <a href="inscription.php">S'inscrire ici</a>
+                <span id="error-email" class="error-msg" style="color: #e74c3c; font-weight: bold; font-size: 0.85em; display: block; margin-top: 5px;"></span>
             </div>
-        </div>
-    </main>
 
-<?php 
-include 'includes/footer.php'; 
-?>
+            <div style="margin-bottom: 25px;">
+                <label style="font-weight: bold; display: block; margin-bottom: 5px;">Mot de passe :</label>
+                
+                <div style="position: relative; display: flex; align-items: center;">
+                    <input type="password" name="password" id="password" required style="width: 100%; padding: 10px; padding-right: 40px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+                    <span id="togglePassword" style="position: absolute; right: 10px; cursor: pointer; font-size: 1.2em;">👁️</span>
+                </div>
+                
+                <span id="error-password" class="error-msg" style="color: #e74c3c; font-weight: bold; font-size: 0.85em; display: block; margin-top: 5px;"></span>
+            </div>
+
+            <button type="submit" class="btn-submit" style="width: 100%; padding: 12px; font-size: 1.1em; background-color: #f1c40f; color: black; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">SE CONNECTER</button>
+        </form>
+        
+        <p style="text-align: center; margin-top: 20px;">Pas encore de compte ? <a href="inscription.php" style="color: #e74c3c; font-weight: bold;">S'inscrire ici</a></p>
+    </div>
+</main>
+
+<?php include 'includes/footer.php'; ?>

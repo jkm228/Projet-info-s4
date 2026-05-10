@@ -43,41 +43,64 @@ $toutes_les_commandes = array_reverse($toutes_les_commandes);
         </div>
 
         <section style="margin-bottom: 50px;">
-            <h2 style="border-bottom: 3px solid #e74c3c; padding-bottom: 10px;">📦 Dernières Commandes Clients</h2>
+            <h2 style="border-bottom: 3px solid #e74c3c; padding-bottom: 10px;">📦 Gestion des Commandes (Cuisine)</h2>
             
-            <?php if(empty($toutes_les_commandes)): ?>
-                <p style="padding: 20px; background: #f9f9f9; text-align: center; border-radius: 5px;">Aucune commande pour le moment.</p>
-            <?php else: ?>
-                <table style="width: 100%; border-collapse: collapse; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background-color: white; margin-top: 20px;">
-                    <thead style="background-color: #2c3e50; color: white;">
-                        <tr style="text-align: left;">
-                            <th style="padding: 15px;">Date</th>
-                            <th style="padding: 15px;">Client</th>
-                            <th style="padding: 15px;">Articles commandés</th>
-                            <th style="padding: 15px; text-align: right;">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($toutes_les_commandes as $cmd): ?>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 15px; font-weight: bold;"><?php echo $cmd['date'] ?? $cmd['date_passage'] ?? 'Inconnue'; ?></td>
-                            <td style="padding: 15px;">
-                                <?php echo $cmd['client']; ?><br>
-                                <span style="font-size: 0.85em; color: #7f8c8d;"><?php echo $cmd['email']; ?></span>
-                            </td>
-                            <td style="padding: 15px; font-size: 0.9em;">
-                                <?php echo implode('<br> • ', $cmd['articles']); ?>
-                            </td>
-                            <td style="padding: 15px; text-align: right; color: #e74c3c; font-weight: bold; font-size: 1.1em;">
-                                <?php echo number_format($cmd['total'], 2); ?> €
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            <?php endif; ?>
-        </section>
+            <?php 
+            // On récupère la liste des livreurs pour le menu déroulant
+            $livreurs = [];
+            foreach($utilisateurs as $u) {
+                if($u['role'] === 'livreur') $livreurs[] = $u;
+            }
+            ?>
 
+            <table style="width: 100%; border-collapse: collapse; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <thead style="background: #2c3e50; color: white;">
+                    <tr>
+                        <th style="padding: 15px; text-align: left;">Client</th>
+                        <th style="padding: 15px; text-align: left;">Articles</th>
+                        <th style="padding: 15px; text-align: center;">Statut Actuel</th>
+                        <th style="padding: 15px; text-align: right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    // On recalcule la liste pour avoir les index originaux
+                    foreach ($utilisateurs as $user):
+                        foreach ($user['fidelite']['historique_commandes'] ?? [] as $idx => $cmd):
+                            $statut = $cmd['statut'] ?? 'Payée';
+                    ?>
+                    <tr style="border-bottom: 1px solid #eee;" class="ligne-commande">
+                        <td style="padding: 15px;">
+                            <strong><?php echo htmlspecialchars($user['informations']['prenom']); ?></strong><br>
+                            <span style="font-size: 0.8em; color: #7f8c8d;"><?php echo htmlspecialchars($user['informations']['email']); ?></span>
+                        </td>
+                        <td style="padding: 15px; font-size: 0.9em;"><?php echo htmlspecialchars(implode(', ', $cmd['articles'])); ?></td>
+                        <td style="padding: 15px; text-align: center;">
+                            <span class="badge-statut" style="padding: 5px 10px; border-radius: 20px; background: #eee; font-weight: bold; font-size: 0.8em;">
+                                <?php echo htmlspecialchars($statut); ?>
+                            </span>
+                        </td>
+                        <td style="padding: 15px; text-align: right;">
+                            <div style="display: flex; gap: 5px; justify-content: flex-end;">
+                                <?php if($statut == 'À préparer' || $statut == 'Payée'): ?>
+                                    <button onclick="changerStatut('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, 'En préparation')" style="background: #3498db; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">🔥 Préparer</button>
+                                <?php elseif($statut == 'En préparation'): ?>
+                                    <button onclick="changerStatut('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, 'Prête')" style="background: #27ae60; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">✅ Prête</button>
+                                <?php elseif($statut == 'Prête'): ?>
+                                    <select onchange="assignerLivreur('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, this.value)" style="padding: 5px; border-radius: 4px;">
+                                        <option value="">Assigner livreur...</option>
+                                        <?php foreach($livreurs as $l): ?>
+                                            <option value="<?php echo $l['id']; ?>"><?php echo htmlspecialchars($l['informations']['prenom']); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                <?php endif; ?>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php endforeach; endforeach; ?>
+                </tbody>
+            </table>
+        </section>
 
         <section>
             <h2 style="border-bottom: 3px solid #3498db; padding-bottom: 10px;">👥 Base de données Clients & Staff</h2>
@@ -94,14 +117,14 @@ $toutes_les_commandes = array_reverse($toutes_les_commandes);
                 <tbody>
                     <?php foreach ($utilisateurs as $user): ?>
                     <tr style="border-bottom: 1px solid #eee;">
-                        <td style="padding: 15px;"><?php echo $user['id']; ?></td>
+                        <td style="padding: 15px;"><?php echo htmlspecialchars($user['id']); ?></td>
                         <td style="padding: 15px;">
-                            <strong><?php echo $user['informations']['prenom'] . ' ' . $user['informations']['nom']; ?></strong><br>
-                            <span style="font-size: 0.85em; color: #7f8c8d;"><?php echo $user['informations']['email']; ?></span>
+                            <strong><?php echo htmlspecialchars($user['informations']['prenom'] . ' ' . $user['informations']['nom']); ?></strong><br>
+                            <span style="font-size: 0.85em; color: #7f8c8d;"><?php echo htmlspecialchars($user['informations']['email']); ?></span>
                         </td>
                         <td style="padding: 15px;">
                             <strong style="color: <?php echo ($user['role'] == 'admin' || $user['role'] == 'restaurateur') ? '#e74c3c' : '#27ae60'; ?>;">
-                                <?php echo strtoupper($user['role']); ?>
+                                <?php echo strtoupper(htmlspecialchars($user['role'])); ?>
                             </strong>
                         </td>
                         
@@ -117,7 +140,16 @@ $toutes_les_commandes = array_reverse($toutes_les_commandes);
                                     <option>Remise 10%</option>
                                     <option>Remise 20%</option>
                                 </select>
-                                <button style="padding: 6px 10px; background: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer;">Bloquer</button>
+                                
+                                <?php 
+                                $est_bloque = isset($user['bloque']) && $user['bloque'] === true; 
+                                $btn_text = $est_bloque ? "🔓 Débloquer" : "🚫 Bloquer";
+                                $btn_color = $est_bloque ? "#f39c12" : "#e74c3c"; 
+                                ?>
+                                <button onclick="bloquerUtilisateur('<?php echo $user['id']; ?>')" style="padding: 6px 10px; background: <?php echo $btn_color; ?>; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                    <?php echo $btn_text; ?>
+                                </button>
+                                
                             <?php else: ?>
                                 <span style="color: #95a5a6; font-style: italic;">Non applicable</span>
                             <?php endif; ?>
@@ -127,7 +159,6 @@ $toutes_les_commandes = array_reverse($toutes_les_commandes);
                 </tbody>
             </table>
         </section>
-
     </main>
 
 <?php 

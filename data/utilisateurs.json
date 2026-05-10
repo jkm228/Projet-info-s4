@@ -151,5 +151,46 @@
             "inscription": "2024-04-25",
             "derniere_connexion": "2024-05-21"
         }
+    },
+    {
+        "id": "C-009",
+        "role": "client",
+        "informations": {
+            "nom": "Kouto-messan",
+            "prenom": "Joseph",
+            "email": "koutomessanjo@gmail.com",
+            "telephone": "0767400503",
+            "adresse_livraison": "64 avenue du Général Michel Bizot 75012 Paris "
+        },
+        "mot_de_passe": "Joseph-19032005",
+        "fidelite": {
+            "points": 7,
+            "historique_commandes": [
+                {
+                    "date": "05\/04\/2026 à 15:17",
+                    "total": 74,
+                    "articles": [
+                        "L'Escale Dakaroise (x2)",
+                        "Le Festin d'Addis (x1)"
+                    ],
+                    "statut": "Livrée",
+                    "livreur_id": "L-001"
+                },
+                {
+                    "date_passage": "05\/04\/2026 à 16:18",
+                    "date_prevue": "15\/04\/2026 à 20:00",
+                    "type": "Livraison (Complément payé: 24€)",
+                    "statut": "Livrée",
+                    "total": 30,
+                    "articles": [
+                        "Café Buna (x2)",
+                        "Mystères du Nil (x1)"
+                    ],
+                    "livreur_id": "L-001",
+                    "note": 5
+                }
+            ]
+        },
+        "bloque": false
     }
 ]

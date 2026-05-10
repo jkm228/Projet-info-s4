@@ -47,47 +47,40 @@ $historique = $infos_user['fidelite']['historique_commandes'] ?? [];
             <div class="dashboard-left">
                 
                 <div class="dashboard-card info-card">
-                    <h3>👤 Mes Informations Personnelles</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">
+                        <h3 style="margin: 0;">👤 Mes Informations</h3>
+                        <button type="button" id="btn-edit-profil" class="btn-submit" style="width: auto; padding: 6px 15px; font-size: 0.9em; background-color: #3498db; margin: 0;">Modifier</button>
+                    </div>
                     
-                    <form class="profile-form">
+                    <form id="form-profil" class="profile-form">
                         <div class="form-group">
                             <label for="nom">Nom :</label>
-                            <div class="input-wrapper">
-                                <input type="text" value="<?php echo $infos_user['informations']['nom']; ?>" class="profile-input" readonly>
-                                <span class="edit-icon">✏️</span>
-                            </div>
+                            <input type="text" id="profil-nom" value="<?php echo $infos_user['informations']['nom']; ?>" class="profile-input" readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="prenom">Prénom :</label>
-                            <div class="input-wrapper">
-                                <input type="text" value="<?php echo $infos_user['informations']['prenom']; ?>" class="profile-input" readonly>
-                                <span class="edit-icon">✏️</span>
-                            </div>
+                            <input type="text" id="profil-prenom" value="<?php echo $infos_user['informations']['prenom']; ?>" class="profile-input" readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email :</label>
-                            <div class="input-wrapper">
-                                <input type="email" value="<?php echo $infos_user['informations']['email']; ?>" class="profile-input" readonly>
-                                <span class="edit-icon">✏️</span>
-                            </div>
+                            <input type="email" id="profil-email" value="<?php echo $infos_user['informations']['email']; ?>" class="profile-input" readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="tel">Téléphone :</label>
-                            <div class="input-wrapper">
-                                <input type="tel" value="<?php echo $infos_user['informations']['telephone'] ?? 'Non renseigné'; ?>" class="profile-input" readonly>
-                                <span class="edit-icon">✏️</span>
-                            </div>
+                            <input type="tel" id="profil-tel" value="<?php echo $infos_user['informations']['telephone'] ?? ''; ?>" class="profile-input" readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="adresse">Adresse complète :</label>
-                            <div class="input-wrapper">
-                                <input type="text" value="<?php echo $adresse; ?>" class="profile-input" readonly>
-                                <span class="edit-icon">✏️</span>
-                            </div>
+                            <input type="text" id="profil-adresse" value="<?php echo $adresse; ?>" class="profile-input" readonly>
+                        </div>
+
+                        <div id="profil-actions" style="display: none; margin-top: 25px; text-align: center;">
+                            <button type="submit" id="btn-save-profil" class="btn-submit" style="background-color: #27ae60; padding: 12px 25px; width: 100%;">Enregistrer les modifications</button>
+                            <p id="profil-msg" style="margin-top: 10px; font-weight: bold;"></p>
                         </div>
                     </form>
                 </div>
@@ -128,9 +121,10 @@ $historique = $infos_user['fidelite']['historique_commandes'] ?? [];
                         <div class="orders-list">
                             <?php 
                             $commandes = array_reverse($historique); 
-                            foreach($commandes as $cmd): 
-                                // MAGIE : On cherche 'date_passage' (nouveau format), sinon 'date' (ancien format)
+                            // On ajoute un index pour savoir quelle commande on modifie
+                            foreach($commandes as $index_commande => $cmd): 
                                 $date_affichage = $cmd['date_passage'] ?? $cmd['date'] ?? 'Date inconnue';
+                                $statut = $cmd['statut'] ?? 'Terminée'; // Par défaut, on dit qu'elle est terminée
                             ?>
                                 <div style="border-left: 4px solid #e74c3c; background: #f9f9f9; padding: 15px; margin-bottom: 15px; border-radius: 0 5px 5px 0; text-align: left;">
                                     <div style="display: flex; justify-content: space-between; font-weight: bold;">
@@ -139,9 +133,32 @@ $historique = $infos_user['fidelite']['historique_commandes'] ?? [];
                                     </div>
                                     
                                     <?php if(isset($cmd['type'])): ?>
-                                        <div style="font-size: 0.85em; color: #2980b9; margin-top: 5px; font-weight: bold;">
-                                            <?php echo ($cmd['type'] == 'Livraison' ? '🛵 ' : '🛍️ ') . $cmd['type']; ?> 
-                                            - Prévu : <?php echo $cmd['date_prevue']; ?>
+                                        <div style="font-size: 0.85em; color: #2980b9; margin-top: 5px; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+                                            <span>
+                                                <?php echo ($cmd['type'] == 'Livraison' ? '🛵 ' : '🛍️ ') . $cmd['type']; ?> 
+                                                - Prévu : <?php echo $cmd['date_prevue']; ?>
+                                                <br>
+                                                <span style="color: #f39c12;">Statut : <?php echo $statut; ?></span>
+                                            </span>
+                                            
+                                            <div style="text-align: right;">
+                                                <?php if($statut === 'À préparer'): ?>
+                                                    <?php $vrai_index = count($historique) - 1 - $index_commande; ?>
+                                                    <a href="modifier_commande.php?id_cmd=<?php echo $vrai_index; ?>" class="btn-submit" style="width: auto; padding: 6px 12px; font-size: 0.85em; background-color: #f39c12; text-decoration: none;">✏️ Modifier</a>
+                                                
+                                                <?php elseif($statut === 'Livrée'): ?>
+                                                    <?php $vrai_index = count($historique) - 1 - $index_commande; ?>
+                                                    
+                                                    <?php if(isset($cmd['note'])): ?>
+                                                        <span style="color: #f1c40f; font-size: 1.2em;" title="Votre note">
+                                                            <?php echo str_repeat('★', $cmd['note']) . str_repeat('☆', 5 - $cmd['note']); ?>
+                                                        </span>
+                                                    <?php else: ?>
+                                                        <button onclick="noterCommande(<?php echo $vrai_index; ?>)" class="btn-submit" style="width: auto; padding: 6px 12px; font-size: 0.85em; background-color: #9b59b6; color: white; border: none; cursor: pointer;">⭐ Noter</button>
+                                                    <?php endif; ?>
+                                                    
+                                                <?php endif; ?>
+                                            </div>
                                         </div>
                                     <?php endif; ?>
 
