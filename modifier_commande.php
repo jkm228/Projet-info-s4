@@ -1,4 +1,8 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 $page_title = "Modifier ma commande";
 include 'includes/header.php';
 
@@ -30,7 +34,7 @@ if (!isset($historique[$id_cmd])) { header("Location: profil.php"); exit(); }
 
 $commande = $historique[$id_cmd];
 
-// Sécurité Phase 3 : On ne peut modifier QUE les commandes "À préparer"
+// Sécurité : On ne peut modifier QUE les commandes "À préparer"
 if (($commande['statut'] ?? '') !== 'À préparer') {
     echo "<main style='padding: 50px; text-align: center;'><h2 style='color: #e74c3c;'>Action impossible</h2><p>Cette commande est déjà en préparation ou a été livrée. Elle ne peut plus être modifiée.</p><a href='profil.php' class='btn-submit' style='display:inline-block; margin-top:20px; text-decoration:none;'>Retour</a></main>";
     include 'includes/footer.php';
@@ -38,56 +42,12 @@ if (($commande['statut'] ?? '') !== 'À préparer') {
 }
 
 $total_original = $commande['total'];
+$remise_pourcentage = $utilisateurs[$user_index]['informations']['remise'] ?? 0;
 
 // -------------------------------------------------------------------------
-// 2. TRAITEMENT DU FORMULAIRE : QUAND LE CLIENT VALIDE SES MODIFICATIONS
-// -------------------------------------------------------------------------
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nouvelles_quantites = $_POST['qty'] ?? [];
-    $nouveaux_articles = [];
-    $nouveau_total = 0;
-
-    // On recalcule le panier complet
-    foreach ($plats as $plat) {
-        $id_plat = $plat['id'];
-        if (isset($nouvelles_quantites[$id_plat]) && $nouvelles_quantites[$id_plat] > 0) {
-            $q = intval($nouvelles_quantites[$id_plat]);
-            $nouveaux_articles[] = $plat['nom'] . " (x" . $q . ")"; // On reforme le texte "Plat (x2)"
-            $nouveau_total += $plat['prix'] * $q;
-        }
-    }
-
-    // Mise à jour de la commande dans le tableau PHP
-    $utilisateurs[$user_index]['fidelite']['historique_commandes'][$id_cmd]['articles'] = $nouveaux_articles;
-    $utilisateurs[$user_index]['fidelite']['historique_commandes'][$id_cmd]['total'] = $nouveau_total;
-
-    // Gestion de la différence (Consigne de l'école)
-    $difference = $nouveau_total - $total_original;
-    if ($difference < 0) {
-        $utilisateurs[$user_index]['fidelite']['historique_commandes'][$id_cmd]['type'] .= " (Avoir: " . abs($difference) . "€)";
-    } elseif ($difference > 0) {
-        $utilisateurs[$user_index]['fidelite']['historique_commandes'][$id_cmd]['type'] .= " (Complément payé: " . $difference . "€)";
-    }
-
-    // On sauvegarde tout dans le fichier JSON
-    file_put_contents($users_file, json_encode($utilisateurs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-    
-    // Message de succès final
-    echo "<main style='padding: 50px; text-align: center;' class='dashboard-card'><h2 style='color: #27ae60;'>Commande modifiée avec succès !</h2>";
-    if ($difference > 0) echo "<p style='font-size: 1.2em;'>Vous avez procédé au paiement de la différence : <strong style='color:#e74c3c;'>+" . number_format($difference, 2) . "€</strong></p>";
-    if ($difference < 0) echo "<p style='font-size: 1.2em;'>Un ticket de réduction de <strong style='color:#27ae60;'>" . number_format(abs($difference), 2) . "€</strong> a été ajouté à votre compte pour votre prochaine commande !</p>";
-    if ($difference == 0) echo "<p style='font-size: 1.2em;'>Le total reste inchangé.</p>";
-    echo "<a href='profil.php' class='btn-submit' style='display:inline-block; margin-top:20px; text-decoration:none;'>Retour au profil</a></main>";
-    
-    include 'includes/footer.php';
-    exit();
-}
-
-// -------------------------------------------------------------------------
-// 1. PRÉPARATION DE L'AFFICHAGE : On déchiffre les articles actuels
+// 1. PRÉPARATION DES QUANTITÉS ACTUELLES (AVANT MODIFICATION)
 // -------------------------------------------------------------------------
 $quantites_actuelles = [];
-// On lit des trucs comme "Café Buna (x2)" pour comprendre qu'il y en a 2
 foreach ($commande['articles'] as $art_str) {
     if (preg_match('/^(.*) \(x(\d+)\)$/', $art_str, $matches)) {
         $nom = trim($matches[1]);
@@ -100,13 +60,82 @@ foreach ($commande['articles'] as $art_str) {
         }
     }
 }
+
+// -------------------------------------------------------------------------
+// 2. TRAITEMENT DU FORMULAIRE : VALIDATION DES AJOUTS
+// -------------------------------------------------------------------------
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nouvelles_quantites = $_POST['qty'] ?? [];
+    $nouveaux_articles = [];
+    $total_ajouts_brut = 0;
+
+    foreach ($plats as $plat) {
+        $id_plat = $plat['id'];
+        $qty_ancienne = $quantites_actuelles[$id_plat] ?? 0;
+        $qty_nouvelle = isset($nouvelles_quantites[$id_plat]) ? intval($nouvelles_quantites[$id_plat]) : $qty_ancienne;
+
+        // Si le client a augmenté la quantité, on calcule la valeur de l'ajout
+        if ($qty_nouvelle > $qty_ancienne) {
+            $difference_qty = $qty_nouvelle - $qty_ancienne;
+            $total_ajouts_brut += $plat['prix'] * $difference_qty;
+        }
+
+        // On conserve l'article s'il y a au moins 1 quantité
+        if ($qty_nouvelle > 0) {
+            $nouveaux_articles[] = $plat['nom'] . " (x" . $qty_nouvelle . ")";
+        }
+    }
+
+    // Application de la remise UNIQUEMENT sur les nouveaux ajouts
+    $montant_remise_ajouts = $total_ajouts_brut * ($remise_pourcentage / 100);
+    $reste_a_payer = $total_ajouts_brut - $montant_remise_ajouts;
+
+    // Le nouveau total de la commande devient l'ancien total + le reste à payer des ajouts
+    $nouveau_total_commande = $total_original + $reste_a_payer;
+
+    // Mise à jour de la commande
+    $utilisateurs[$user_index]['fidelite']['historique_commandes'][$id_cmd]['articles'] = $nouveaux_articles;
+    $utilisateurs[$user_index]['fidelite']['historique_commandes'][$id_cmd]['total'] = $nouveau_total_commande;
+
+    if ($reste_a_payer > 0) {
+        $utilisateurs[$user_index]['fidelite']['historique_commandes'][$id_cmd]['type'] .= " (Complément payé: " . number_format($reste_a_payer, 2) . "€)";
+        
+        // Attribution des points de fidélité sur ce qui est réellement rajouté et payé (1€ = 1pt)
+        if (!isset($utilisateurs[$user_index]['fidelite']['points'])) {
+            $utilisateurs[$user_index]['fidelite']['points'] = 0;
+        }
+        $utilisateurs[$user_index]['fidelite']['points'] += floor($reste_a_payer);
+    }
+
+    // Sauvegarde
+    file_put_contents($users_file, json_encode($utilisateurs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    
+    // Écran de succès propre
+    echo "<main style='padding: 50px; text-align: center;' class='dashboard-card'><h2 style='color: #27ae60;'>Commande modifiée avec succès !</h2>";
+    if ($reste_a_payer > 0) {
+        echo "<p style='font-size: 1.2em;'>Vous avez procédé au paiement du complément pour vos nouveaux ajouts : <strong style='color:#e74c3c;'>+" . number_format($reste_a_payer, 2) . "€</strong></p>";
+        echo "<p style='color: #f39c12; font-weight: bold;'>🎁 Vous gagnez " . floor($reste_a_payer) . " points de fidélité supplémentaires !</p>";
+    } else {
+        echo "<p style='font-size: 1.2em;'>Le panier est resté inchangé.</p>";
+    }
+    echo "<a href='profil.php' class='btn-submit' style='display:inline-block; margin-top:20px; text-decoration:none;'>Retour au profil</a></main>";
+    
+    include 'includes/footer.php';
+    exit();
+}
 ?>
 
 <main style="padding: 40px 20px; max-width: 900px; margin: 0 auto; min-height: 60vh;">
     <div class="dashboard-card" style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-        <h2 style="text-align: center; color: #e74c3c; margin-bottom: 5px;">Modifier ma commande</h2>
-        <p style="text-align: center; margin-bottom: 25px; color: #7f8c8d;">Prévue pour le : <strong><?php echo $commande['date_prevue'] ?? ''; ?></strong></p>
+        <h2 style="text-align: center; color: #e74c3c; margin-bottom: 5px;">Compléter ma commande</h2>
+        <p style="text-align: center; margin-bottom: 25px; color: #7f8c8d;">Ajoutez les articles que vous avez oubliés</p>
         
+        <?php if($remise_pourcentage > 0): ?>
+            <p style="text-align: center; color: #f39c12; font-weight: bold; background: #fff3cd; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+                🎉 Votre avantage fidélité (-<?php echo $remise_pourcentage; ?>%) s'appliquera directement sur vos ajouts !
+            </p>
+        <?php endif; ?>
+
         <form method="POST">
             <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
                 <thead>
@@ -114,20 +143,25 @@ foreach ($commande['articles'] as $art_str) {
                         <th style="padding: 10px; text-align: left;">Plat</th>
                         <th style="padding: 10px; text-align: center;">Prix unitaire</th>
                         <th style="padding: 10px; text-align: center;">Quantité</th>
-                        <th style="padding: 10px; text-align: right;">Sous-total</th>
+                        <th style="padding: 10px; text-align: right;">Sous-total Ligne</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach($plats as $plat): 
                         $id_p = $plat['id'];
-                        $qty = $quantites_actuelles[$id_p] ?? 0;
-                        $sous_total = $qty * $plat['prix'];
+                        $qty_initiale = $quantites_actuelles[$id_p] ?? 0;
+                        $sous_total = $qty_initiale * $plat['prix'];
                     ?>
                     <tr style="border-bottom: 1px solid #eee;">
-                        <td style="padding: 10px;"><strong><?php echo htmlspecialchars($plat['nom']); ?></strong></td>
+                        <td style="padding: 10px;">
+                            <strong><?php echo htmlspecialchars($plat['nom']); ?></strong>
+                            <?php if($qty_initiale > 0): ?>
+                                <span style="font-size: 0.85em; color: #27ae60; block; margin-left: 5px;">(Déjà commandé: x<?php echo $qty_initiale; ?>)</span>
+                            <?php endif; ?>
+                        </td>
                         <td style="padding: 10px; text-align: center; color: #7f8c8d;"><?php echo number_format($plat['prix'], 2); ?> €</td>
                         <td style="padding: 10px; text-align: center;">
-                            <input type="number" name="qty[<?php echo $id_p; ?>]" class="qty-input" data-prix="<?php echo $plat['prix']; ?>" value="<?php echo $qty; ?>" min="0" max="20" style="width: 60px; padding: 5px; text-align: center; border: 1px solid #ccc; border-radius: 4px;">
+                            <input type="number" name="qty[<?php echo $id_p; ?>]" class="qty-input" data-id="<?php echo $id_p; ?>" data-prix="<?php echo $plat['prix']; ?>" value="<?php echo $qty_initiale; ?>" min="<?php echo $qty_initiale; ?>" max="20" style="width: 60px; padding: 5px; text-align: center; border: 1px solid #ccc; border-radius: 4px;">
                         </td>
                         <td style="padding: 10px; text-align: right; font-weight: bold;" class="sous-total-cell"><?php echo number_format($sous_total, 2); ?> €</td>
                     </tr>
@@ -135,24 +169,28 @@ foreach ($commande['articles'] as $art_str) {
                 </tbody>
             </table>
 
-            <div style="margin-top: 30px; background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+            <div style="margin-top: 30px; background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #ddd; max-width: 500px; margin-left: auto;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1.1em;">
-                    <span style="color: #333;">Total initial (déjà payé) :</span>
-                    <strong style="color: #333;"><?php echo number_format($total_original, 2); ?> €</strong>
+                    <span style="color: #555;">Montant de vos ajouts (Brut) :</span>
+                    <strong id="montant-ajouts" style="color: #333;">0.00 €</strong>
                 </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1.2em; color: #2980b9;">
-                    <span>Nouveau total :</span>
-                    <strong id="nouveau-total"><?php echo number_format($total_original, 2); ?> €</strong>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 2px dashed #ccc; font-size: 1.2em;" id="zone-difference">
-                    <span style="color: #333;">Différence :</span>
-                    <strong id="texte-difference" style="color: #7f8c8d;">Aucun changement</strong>
+                
+                <?php if($remise_pourcentage > 0): ?>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1.1em; color: #bc9229;">
+                        <span>Remise sur ajouts (-<?php echo $remise_pourcentage; ?>%) :</span>
+                        <strong id="remise-ajouts">-0.00 €</strong>
+                    </div>
+                <?php endif; ?>
+
+                <div style="display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 2px dashed #ccc; font-size: 1.3em;">
+                    <span style="font-weight: bold; color: #333;">Reste à payer :</span>
+                    <strong id="reste-a-payer" style="color: #e74c3c;">0.00 €</strong>
                 </div>
             </div>
 
             <div style="text-align: center; margin-top: 30px;">
-                <button type="submit" class="btn-submit" style="background-color: #27ae60; font-size: 1.2em; padding: 15px 40px;">Valider les modifications</button>
-                <a href="profil.php" style="display: block; margin-top: 15px; color: #7f8c8d; text-decoration: underline;">Annuler et revenir au profil</a>
+                <button type="submit" class="btn-submit" style="background-color: #27ae60; font-size: 1.2em; padding: 15px 40px;">Payer mes ajouts</button>
+                <a href="profil.php" style="display: block; margin-top: 15px; color: #7f8c8d; text-decoration: underline;">Annuler et revenir</a>
             </div>
         </form>
     </div>
@@ -160,10 +198,13 @@ foreach ($commande['articles'] as $art_str) {
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const totalOriginal = <?php echo $total_original; ?>;
+    const remisePourcentage = <?php echo $remise_pourcentage; ?>;
+    const quantitesInitiales = <?php echo json_encode($quantites_actuelles); ?>;
+    
     const qtyInputs = document.querySelectorAll('.qty-input');
-    const spanNouveauTotal = document.getElementById('nouveau-total');
-    const spanDifference = document.getElementById('texte-difference');
+    const spanAjouts = document.getElementById('montant-ajouts');
+    const spanRemise = document.getElementById('remise-ajouts');
+    const spanResteAPayer = document.getElementById('reste-a-payer');
 
     qtyInputs.forEach(input => {
         input.addEventListener('input', updateTotals);
@@ -171,35 +212,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function updateTotals() {
-        let nouveauTotal = 0;
+        let totalAjoutsBrut = 0;
         
-        // 1. Calculer le nouveau total
         qtyInputs.forEach(input => {
-            const qty = parseInt(input.value) || 0;
+            const idPlat = input.getAttribute('data-id');
             const prix = parseFloat(input.getAttribute('data-prix'));
-            const sousTotal = qty * prix;
+            const qtyNouvelle = parseInt(input.value) || 0;
+            const qtyInitiale = quantitesInitiales[idPlat] || 0;
             
-            // Mettre à jour la ligne du tableau
-            input.closest('tr').querySelector('.sous-total-cell').textContent = sousTotal.toFixed(2) + ' €';
-            nouveauTotal += sousTotal;
+            // Met à jour l'affichage visuel de la ligne du tableau
+            const sousTotalLigne = qtyNouvelle * prix;
+            input.closest('tr').querySelector('.sous-total-cell').textContent = sousTotalLigne.toFixed(2) + ' €';
+            
+            // On calcule l'écart uniquement si la quantité augmente
+            if (qtyNouvelle > qtyInitiale) {
+                totalAjoutsBrut += (qtyNouvelle - qtyInitiale) * prix;
+            }
         });
 
-        spanNouveauTotal.textContent = nouveauTotal.toFixed(2) + ' €';
+        // Calculs financiers des ajouts uniquement
+        const montantRemise = totalAjoutsBrut * (remisePourcentage / 100);
+        const resteAPayer = totalAjoutsBrut - montantRemise;
 
-        // 2. Calculer la différence pour afficher si le client doit payer ou recevoir un bon d'achat
-        const diff = nouveauTotal - totalOriginal;
-        
-        if (diff > 0) {
-            spanDifference.textContent = 'Reste à payer : +' + diff.toFixed(2) + ' €';
-            spanDifference.style.color = '#e74c3c'; // Rouge : Aïe, il faut payer
-        } else if (diff < 0) {
-            spanDifference.textContent = 'Remboursement (Bon d\'achat) : ' + Math.abs(diff).toFixed(2) + ' €';
-            spanDifference.style.color = '#27ae60'; // Vert : Super, de l'argent récupéré
-        } else {
-            spanDifference.textContent = 'Aucun changement (0.00 €)';
-            spanDifference.style.color = '#7f8c8d'; // Gris
+        // Injection dynamique dans la boîte récapitulative
+        spanAjouts.textContent = totalAjoutsBrut.toFixed(2) + ' €';
+        if (spanRemise) {
+            spanRemise.textContent = '-' + montantRemise.toFixed(2) + ' €';
         }
+        spanResteAPayer.textContent = resteAPayer.toFixed(2) + ' €';
     }
+    
+    // Lancement au chargement de la page
+    updateTotals();
 });
 </script>
 

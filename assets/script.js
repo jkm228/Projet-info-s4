@@ -1,11 +1,8 @@
 // assets/script.js
 
-// On attend que la page soit totalement chargée
 document.addEventListener("DOMContentLoaded", () => {
     
-    // --------------------------------------------------------
-    // CHANGEMENT DE THÈME (PHASE 3)
-    // --------------------------------------------------------
+    // 1. CHANGEMENT DE THÈME
     const themeBtn = document.getElementById("btn-theme");
     if (themeBtn) {
         themeBtn.addEventListener("click", () => {
@@ -25,9 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --------------------------------------------------------
-    // VALIDATION DES FORMULAIRES ET COMPTEURS (PHASE 3)
-    // --------------------------------------------------------
+    // 2. VALIDATION DES FORMULAIRES
     const togglePassword = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('password');
     if (togglePassword && passwordInput) {
@@ -44,40 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const counterSpan = document.getElementById('counter-' + this.id);
             if(counterSpan) {
                 counterSpan.textContent = this.value.length + ' / ' + this.maxLength;
-                if (this.value.length >= this.maxLength - 2) {
-                    counterSpan.style.color = '#e74c3c';
-                } else {
-                    counterSpan.style.color = '#7f8c8d';
-                }
+                if (this.value.length >= this.maxLength - 2) counterSpan.style.color = '#e74c3c';
+                else counterSpan.style.color = '#7f8c8d';
             }
         });
     });
 
-    const formValidation = document.getElementById('form-validation');
-    if (formValidation) {
-        formValidation.addEventListener('submit', function(e) {
-            let isValid = true;
-            document.querySelectorAll('.error-msg').forEach(el => el.textContent = '');
-
-            const email = document.getElementById('email');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (email && !emailRegex.test(email.value)) {
-                document.getElementById('error-email').textContent = 'Veuillez entrer une adresse email valide.';
-                isValid = false;
-            }
-
-            const pwd = document.getElementById('password');
-            if (pwd && pwd.value.length < 6) {
-                document.getElementById('error-password').textContent = 'Le mot de passe est trop court (6 caractères minimum).';
-                isValid = false;
-            }
-            if (!isValid) e.preventDefault(); 
-        });
-    }
-
-    // --------------------------------------------------------
-    // ASYNCHRONE : MODIFICATION DU PROFIL (PHASE 3)
-    // --------------------------------------------------------
+    // 3. MODIFICATION DU PROFIL
     const btnEditProfil = document.getElementById('btn-edit-profil');
     const formProfil = document.getElementById('form-profil');
     const profilActions = document.getElementById('profil-actions');
@@ -127,17 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     profilMsg.style.color = '#e74c3c';
                     profilMsg.textContent = '❌ ' + result.message;
                 }
-            })
-            .catch(() => {
-                profilMsg.style.color = '#e74c3c';
-                profilMsg.textContent = '❌ Erreur serveur.';
             });
         });
     }
 
-    // --------------------------------------------------------
-    // FILTRES ET TRIS SUR LA CARTE (PHASE 3)
-    // --------------------------------------------------------
+    // 4. FILTRES ET TRIS SUR LA CARTE
     const filterBtns = document.querySelectorAll('.btn-filter');
     const menuGrid = document.getElementById('menu-grid');
 
@@ -187,26 +149,110 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const sortSelect = document.getElementById('sort-plats');
-        sortSelect.addEventListener('change', (e) => {
-            const sortBy = e.target.value;
-            const cards = Array.from(menuGrid.children);
-            if(cards[0] && cards[0].classList.contains('plat-card')) {
-                cards.sort((a, b) => {
-                    const prixA = parseFloat(a.getAttribute('data-prix'));
-                    const prixB = parseFloat(b.getAttribute('data-prix'));
-                    if (sortBy === 'prix-asc') return prixA - prixB;
-                    if (sortBy === 'prix-desc') return prixB - prixA;
-                    return 0; 
-                });
-                menuGrid.innerHTML = '';
-                cards.forEach(card => menuGrid.appendChild(card));
-            }
-        });
+        if(sortSelect) {
+            sortSelect.addEventListener('change', (e) => {
+                const sortBy = e.target.value;
+                const cards = Array.from(menuGrid.children);
+                if(cards[0] && cards[0].classList.contains('plat-card')) {
+                    cards.sort((a, b) => {
+                        const prixA = parseFloat(a.getAttribute('data-prix'));
+                        const prixB = parseFloat(b.getAttribute('data-prix'));
+                        if (sortBy === 'prix-asc') return prixA - prixB;
+                        if (sortBy === 'prix-desc') return prixB - prixA;
+                        return 0; 
+                    });
+                    menuGrid.innerHTML = '';
+                    cards.forEach(card => menuGrid.appendChild(card));
+                }
+            });
+        }
     }
-}); // <-- FIN DE LA ZONE DE CHARGEMENT DE PAGE
+
+    // 5. BARRE DE RECHERCHE CORRIGÉE 🔍
+    const searchInput = document.getElementById('search-input');
+
+    if (searchInput) {
+        if (!menuGrid) {
+            const searchBtn = searchInput.nextElementSibling; 
+            
+            function lancerRedirection() {
+                if(searchInput.value.trim() !== '') {
+                    window.location.href = `presentation.php?search=${encodeURIComponent(searchInput.value)}`;
+                }
+            }
+
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault(); 
+                    lancerRedirection();
+                }
+            });
+
+            if (searchBtn && searchBtn.tagName === 'BUTTON') {
+                searchBtn.addEventListener('click', lancerRedirection);
+            }
+        } else {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchURL = urlParams.get('search');
+
+            if (searchURL) {
+                searchInput.value = searchURL;
+                lancerRecherche(searchURL);
+            }
+
+            searchInput.addEventListener('input', (e) => {
+                lancerRecherche(e.target.value);
+            });
+
+            function lancerRecherche(terme) {
+                fetch(`api_plats.php?search=${encodeURIComponent(terme)}`)
+                    .then(res => res.json())
+                    .then(plats => {
+                        menuGrid.innerHTML = ''; 
+                        
+                        if (plats.length === 0) {
+                            menuGrid.innerHTML = '<p style="text-align: center; width: 100%; color: #7f8c8d; font-size: 1.2em;">Aucun plat ne correspond à votre recherche.</p>';
+                            return;
+                        }
+
+                        plats.forEach(plat => {
+                            const prixFormate = parseFloat(plat.prix).toFixed(2);
+                            let cat = plat.categorie ? plat.categorie.toLowerCase() : (plat.catégorie ? plat.catégorie.toLowerCase() : '');
+                            let bgClass = 'bg-rouge';
+                            if (cat.includes('boisson')) bgClass = 'bg-vert';
+                            else if (cat.includes('entree') || cat.includes('entrée')) bgClass = 'bg-orange';
+                            else if (cat.includes('dessert')) bgClass = 'bg-violet';
+
+                            const carte = document.createElement('div');
+                            carte.className = 'menu-card plat-card';
+                            carte.setAttribute('data-prix', plat.prix); 
+                            
+                            let imageHTML = plat.image ? `<img src="${plat.image}" alt="${plat.nom}" style="width:100%; height:200px; object-fit:cover; border-radius: 10px 10px 0 0;">` : '';
+
+                            carte.innerHTML = `
+                                ${imageHTML}
+                                <div class="menu-flag">${plat.pays || ''}</div>
+                                <div class="menu-title ${bgClass}">${plat.nom}</div>
+                                <div class="menu-items"><p>${plat.description || ''}</p></div>
+                                <div class="menu-footer">
+                                    <span class="menu-price">${prixFormate}€</span>
+                                    <a href="panier.php?ajouter=${plat.id}" class="btn-commander" style="text-decoration: none; text-align: center; display: block; box-sizing: border-box;">Ajouter</a>
+                                </div>
+                            `;
+                            menuGrid.appendChild(carte);
+                        });
+                        
+                        const sortSelect = document.getElementById('sort-plats');
+                        if(sortSelect) sortSelect.value = 'defaut';
+                    });
+            }
+        }
+    }
+
+}); // FIN DOMContentLoaded
 
 // --------------------------------------------------------
-// GESTION DES COMMANDES STAFF (PHASE 3)
+// FONCTIONS STAFF & NOTATION
 // --------------------------------------------------------
 function changerStatut(email, index, nouveauStatut) {
     fetch('api_commande.php', {
@@ -231,19 +277,14 @@ function assignerLivreur(email, index, livreurId) {
     });
 }
 
-// --------------------------------------------------------
-// NOTATION DES COMMANDES CLIENTS (PHASE 3)
-// --------------------------------------------------------
 function noterCommande(index) {
     let note = prompt("Veuillez noter votre commande de 1 à 5 étoiles (1 = Mauvais, 5 = Excellent) :");
     if (note === null || note === "") return;
-    
     note = parseInt(note);
     if (isNaN(note) || note < 1 || note > 5) {
         alert("La note doit être un chiffre compris entre 1 et 5.");
         return;
     }
-
     fetch('api_notation.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -251,17 +292,11 @@ function noterCommande(index) {
     })
     .then(res => res.json())
     .then(data => {
-        if(data.success) {
-            location.reload(); 
-        } else {
-            alert(data.message);
-        }
+        if(data.success) location.reload(); 
+        else alert(data.message);
     });
-} // <-- CETTE ACCOLADE MANQUAIT DANS TON CODE !
+} 
 
-// --------------------------------------------------------
-// BLOCAGE UTILISATEUR (PHASE 3)
-// --------------------------------------------------------
 function bloquerUtilisateur(userId) {
     if(confirm("Voulez-vous vraiment changer le statut d'accès de cet utilisateur ?")) {
         fetch('api_bloquer.php', {
@@ -271,11 +306,46 @@ function bloquerUtilisateur(userId) {
         })
         .then(res => res.json())
         .then(data => {
+            if(data.success) location.reload();
+            else alert(data.message);
+        });
+    }
+}
+
+function supprimerUtilisateur(userId) {
+    if(confirm("ATTENTION : Cette action est irréversible. Supprimer définitivement cet utilisateur ?")) {
+        fetch('api_supprimer.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_id: userId })
+        })
+        .then(res => res.json())
+        .then(data => {
             if(data.success) {
-                location.reload(); // On rafraîchit pour que le bouton change de couleur
+                alert("Utilisateur supprimé avec succès.");
+                location.reload(); 
             } else {
                 alert(data.message);
             }
         });
     }
+}
+
+// --------------------------------------------------------
+// ATTRIBUTION DE REMISE PAR L'ADMIN (PHASE 3)
+// --------------------------------------------------------
+function changerRemise(userId, valeurRemise) {
+    fetch('api_remise.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: userId, remise: valeurRemise })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.success) {
+            alert("Remise de " + valeurRemise + "% appliquée au client !");
+        } else {
+            alert("Erreur lors de l'application de la remise.");
+        }
+    });
 }

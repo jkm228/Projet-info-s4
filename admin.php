@@ -81,19 +81,34 @@ $toutes_les_commandes = array_reverse($toutes_les_commandes);
                             </span>
                         </td>
                         <td style="padding: 15px; text-align: right;">
-                            <div style="display: flex; gap: 5px; justify-content: flex-end;">
+                            <div style="display: flex; gap: 5px; justify-content: flex-end; align-items: center;">
+                                
                                 <?php if($statut == 'À préparer' || $statut == 'Payée'): ?>
-                                    <button onclick="changerStatut('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, 'En préparation')" style="background: #3498db; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">🔥 Préparer</button>
+                                    <button onclick="changerStatut('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, 'En préparation')" style="background: #3498db; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">🔥 Lancer en cuisine</button>
+                                
                                 <?php elseif($statut == 'En préparation'): ?>
-                                    <button onclick="changerStatut('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, 'Prête')" style="background: #27ae60; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">✅ Prête</button>
+                                    <span style="color: #e67e22; font-weight: bold; padding: 5px;">👨‍🍳 En préparation...</span>
+                                
                                 <?php elseif($statut == 'Prête'): ?>
-                                    <select onchange="assignerLivreur('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, this.value)" style="padding: 5px; border-radius: 4px;">
-                                        <option value="">Assigner livreur...</option>
-                                        <?php foreach($livreurs as $l): ?>
-                                            <option value="<?php echo $l['id']; ?>"><?php echo htmlspecialchars($l['informations']['prenom']); ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <?php 
+                                    // On vérifie si c'est à emporter
+                                    if(strpos(strtolower($cmd['type']), 'emporter') !== false): 
+                                    ?>
+                                        <button onclick="changerStatut('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, 'À récupérer')" style="background: #9b59b6; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">🛍️ Autoriser le Retrait</button>
+                                    <?php else: ?>
+                                        <select onchange="assignerLivreur('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, this.value)" style="padding: 5px; border-radius: 4px;">
+                                            <option value="">Assigner livreur...</option>
+                                            <?php foreach($livreurs as $l): ?>
+                                                <option value="<?php echo $l['id']; ?>"><?php echo htmlspecialchars($l['informations']['prenom']); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    <?php endif; ?>
+
+                                <?php elseif($statut == 'À récupérer'): ?>
+                                    <button onclick="changerStatut('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, 'Terminée')" style="background: #7f8c8d; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">✅ Commande Retirée</button>
+                                
                                 <?php endif; ?>
+
                             </div>
                         </td>
                     </tr>
@@ -111,7 +126,7 @@ $toutes_les_commandes = array_reverse($toutes_les_commandes);
                         <th style="padding: 15px;">ID</th>
                         <th style="padding: 15px;">Client / Staff</th>
                         <th style="padding: 15px;">Rôle</th>
-                        <th style="padding: 15px; text-align: center;">Actions (Phase 2)</th>
+                        <th style="padding: 15px; text-align: center;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -129,16 +144,15 @@ $toutes_les_commandes = array_reverse($toutes_les_commandes);
                         </td>
                         
                         <td style="padding: 15px; text-align: center;">
-                            <?php if($user['role'] == 'client'): ?>
-                                <select style="padding: 5px; margin-right: 5px; border: 1px solid #ccc; border-radius: 4px;">
-                                    <option>Standard</option>
-                                    <option>🌟 VIP</option>
-                                    <option>👑 Premium</option>
-                                </select>
-                                <select style="padding: 5px; margin-right: 5px; border: 1px solid #ccc; border-radius: 4px;">
-                                    <option>Remise 0%</option>
-                                    <option>Remise 10%</option>
-                                    <option>Remise 20%</option>
+                            <?php if($user['role'] == 'client'): 
+                                // On récupère la remise actuelle du client (0 si elle n'existe pas)
+                                $remise_actuelle = $user['informations']['remise'] ?? 0;
+                            ?>
+                                
+                                <select onchange="changerRemise('<?php echo $user['id']; ?>', this.value)" style="padding: 5px; margin-right: 5px; border: 1px solid #ccc; border-radius: 4px; background-color: #f1c40f; font-weight: bold;">
+                                    <option value="0" <?php if($remise_actuelle == 0) echo 'selected'; ?>>Pas de remise</option>
+                                    <option value="10" <?php if($remise_actuelle == 10) echo 'selected'; ?>>Remise 10%</option>
+                                    <option value="20" <?php if($remise_actuelle == 20) echo 'selected'; ?>>Remise 20%</option>
                                 </select>
                                 
                                 <?php 
@@ -148,6 +162,10 @@ $toutes_les_commandes = array_reverse($toutes_les_commandes);
                                 ?>
                                 <button onclick="bloquerUtilisateur('<?php echo $user['id']; ?>')" style="padding: 6px 10px; background: <?php echo $btn_color; ?>; color: white; border: none; border-radius: 4px; cursor: pointer;">
                                     <?php echo $btn_text; ?>
+                                </button>
+
+                                <button onclick="supprimerUtilisateur('<?php echo $user['id']; ?>')" style="padding: 6px 10px; background: #c0392b; color: white; border: none; border-radius: 4px; cursor: pointer; margin-left: 5px;" title="Supprimer définitivement">
+                                    🗑️
                                 </button>
                                 
                             <?php else: ?>

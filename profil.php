@@ -28,8 +28,6 @@ if (!$infos_user) {
 }
 
 // --- 🛡️ PROTECTION CONTRE LES BUGS ---
-// On prépare des variables sécurisées au cas où l'utilisateur (comme l'Admin) n'aurait pas ces infos.
-// L'opérateur "??" signifie : "Prend cette valeur, OU BIEN prend ce qu'il y a à droite si elle n'existe pas".
 $adresse = $infos_user['informations']['adresse_livraison'] ?? 'Non renseignée';
 $points = $infos_user['fidelite']['points'] ?? 0;
 $historique = $infos_user['fidelite']['historique_commandes'] ?? [];
@@ -39,7 +37,7 @@ $historique = $infos_user['fidelite']['historique_commandes'] ?? [];
         
         <div class="profile-header">
             <h1>Mon Profil</h1>
-            <p>Bienvenue, <strong><?php echo $infos_user['informations']['prenom']; ?></strong> !</p>
+            <p>Bienvenue, <strong><?php echo htmlspecialchars($infos_user['informations']['prenom']); ?></strong> !</p>
         </div>
 
         <div class="dashboard-container">
@@ -55,27 +53,27 @@ $historique = $infos_user['fidelite']['historique_commandes'] ?? [];
                     <form id="form-profil" class="profile-form">
                         <div class="form-group">
                             <label for="nom">Nom :</label>
-                            <input type="text" id="profil-nom" value="<?php echo $infos_user['informations']['nom']; ?>" class="profile-input" readonly>
+                            <input type="text" id="profil-nom" value="<?php echo htmlspecialchars($infos_user['informations']['nom']); ?>" class="profile-input" readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="prenom">Prénom :</label>
-                            <input type="text" id="profil-prenom" value="<?php echo $infos_user['informations']['prenom']; ?>" class="profile-input" readonly>
+                            <input type="text" id="profil-prenom" value="<?php echo htmlspecialchars($infos_user['informations']['prenom']); ?>" class="profile-input" readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email :</label>
-                            <input type="email" id="profil-email" value="<?php echo $infos_user['informations']['email']; ?>" class="profile-input" readonly>
+                            <input type="email" id="profil-email" value="<?php echo htmlspecialchars($infos_user['informations']['email']); ?>" class="profile-input" readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="tel">Téléphone :</label>
-                            <input type="tel" id="profil-tel" value="<?php echo $infos_user['informations']['telephone'] ?? ''; ?>" class="profile-input" readonly>
+                            <input type="tel" id="profil-tel" value="<?php echo htmlspecialchars($infos_user['informations']['telephone'] ?? ''); ?>" class="profile-input" readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="adresse">Adresse complète :</label>
-                            <input type="text" id="profil-adresse" value="<?php echo $adresse; ?>" class="profile-input" readonly>
+                            <input type="text" id="profil-adresse" value="<?php echo htmlspecialchars($adresse); ?>" class="profile-input" readonly>
                         </div>
 
                         <div id="profil-actions" style="display: none; margin-top: 25px; text-align: center;">
@@ -121,10 +119,9 @@ $historique = $infos_user['fidelite']['historique_commandes'] ?? [];
                         <div class="orders-list">
                             <?php 
                             $commandes = array_reverse($historique); 
-                            // On ajoute un index pour savoir quelle commande on modifie
                             foreach($commandes as $index_commande => $cmd): 
                                 $date_affichage = $cmd['date_passage'] ?? $cmd['date'] ?? 'Date inconnue';
-                                $statut = $cmd['statut'] ?? 'Terminée'; // Par défaut, on dit qu'elle est terminée
+                                $statut = $cmd['statut'] ?? 'Terminée'; // Par défaut
                             ?>
                                 <div style="border-left: 4px solid #e74c3c; background: #f9f9f9; padding: 15px; margin-bottom: 15px; border-radius: 0 5px 5px 0; text-align: left;">
                                     <div style="display: flex; justify-content: space-between; font-weight: bold;">
@@ -135,19 +132,39 @@ $historique = $infos_user['fidelite']['historique_commandes'] ?? [];
                                     <?php if(isset($cmd['type'])): ?>
                                         <div style="font-size: 0.85em; color: #2980b9; margin-top: 5px; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
                                             <span>
-                                                <?php echo ($cmd['type'] == 'Livraison' ? '🛵 ' : '🛍️ ') . $cmd['type']; ?> 
-                                                - Prévu : <?php echo $cmd['date_prevue']; ?>
+                                                <?php echo ($cmd['type'] == 'Livraison' ? '🛵 ' : '🛍️ ') . htmlspecialchars($cmd['type']); ?> 
+                                                - Prévu : <?php echo htmlspecialchars($cmd['date_prevue']); ?>
                                                 <br>
-                                                <span style="color: #f39c12;">Statut : <?php echo $statut; ?></span>
+                                                <span style="color: #f39c12;">Statut : <?php echo htmlspecialchars($statut); ?></span>
                                             </span>
                                             
                                             <div style="text-align: right;">
+                                                <?php $vrai_index = count($historique) - 1 - $index_commande; ?>
+                                                
                                                 <?php if($statut === 'À préparer'): ?>
-                                                    <?php $vrai_index = count($historique) - 1 - $index_commande; ?>
                                                     <a href="modifier_commande.php?id_cmd=<?php echo $vrai_index; ?>" class="btn-submit" style="width: auto; padding: 6px 12px; font-size: 0.85em; background-color: #f39c12; text-decoration: none;">✏️ Modifier</a>
                                                 
-                                                <?php elseif($statut === 'Livrée'): ?>
-                                                    <?php $vrai_index = count($historique) - 1 - $index_commande; ?>
+                                                <?php elseif($statut === 'En préparation'): ?>
+                                                    <span style="display: inline-block; background: #e67e22; color: white; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.9em;">
+                                                        👨‍🍳 En cuisine...
+                                                    </span>
+
+                                                <?php elseif($statut === 'Prête'): ?>
+                                                    <span style="display: inline-block; background: #8e44ad; color: white; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.9em;">
+                                                        ✅ Préparation terminée
+                                                    </span>
+                                                
+                                                <?php elseif ($statut === 'À récupérer'): ?>
+                                                    <span style="display: inline-block; background: #27ae60; color: white; padding: 5px 10px; border-radius: 4px; font-weight: bold; box-shadow: 0 0 10px rgba(39, 174, 96, 0.5);">
+                                                        🛍️ Prête ! Venez la récupérer.
+                                                    </span>
+                                                    
+                                                <?php elseif ($statut === 'En cours de livraison'): ?>
+                                                    <span style="display: inline-block; background: #3498db; color: white; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.9em;">
+                                                        🛵 Le livreur est en route !
+                                                    </span>
+
+                                                <?php elseif($statut === 'Livrée' || $statut === 'Terminée'): ?>
                                                     
                                                     <?php if(isset($cmd['note'])): ?>
                                                         <span style="color: #f1c40f; font-size: 1.2em;" title="Votre note">
@@ -163,7 +180,7 @@ $historique = $infos_user['fidelite']['historique_commandes'] ?? [];
                                     <?php endif; ?>
 
                                     <p style="font-size: 0.9em; color: #555; margin-top: 5px;">
-                                        <?php echo implode(', ', $cmd['articles']); ?>
+                                        <?php echo htmlspecialchars(implode(', ', $cmd['articles'])); ?>
                                     </p>
                                 </div>
                             <?php endforeach; ?>

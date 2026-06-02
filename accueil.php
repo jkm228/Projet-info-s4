@@ -12,7 +12,7 @@ $plats = json_decode($json_data, true);
             <div class="hero-content">
                 <h1>Africa United</h1>
                 <div class="search-container">
-                    <input type="text" placeholder="Recherchez un plat (ex: Mafé, Yassa...)">
+                    <input type="text" id="search-input" placeholder="Recherchez un plat (ex: Mafé, Yassa...)">
                     <button type="button">🔍</button>
                 </div>
             </div>

@@ -9,13 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // On crée le nouveau profil
     $nouvel_utilisateur = [
-        "id" => "USR" . rand(1000, 9999), // Génère un ID aléatoire
+        "id" => "USR" . rand(1000, 9999), 
         "role" => "client",
+        // LE CORRECTIF EST ICI 👇 : On sort le mot de passe de la section "informations"
+        "mot_de_passe" => $_POST['password'], 
         "informations" => [
             "nom" => htmlspecialchars($_POST['nom']),
             "prenom" => htmlspecialchars($_POST['prenom']),
             "email" => htmlspecialchars($_POST['email']),
-            "mot_de_passe" => $_POST['password'], // Dans un vrai site pro, on utiliserait password_hash()
             "telephone" => htmlspecialchars($_POST['telephone']),
             "adresse_livraison" => htmlspecialchars($_POST['adresse'])
         ],

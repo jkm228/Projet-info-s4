@@ -48,123 +48,19 @@
         }
     },
     {
-        "id": "C-001",
-        "login": "sophie_m",
-        "mot_de_passe": "client123",
-        "role": "client",
-        "informations": {
-            "nom": "Martin",
-            "prenom": "Sophie",
-            "email": "s.martin@email.com",
-            "telephone": "0699887766",
-            "adresse": "12 Rue de la Paix, 75002 Paris"
-        },
-        "fidelite": {
-            "statut": "VIP",
-            "points": 150
-        },
-        "dates": {
-            "inscription": "2024-03-01",
-            "derniere_connexion": "2024-05-18"
-        }
-    },
-    {
-        "id": "C-002",
-        "login": "issa_t",
-        "mot_de_passe": "client123",
-        "role": "client",
-        "informations": {
-            "nom": "Traoré",
-            "prenom": "Issa",
-            "email": "traore.issa@email.com",
-            "telephone": "0788990011",
-            "adresse": "45 Avenue Jean Jaurès, 69007 Lyon"
-        },
-        "fidelite": {
-            "statut": "Standard",
-            "points": 20
-        },
-        "dates": {
-            "inscription": "2024-04-15",
-            "derniere_connexion": "2024-05-19"
-        }
-    },
-    {
-        "id": "C-003",
-        "login": "marie_c",
-        "mot_de_passe": "client123",
-        "role": "client",
-        "informations": {
-            "nom": "Curie",
-            "prenom": "Marie",
-            "email": "marie.c@email.com",
-            "telephone": "0677889900",
-            "adresse": "8 Boulevard Pasteur, 75015 Paris"
-        },
-        "fidelite": {
-            "statut": "Standard",
-            "points": 0
-        },
-        "dates": {
-            "inscription": "2024-05-10",
-            "derniere_connexion": "2024-05-10"
-        }
-    },
-    {
-        "id": "C-004",
-        "login": "paul_d",
-        "mot_de_passe": "client123",
-        "role": "client",
-        "informations": {
-            "nom": "Durand",
-            "prenom": "Paul",
-            "email": "paul.durand@email.com",
-            "telephone": "0655443322",
-            "adresse": "10 Place Bellecour, 69002 Lyon"
-        },
-        "fidelite": {
-            "statut": "Premium",
-            "points": 350
-        },
-        "dates": {
-            "inscription": "2024-01-20",
-            "derniere_connexion": "2024-05-15"
-        }
-    },
-    {
-        "id": "C-005",
-        "login": "fatou_n",
-        "mot_de_passe": "client123",
-        "role": "client",
-        "informations": {
-            "nom": "Ndiaye",
-            "prenom": "Fatou",
-            "email": "fatou.n@email.com",
-            "telephone": "0744556677",
-            "adresse": "22 Rue des Dames, 75017 Paris"
-        },
-        "fidelite": {
-            "statut": "Standard",
-            "points": 50
-        },
-        "dates": {
-            "inscription": "2024-04-25",
-            "derniere_connexion": "2024-05-21"
-        }
-    },
-    {
         "id": "C-009",
         "role": "client",
         "informations": {
-            "nom": "Kouto-messan",
+            "nom": "Kouto",
             "prenom": "Joseph",
             "email": "koutomessanjo@gmail.com",
             "telephone": "0767400503",
-            "adresse_livraison": "64 avenue du Général Michel Bizot 75012 Paris "
+            "adresse_livraison": "64 avenue du Général Michel Bizot 75012 Paris ",
+            "remise": 20
         },
         "mot_de_passe": "Joseph-19032005",
         "fidelite": {
-            "points": 7,
+            "points": 164,
             "historique_commandes": [
                 {
                     "date": "05\/04\/2026 à 15:17",
@@ -187,6 +83,110 @@
                         "Mystères du Nil (x1)"
                     ],
                     "livreur_id": "L-001",
+                    "note": 5
+                },
+                {
+                    "date_passage": "12\/05\/2026 à 11:29",
+                    "date_prevue": "Dès que possible",
+                    "type": "Livraison (Complément payé: 24€)",
+                    "statut": "Livrée",
+                    "total": 32,
+                    "articles": [
+                        "Jus de Bissap (x2)",
+                        "Mystères du Nil (x1)"
+                    ],
+                    "livreur_id": "L-001",
+                    "note": 3
+                },
+                {
+                    "date_passage": "14\/05\/2026 à 20:05",
+                    "date_prevue": "Dès que possible",
+                    "type": "Livraison (Complément payé: 4€)",
+                    "statut": "Livrée",
+                    "total": 29,
+                    "articles": [
+                        "Jus de Bissap (x1)",
+                        "L'Escale Dakaroise (x1)"
+                    ],
+                    "livreur_id": "L-001",
+                    "note": 1
+                },
+                {
+                    "date_passage": "02\/06\/2026 à 12:57",
+                    "date_prevue": "Dès que possible",
+                    "type": "Livraison (Avoir: 16€) (Avoir: 0.80€) (Complément payé: 20.00€)",
+                    "statut": "Livrée",
+                    "total": 23.2,
+                    "articles": [
+                        "Jus de Bissap (x1)",
+                        "Lagos By Night (x1)"
+                    ],
+                    "livreur_id": "L-001",
+                    "note": 2
+                },
+                {
+                    "date_passage": "02\/06\/2026 à 13:33",
+                    "date_prevue": "Dès que possible",
+                    "type": "Livraison",
+                    "statut": "Livrée",
+                    "total": 40.8,
+                    "articles": [
+                        "Jus de Bissap (x1)",
+                        "Pastels (x1)",
+                        "Suya Beef (x1)",
+                        "Cornes de Gazelle (x1)",
+                        "Himbasha (x1)",
+                        "Mystères du Nil (x1)"
+                    ],
+                    "livreur_id": "L-001",
+                    "note": 3
+                },
+                {
+                    "date_passage": "02\/06\/2026 à 13:40",
+                    "date_prevue": "Dès que possible",
+                    "type": "À emporter",
+                    "statut": "Livrée",
+                    "total": 12,
+                    "articles": [
+                        "Thiéboudienne (x1)"
+                    ],
+                    "livreur_id": "L-001",
+                    "note": 5
+                },
+                {
+                    "date_passage": "02\/06\/2026 à 14:03",
+                    "date_prevue": "Dès que possible",
+                    "type": "À emporter (Complément payé: 6.40€)",
+                    "statut": "Terminée",
+                    "total": 25.6,
+                    "articles": [
+                        "Jus de Bissap (x1)",
+                        "Gnamankoudji (x1)",
+                        "Le Festin d'Addis (x1)"
+                    ],
+                    "note": 4
+                },
+                {
+                    "date_passage": "02\/06\/2026 à 14:14",
+                    "date_prevue": "Dès que possible",
+                    "type": "Livraison",
+                    "statut": "Livrée",
+                    "total": 11.2,
+                    "articles": [
+                        "Doro Wat (x1)"
+                    ],
+                    "livreur_id": "L-001",
+                    "note": 5
+                },
+                {
+                    "date_passage": "02\/06\/2026 à 14:36",
+                    "date_prevue": "Dès que possible",
+                    "type": "À emporter",
+                    "statut": "Terminée",
+                    "total": 4,
+                    "articles": [
+                        "Chapman (x1)"
+                    ],
                     "note": 5
                 }
             ]
