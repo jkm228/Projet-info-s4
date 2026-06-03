@@ -1194,3 +1194,293 @@ footer {
 .loyalty-prompt { margin-bottom: 20px; font-size: 0.95rem; }
 .history-empty-state { text-align: center; color: #666; margin-top: 40px; margin-bottom: 20px; }
 .btn-discover-menu { display: inline-block; text-decoration: none; width: auto; padding: 10px 30px; margin-top: 15px; }
+
+/* ==========================================================================
+   🚨 PHASE 4 : UTILITAIRES ET AJOUTS (ADAPTÉS À VOTRE THÈME ORIGINAL)
+   ========================================================================== */
+
+/* Utility classes d'alignement et couleurs réutilisables */
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }
+.text-bold { font-weight: bold !important; }
+.text-secondary { color: #7f8c8d !important; }
+.text-red { color: #ce1126 !important; } /* Adapté à votre rouge */
+.text-green { color: #00843d !important; } /* Adapté à votre vert */
+.text-black { color: #000 !important; }
+.text-dark-gray { color: #555 !important; }
+.text-gold { color: #fcd116 !important; } /* Adapté à votre jaune */
+.text-red-important { color: #ce1126 !important; font-size: 1.3em; font-weight: bold; }
+.text-gray-important { color: #7f8c8d !important; font-size: 1.3em; font-weight: bold; }
+
+/* Styles pour accueil.php */
+.accueil-section-container { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
+.accueil-main-title { text-align: center; margin-bottom: 30px; }
+.accueil-menu-items-box { padding: 15px; text-align: left; font-size: 0.9em; }
+.accueil-menu-list { list-style-type: none; padding-left: 0; }
+.accueil-menu-item-li { margin-bottom: 8px; }
+.accueil-menu-item-desc { color: #666; font-size: 0.85em; }
+.btn-commander-block { text-decoration: none; text-align: center; display: block; box-sizing: border-box; margin-top: 10px; }
+.accueil-more-link-zone { text-align: center; margin-top: 40px; }
+
+/* Styles pour admin.php */
+.admin-page-container { padding: 40px 20px; max-width: 1200px; margin: 0 auto; min-height: 60vh; }
+.admin-header-zone { text-align: center; margin-bottom: 40px; }
+.admin-main-title { color: #ce1126; }
+.admin-section-block { margin-bottom: 50px; }
+.admin-section-title-cuisine { border-bottom: 3px solid #ce1126; padding-bottom: 10px; }
+.admin-section-title-database { border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+.admin-table-cuisine, .admin-table-database { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-top: 20px; }
+.admin-thead-dark { background: #f4f4f4; color: #333; } /* Reprise du style original compact-table */
+.admin-thead-db { background-color: #f4f4f4; border-bottom: 2px solid #ddd; text-align: left; }
+.admin-table-cuisine th, .admin-table-cuisine td, .admin-table-database th, .admin-table-database td { padding: 15px; }
+.admin-table-row { border-bottom: 1px solid #eee; }
+.admin-client-email { font-size: 0.8em; color: #7f8c8d; }
+.admin-cell-articles { font-size: 0.9em; }
+.admin-badge-statut { padding: 5px 10px; border-radius: 20px; background: #eee; font-weight: bold; font-size: 0.8em; }
+.admin-actions-flex { display: flex; gap: 5px; justify-content: flex-end; align-items: center; }
+.btn-admin-launch { background: #3498db; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight:bold; }
+.btn-admin-allow { background: #8e44ad; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight:bold; }
+.btn-admin-done { background: #00843d; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight:bold; }
+.status-text-cooking { color: #e67e22; font-weight: bold; padding: 5px; }
+.select-admin-driver { padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
+.select-admin-remise { padding: 5px; margin-right: 5px; border: 1px solid #ccc; border-radius: 4px; background-color: #fcd116; font-weight: bold; }
+.btn-admin-block { padding: 6px 10px; background: #ce1126; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight:bold;}
+.btn-admin-unblock { padding: 6px 10px; background: #00843d; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight:bold;}
+.btn-admin-delete { padding: 6px 10px; background: #000; color: white; border: none; border-radius: 4px; cursor: pointer; margin-left: 5px; }
+.text-not-applicable { color: #95a5a6; font-style: italic; }
+
+/* Rôles BDD Badges */
+.role-badge { font-weight: bold; }
+.role-admin, .role-restaurateur { color: #ce1126; }
+.role-client, .role-livreur { color: #00843d; }
+
+/* Styles pour modifier_commande.php */
+.modify-cmd-page { padding: 40px 20px; max-width: 900px; margin: 0 auto; min-height: 60vh; }
+.modify-cmd-card { /* Laisse dashboard-card gérer le design */ }
+.modify-cmd-title { text-align: center; color: #ce1126; margin-bottom: 5px; }
+.modify-cmd-subtitle { text-align: center; margin-bottom: 25px; color: #7f8c8d; }
+.modify-cmd-alert-remise { text-align: center; color: #856404; font-weight: bold; background: #fff3cd; padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid #fcd116;}
+.modify-cmd-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+.modify-table-header-row { background: #f4f4f4; border-bottom: 2px solid #ddd; color: #000; }
+.modify-cmd-table th, .modify-cmd-table td { padding: 12px; }
+.modify-table-body-row { border-bottom: 1px solid #eee; }
+.already-ordered-badge { font-size: 0.85em; color: #00843d; display: inline-block; margin-left: 5px; }
+.modify-qty-field { width: 60px; padding: 5px; text-align: center; border: 1px solid #ccc; border-radius: 4px; font-weight:bold;}
+.modify-summary-box { margin-top: 30px; background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #ddd; max-width: 500px; margin-left: auto; }
+.modify-summary-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1.1em; }
+.modify-summary-total-row { display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 2px dashed #ccc; font-size: 1.3em; }
+.modify-action-buttons-zone { text-align: center; margin-top: 30px; }
+.btn-modify-submit { width: auto; padding: 15px 40px; } /* Hérite de btn-submit du thème original */
+.btn-modify-cancel { display: block; margin-top: 15px; color: #7f8c8d; text-decoration: underline; font-weight:bold;}
+.modify-cmd-error-container, .modify-cmd-success-container { padding: 50px; text-align: center; }
+.btn-modify-error-back, .btn-modify-success-back { display: inline-block; margin-top: 20px; text-decoration: none; width: auto; padding: 10px 30px;}
+.modify-success-text { font-size: 1.2em; }
+.modify-success-points { color: #00843d; font-weight: bold; font-size: 1.1em;}
+
+/* Utilitaires communs ajoutés */
+.main-container-1000 { padding: 40px 20px; max-width: 1000px; margin: 0 auto; min-height: 60vh; }
+.main-container-900 { padding: 40px 20px; max-width: 900px; margin: 0 auto; min-height: 60vh; }
+.main-container-800 { padding: 30px 15px; max-width: 800px; margin: 0 auto; }
+.main-container-600 { padding: 30px 15px; max-width: 600px; margin: 0 auto; }
+.main-container-500 { padding: 40px 20px; max-width: 500px; margin: 0 auto; min-height: 60vh; }
+.page-header-centered { text-align: center; margin-bottom: 40px; }
+.margin-bottom-15 { margin-bottom: 15px; }
+.margin-bottom-30 { margin-bottom: 30px; }
+.margin-top-10 { margin-top: 10px; }
+.margin-small { margin: 5px 0; }
+.margin-medium { margin: 12px 0 8px 0; }
+.margin-0 { margin: 0; }
+.font-bold-small { font-size: 0.9em; font-weight: bold; }
+
+/* Styles commande.php */
+.title-border-red { border-bottom: 2px solid #ce1126; padding-bottom: 10px; color:#000;}
+.empty-state-box { background: #f9f9f9; padding: 30px; text-align: center; border-radius: 10px; border: 1px dashed #ccc;}
+.grid-1-col { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 20px; }
+.admin-order-box { border: 1px solid #ddd; border-radius: 15px; padding: 20px; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid #000;}
+.admin-order-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; font-size:1.1em;}
+.admin-order-actions { background: #f4f4f4; padding: 15px; border-radius: 5px; display: flex; gap: 15px; align-items: center; }
+.input-select-small { padding: 8px; border-radius:4px; border:1px solid #ccc;}
+.btn-update-small { padding: 8px 15px; width: auto; margin-top: 0; }
+
+/* Applications Sombres (cuisine.php & livreur.php) */
+.dark-app-body { background: #121212; color: white; font-family: sans-serif; margin: 0; padding: 0; }
+.dark-app-header { background: #000; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.4); border-bottom:2px solid #ce1126;}
+.dark-app-brand { font-size: 1.4em; font-weight: bold; color: white; letter-spacing: 1px; text-transform:uppercase;}
+.badge-cuisine-header, .badge-livreur-header { font-size: 0.65em; color: #fcd116; vertical-align: middle; margin-left: 5px; padding:2px 6px; border:1px solid #fcd116; border-radius:4px;}
+.dark-app-user { display: flex; align-items: center; gap: 15px; font-size: 0.95em; color:#ddd;}
+.btn-dark-logout { background: transparent; color: #ce1126; text-decoration: none; padding: 8px 15px; border: 1px solid #ce1126; border-radius: 5px; font-weight: bold; transition:0.3s;}
+.btn-dark-logout:hover { background: #ce1126; color:white; }
+.dark-app-title { text-align: center; margin-bottom: 30px; color: #fcd116; font-size: 2rem; text-transform:uppercase;}
+.dark-app-empty { text-align: center; padding: 40px; background: #1e1e1e; border-radius: 10px; color: #888; font-size: 1.2em; border:1px dashed #333;}
+.cuisine-card { background: #1e1e1e; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); border-left: 5px solid #ce1126; }
+.livreur-card { background: #1e1e1e; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); border-left: 5px solid #fcd116; text-align: left; }
+.cuisine-card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px; }
+.cuisine-client-name { font-size: 1.2em; font-weight: bold; color: white; }
+.livreur-client-name { font-size: 1.2em; font-weight: bold; color: #fcd116; }
+.cuisine-client-date { font-size: 0.9em; color:#aaa;}
+.livreur-client-date { font-size: 0.85em; color: #ccc; background: #333; padding: 4px 8px; border-radius: 4px; }
+.badge-cuisine-emporter { background: #8e44ad; padding: 3px 8px; border-radius: 4px; color:white; font-weight:bold;}
+.badge-cuisine-livraison { background: #3498db; padding: 3px 8px; border-radius: 4px; color:white; font-weight:bold;}
+.cuisine-card-details { font-size: 1.1em; line-height: 1.6; color: #ccc; margin-bottom: 20px; }
+.livreur-card-details { font-size: 0.95em; line-height: 1.6; color: #ccc; }
+.cuisine-dishes { color: #fcd116; font-size: 1.1em; font-weight:bold;}
+.btn-cuisine-ready { background: #00843d; color: white; border: none; padding: 14px; font-size: 1.1em; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; transition:0.3s;}
+.btn-cuisine-ready:hover { background: #00602c; }
+.btn-livreur-ready { background: #00843d; color: white; border: none; padding: 14px; font-size: 1.05em; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; transition: 0.3s; margin-top:15px;}
+.btn-livreur-ready:hover { background: #00602c;}
+.livreur-address { font-size: 1.15em; color: #00843d; font-weight: bold; display: block; margin-top: 3px; }
+.livreur-phone { color: #3498db; text-decoration: none; font-weight: bold; font-size: 1.1em; }
+.livreur-price { font-weight: bold; color: #ce1126; font-size: 1.1em; }
+
+/* Styles livraison.php */
+.empty-livraison-box { /* Hérite de dashboard-card */ text-align: center; padding:40px; }
+.livraison-card { border-left: 5px solid #00843d; }
+.livraison-flex-row { display: flex; justify-content: space-between; align-items: flex-start; }
+.livraison-client-title { margin-top: 0; color: #000; font-size:1.3em;}
+.livraison-address { font-size: 1.1em; font-weight: bold; margin: 10px 0; color:#333;}
+.livraison-content { color: #666; font-size: 0.95em; }
+.livraison-price { color: #ce1126; font-weight: bold; font-size:1.1em;}
+.badge-livraison-encours { display: inline-block; background: #fcd116; color: #000; padding: 5px 15px; border-radius: 20px; font-size: 0.85em; font-weight: bold; margin-bottom: 15px; }
+.btn-livraison-done { background-color: #00843d; color: white; width:auto; padding: 12px 20px; font-size: 1rem; border-radius:50px;}
+.btn-livraison-done:hover { background-color: #00602c; color:white; transform:none;}
+
+/* Styles paiement.php */
+.payment-success-box { background: #e8f5e9; border: 2px solid #00843d; padding: 40px; border-radius: 15px; }
+.payment-points-earned { color: #00843d; font-weight: bold; margin-top: 15px; font-size:1.1em;}
+.btn-payment-history { display: inline-block; margin-top: 30px; text-decoration: none; width:auto; padding:10px 30px; }
+.payment-recap-box { background: #f4f4f4; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 1em; text-align: left; color: #333; border-left:4px solid #000;}
+.payment-remise-alert { background: #fff3cd; border-left: 4px solid #fcd116; padding: 15px; text-align: left; margin-bottom: 20px; border-radius: 4px; color:#856404; font-weight:bold;}
+.payment-form-container { background: #fff; padding: 30px; border-radius: 15px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border:1px solid #eee;}
+.input-readonly { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; background: #f9f9f9; color:#666;}
+.btn-payment-submit { width: 100%; font-size: 1.2em; padding: 15px; margin-top:10px; }
+
+/* Styles panier.php */
+.empty-panier-box { text-align: center; padding: 50px; background: white; border-radius: 15px; box-shadow:0 4px 10px rgba(0,0,0,0.05); border-top:5px solid #000;}
+.btn-panier-empty { display: inline-block; margin-top: 15px; text-decoration: none; width:auto; padding:10px 30px;}
+.panier-table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 10px 20px rgba(0,0,0,0.08); border-radius:15px; overflow:hidden;}
+.panier-thead { background: #000; color: white; text-transform:uppercase; font-size:0.9em; letter-spacing:1px;}
+.panier-table th, .panier-table td { padding: 15px 20px; }
+.panier-tr-body { border-bottom: 1px solid #eee; }
+.btn-qty-minus { display: inline-block; width: 30px; height: 30px; line-height: 30px; background: #f4f4f4; text-decoration: none; border-radius: 50%; color: #000; font-weight: bold; transition:0.2s; border:1px solid #ddd;}
+.btn-qty-plus { display: inline-block; width: 30px; height: 30px; line-height: 30px; background: #fcd116; text-decoration: none; border-radius: 50%; color: #000; font-weight: bold; transition:0.2s;}
+.btn-qty-minus:hover { background:#ddd;}
+.btn-qty-plus:hover { background:#ffdb4d;}
+.panier-qty-text { margin: 0 15px; font-weight: bold; font-size: 1.1em; }
+.panier-tfoot-tr { background: #f9f9f9; font-size: 1.2em; }
+.panier-options-form { margin-top: 30px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.08); border-top:5px solid #000;}
+.panier-options-title { margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; color:#000; font-size:1.3em;}
+.panier-options-row { margin-bottom: 15px; display: flex; align-items: center; }
+.panier-options-row-large { margin-bottom: 30px; display: flex; align-items: center; }
+.panier-options-label { width: 180px; font-weight:bold; color:#333;}
+.pointer-cursor { cursor: pointer; }
+.pointer-margin-right { cursor: pointer; margin-right: 25px; }
+.panier-datetime-input { margin-left: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; outline:none;}
+.panier-datetime-input:focus { border-color:#00843d;}
+.panier-options-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 20px; }
+.btn-panier-clear { color: #ce1126; text-decoration: none; font-weight: bold; transition:0.2s;}
+.btn-panier-clear:hover { text-decoration:underline; color:#000;}
+.btn-panier-pay { width: auto; padding: 15px 35px; font-size: 1.1em; }
+.btn-panier-login { background-color: #000; color:white; text-decoration: none; padding: 15px 30px; width: auto; border-radius:50px; font-weight:bold;}
+.btn-panier-login:hover { background-color:#ce1126; color:white;}
+
+/* Styles Connexion / Inscription */
+.auth-container { padding: 40px 20px; max-width: 500px; margin: 0 auto; min-height: 60vh; display:flex; align-items:center; justify-content:center;}
+.auth-card { /* Hérite de form-container ou dashboard-card du thème */ }
+.auth-title { text-align: center; margin-bottom: 20px; font-size: 28px; letter-spacing: 2px; color:#000;}
+.title-auth-red { text-align: center; color: #ce1126; margin-bottom: 20px; font-size: 28px; text-transform:uppercase; letter-spacing:1px;}
+.auth-error { color: #ce1126; text-align: center; font-weight: bold; margin-bottom: 15px; background:#fde7e9; padding:10px; border-radius:8px;}
+.form-group-block { margin-bottom: 15px; }
+.password-margin { margin-bottom: 25px; }
+.form-label-bold { font-weight: bold; display: block; margin-bottom: 8px; color:#333; font-size:0.95em;}
+.form-input-field { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size:1rem; outline:none; transition:0.3s;}
+.form-input-field:focus { border-color:#00843d; box-shadow:0 0 5px rgba(0,132,61,0.2);}
+.padding-right-toggle { padding-right: 40px; }
+.password-input-wrapper { position: relative; display: flex; align-items: center; }
+.password-toggle-icon { position: absolute; right: 15px; cursor: pointer; font-size: 1.2em; color:#888;}
+.btn-auth-submit { /* Hérite de btn-submit du thème original */ }
+.btn-auth-register { /* Hérite de btn-submit du thème original */ }
+.auth-redirect-text { text-align: center; margin-top: 20px; color:#666; font-size:0.95em;}
+.auth-link-highlight { color: #ce1126; font-weight: bold; text-decoration:none; transition:0.3s;}
+.auth-link-highlight:hover { color:#000; }
+.auth-counter-flex { display: flex; justify-content: space-between; font-size: 0.85em; margin-top: 5px; }
+.auth-error-msg { color: #ce1126; font-weight: bold; }
+.form-textarea-field { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; height: 100px; font-family:inherit; resize:vertical; outline:none;}
+.form-textarea-field:focus { border-color:#00843d; box-shadow:0 0 5px rgba(0,132,61,0.2);}
+
+/* Styles presentation.php (La Carte) */
+.presentation-filters { text-align: center; margin-bottom: 30px; background: white; padding: 15px 20px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); display:inline-block; border:1px solid #eee;}
+.filter-label { margin-right: 15px; color: #000; text-transform:uppercase; font-size:0.9em; letter-spacing:1px;}
+.sort-label { margin-left: 10px; margin-right: 10px; color:#000; text-transform:uppercase; font-size:0.9em; letter-spacing:1px;}
+.btn-filter-all { width: auto; padding: 8px 20px; margin-right: 5px; background-color: #ce1126; color:white; border-radius:30px; margin-top:0;}
+.btn-filter-all:hover { background-color:#a80e1f;}
+.btn-filter-item { width: auto; padding: 8px 20px; margin-right: 5px; background-color: #f4f4f4; color:#333; border-radius:30px; margin-top:0;}
+.btn-filter-item:hover { background-color:#ddd;}
+.sort-select { padding: 8px 15px; border-radius: 30px; border: 1px solid #ddd; background: #f9f9f9; color: #000; outline:none; font-weight:bold; cursor:pointer;}
+.empty-plats-msg { text-align: center; width: 100%; color: #888; font-size: 1.2em; grid-column: 1 / -1; padding:40px; background:white; border-radius:15px; border:1px dashed #ccc;}
+.plat-image { width: 100%; height: 200px; object-fit: cover; border-radius: 15px 15px 0 0; }
+
+/* Styles profil.php */
+.profil-info-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+.btn-edit-small { width: auto; padding: 8px 20px; font-size: 0.9em; background-color: transparent; border:2px solid #000; color:#000; margin: 0; box-shadow:none;}
+.btn-edit-small:hover { background-color:#000; color:white; transform:none;}
+.profil-actions-zone { display: none; margin-top: 25px; text-align: center; }
+.btn-save-full { background-color: #00843d; color:white; padding: 15px 25px; width: 100%; }
+.btn-save-full:hover { background-color: #00602c;}
+.profil-msg-text { margin-top: 15px; font-weight: bold; }
+.order-history-item { border-left: 5px solid #000; background: white; padding: 20px; margin-bottom: 15px; border-radius: 0 15px 15px 0; box-shadow:0 2px 8px rgba(0,0,0,0.05); border-top:1px solid #eee; border-right:1px solid #eee; border-bottom:1px solid #eee;}
+.order-history-header { display: flex; justify-content: space-between; font-weight: bold; margin-bottom:10px; font-size:1.1em;}
+.order-history-price { color: #ce1126; font-size:1.2em;}
+.order-history-meta { font-size: 0.95em; color: #555; margin-top: 5px; display: flex; justify-content: space-between; align-items: center; border-bottom:1px dashed #eee; padding-bottom:10px; margin-bottom:10px;}
+.order-status-badge { color: #00843d; font-weight:bold;}
+.order-history-actions { text-align: right; }
+.btn-modifier-small { width: auto; padding: 8px 15px; font-size: 0.85em; background-color: #fcd116; color:#000; text-decoration: none; margin-top:0;}
+.badge-en-cuisine { display: inline-block; background: #e67e22; color: white; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85em; }
+.badge-prete { display: inline-block; background: #8e44ad; color: white; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85em; }
+.badge-recuperer { display: inline-block; background: #00843d; color: white; padding: 6px 12px; border-radius: 20px; font-weight: bold; box-shadow: 0 4px 10px rgba(0, 132, 61, 0.3); font-size:0.85em;}
+.badge-livraison { display: inline-block; background: #3498db; color: white; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85em; }
+.stars-rating-display { color: #fcd116; font-size: 1.4em; letter-spacing:2px;}
+.btn-noter-small { width: auto; padding: 8px 15px; font-size: 0.85em; background-color: #000; color: white; border: none; cursor: pointer; margin-top:0;}
+.btn-noter-small:hover { background-color:#ce1126;}
+.order-history-articles { font-size: 0.95em; color: #444; margin-top: 10px; font-style:italic;}
+
+/* Styles header.php */
+.header-brand-link { color: white; text-decoration: none; transition:0.3s;}
+.header-brand-link:hover { color:#fcd116;}
+.header-nav-flex { display: flex; align-items: center; }
+.btn-theme-toggle { background: none; border: none; cursor: pointer; font-size: 1.5em; margin-right: 15px; text-decoration: none; transition:transform 0.3s;}
+.btn-theme-toggle:hover { transform:rotate(20deg);}
+.header-cart-badge { background-color: #ce1126 !important; border-color:#ce1126 !important; color: white !important; font-weight: bold;}
+.header-cart-badge:hover { background-color: white !important; color: #ce1126 !important;}
+.header-link-admin { color: #fcd116 !important; font-weight: bold; border-color:#fcd116 !important; background:transparent !important;}
+.header-link-admin:hover { background-color:#fcd116 !important; color:#000 !important;}
+.header-link-livreur { color: #3498db !important; font-weight: bold; border-color:#3498db !important; background:transparent !important;}
+.header-link-livreur:hover { background-color:#3498db !important; color:#fff !important;}
+
+/* ==========================================================================
+   🚨 NOTIFICATION AJAX (AJOUT PANIER)
+   ========================================================================== */
+.toast-notification {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #00843d; /* Le beau vert Africa United */
+    color: #fff;
+    text-align: center;
+    border-radius: 50px;
+    padding: 15px 30px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: -60px; /* Caché au-dessus de l'écran */
+    transform: translateX(-50%);
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: opacity 0.4s ease, top 0.4s ease;
+    font-size: 1.1em;
+}
+
+.toast-notification.show-toast {
+    visibility: visible;
+    opacity: 1;
+    top: 20px; /* Descend élégamment dans l'écran */
+}

@@ -3,18 +3,13 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// ----------------------------------------------------
-// 🛡️ SÉCURITÉ MAJEURE : Vérification du blocage en temps réel
-// ----------------------------------------------------
 if (isset($_SESSION['user_id'])) {
     $utilisateurs_check = json_decode(file_get_contents('data/utilisateurs.json'), true);
-    if ($utilisateurs_check) { // Sécurité si le fichier est en cours de lecture
+    if ($utilisateurs_check) { 
         foreach ($utilisateurs_check as $u) {
             if ($u['id'] === $_SESSION['user_id']) {
                 if (isset($u['bloque']) && $u['bloque'] === true) {
-                    // L'utilisateur est bloqué ! On détruit sa session de force.
                     session_destroy();
-                    // On le renvoie vers la page de connexion avec un message (tu pourras afficher ce message sur connexion.php si tu veux)
                     header("Location: connexion.php?erreur=bloque");
                     exit();
                 }
@@ -24,17 +19,11 @@ if (isset($_SESSION['user_id'])) {
     }
 }
 
-// ----------------------------------------------------
-// NOUVEAU : VÉRIFICATION DU COOKIE DE THÈME (Phase 3)
-// ----------------------------------------------------
 $theme = isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'clair';
-
-// Sécurité : si la valeur est incohérente, on force le mode clair
 if ($theme !== 'clair' && $theme !== 'sombre') {
     $theme = 'clair'; 
 }
 
-// Calcul du panier
 $total_articles = 0;
 if(isset($_SESSION['panier'])) {
     $total_articles = array_sum($_SESSION['panier']); 
@@ -55,28 +44,30 @@ if(isset($_SESSION['panier'])) {
 </head>
 <body>
 
+    <div id="toast-notif" class="toast-notification">✅ Produit ajouté au panier !</div>
+
     <header>
         <div class="header-title">
-            <a href="accueil.php" style="color: white; text-decoration: none;">AFRICA UNITED</a>
+            <a href="accueil.php" class="header-brand-link">AFRICA UNITED</a>
         </div>
         
-        <div class="auth-buttons" style="display: flex; align-items: center;">
+        <div class="auth-buttons header-nav-flex">
             
-            <button id="btn-theme" style="background: none; border: none; cursor: pointer; font-size: 1.5em; margin-right: 15px; text-decoration: none;" title="Changer de thème">🌓</button>
+            <button id="btn-theme" class="btn-theme-toggle" title="Changer de thème">🌓</button>
 
             <a href="accueil.php">Accueil</a>
             <a href="presentation.php">La Carte</a>
             
-            <a href="panier.php" style="background-color: #e74c3c; color: white; padding: 6px 12px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-right: 15px;">
-                🛒 Panier (<?php echo $total_articles; ?>)
+            <a href="panier.php" class="header-cart-badge">
+                🛒 Panier (<span id="cart-count"><?php echo $total_articles; ?></span>)
             </a>
             
             <?php if(isset($_SESSION['user_id'])): ?>
                 <?php if($_SESSION['user_role'] == 'admin' || $_SESSION['user_role'] == 'restaurateur'): ?>
-                    <a href="admin.php" style="color: #f1c40f; font-weight: bold;">Administration</a>
+                    <a href="admin.php" class="header-link-admin">Administration</a>
                 <?php endif; ?>
                 <?php if($_SESSION['user_role'] == 'livreur'): ?>
-                    <a href="livraison.php" style="color: #3498db; font-weight: bold;">Espace Livreur</a>
+                    <a href="livraison.php" class="header-link-livreur">Espace Livreur</a>
                 <?php endif; ?>
                 <a href="profil.php" class="signup">Mon Profil</a>
                 <a href="deconnexion.php" class="login btn-logout">Déconnexion</a>
@@ -86,3 +77,29 @@ if(isset($_SESSION['panier'])) {
             <?php endif; ?>
         </div>
     </header>
+
+    <script>
+    function ajouterAuPanier(idArticle) {
+        fetch('api_panier.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id_article: idArticle })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.success) {
+                // 1. Mettre à jour le chiffre dans le panier en direct
+                document.getElementById('cart-count').textContent = data.total_articles;
+                
+                // 2. Faire descendre la notification
+                const toast = document.getElementById('toast-notif');
+                toast.classList.add('show-toast');
+                
+                // 3. La faire remonter et disparaître après 3 secondes
+                setTimeout(() => {
+                    toast.classList.remove('show-toast');
+                }, 3000);
+            }
+        });
+    }
+    </script>

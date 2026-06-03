@@ -23,7 +23,6 @@ $toutes_les_commandes = [];
 foreach ($utilisateurs as $user) {
     if (!empty($user['fidelite']['historique_commandes'])) {
         foreach ($user['fidelite']['historique_commandes'] as $commande) {
-            // On ajoute le nom du client DANS la commande pour savoir à qui elle est
             $commande['client'] = $user['informations']['prenom'] . ' ' . $user['informations']['nom'];
             $commande['email'] = $user['informations']['email'];
             $toutes_les_commandes[] = $commande;
@@ -31,72 +30,66 @@ foreach ($utilisateurs as $user) {
     }
 }
 
-// On inverse la liste pour avoir les commandes les plus récentes en premier
 $toutes_les_commandes = array_reverse($toutes_les_commandes);
 ?>
 
-    <main class="admin-page" style="padding: 40px 20px; max-width: 1200px; margin: 0 auto; min-height: 60vh;">
+    <main class="admin-page admin-page-container">
         
-        <div style="text-align: center; margin-bottom: 40px;">
-            <h1 style="color: #e74c3c;">👨‍🍳 Espace Administration</h1>
+        <div class="admin-header-zone">
+            <h1 class="admin-main-title">👨‍🍳 Espace Administration</h1>
             <p>Bienvenue, <strong><?php echo $_SESSION['user_prenom']; ?></strong>. Voici le tableau de bord de votre restaurant.</p>
         </div>
 
-        <section style="margin-bottom: 50px;">
-            <h2 style="border-bottom: 3px solid #e74c3c; padding-bottom: 10px;">📦 Gestion des Commandes (Cuisine)</h2>
+        <section class="admin-section-block">
+            <h2 class="admin-section-title-cuisine">📦 Gestion des Commandes (Cuisine)</h2>
             
             <?php 
-            // On récupère la liste des livreurs pour le menu déroulant
             $livreurs = [];
             foreach($utilisateurs as $u) {
                 if($u['role'] === 'livreur') $livreurs[] = $u;
             }
             ?>
 
-            <table style="width: 100%; border-collapse: collapse; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                <thead style="background: #2c3e50; color: white;">
+            <table class="admin-table-cuisine">
+                <thead class="admin-thead-dark">
                     <tr>
-                        <th style="padding: 15px; text-align: left;">Client</th>
-                        <th style="padding: 15px; text-align: left;">Articles</th>
-                        <th style="padding: 15px; text-align: center;">Statut Actuel</th>
-                        <th style="padding: 15px; text-align: right;">Actions</th>
+                        <th>Client</th>
+                        <th>Articles</th>
+                        <th class="text-center">Statut Actuel</th>
+                        <th class="text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php 
-                    // On recalcule la liste pour avoir les index originaux
                     foreach ($utilisateurs as $user):
                         foreach ($user['fidelite']['historique_commandes'] ?? [] as $idx => $cmd):
                             $statut = $cmd['statut'] ?? 'Payée';
                     ?>
-                    <tr style="border-bottom: 1px solid #eee;" class="ligne-commande">
-                        <td style="padding: 15px;">
+                    <tr class="ligne-commande admin-table-row">
+                        <td>
                             <strong><?php echo htmlspecialchars($user['informations']['prenom']); ?></strong><br>
-                            <span style="font-size: 0.8em; color: #7f8c8d;"><?php echo htmlspecialchars($user['informations']['email']); ?></span>
+                            <span class="admin-client-email"><?php echo htmlspecialchars($user['informations']['email']); ?></span>
                         </td>
-                        <td style="padding: 15px; font-size: 0.9em;"><?php echo htmlspecialchars(implode(', ', $cmd['articles'])); ?></td>
-                        <td style="padding: 15px; text-align: center;">
-                            <span class="badge-statut" style="padding: 5px 10px; border-radius: 20px; background: #eee; font-weight: bold; font-size: 0.8em;">
+                        <td class="admin-cell-articles"><?php echo htmlspecialchars(implode(', ', $cmd['articles'])); ?></td>
+                        <td class="text-center">
+                            <span class="badge-statut admin-badge-statut">
                                 <?php echo htmlspecialchars($statut); ?>
                             </span>
                         </td>
-                        <td style="padding: 15px; text-align: right;">
-                            <div style="display: flex; gap: 5px; justify-content: flex-end; align-items: center;">
+                        <td class="text-right">
+                            <div class="admin-actions-flex">
                                 
                                 <?php if($statut == 'À préparer' || $statut == 'Payée'): ?>
-                                    <button onclick="changerStatut('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, 'En préparation')" style="background: #3498db; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">🔥 Lancer en cuisine</button>
+                                    <button onclick="changerStatut('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, 'En préparation')" class="btn-admin-launch">🔥 Lancer en cuisine</button>
                                 
                                 <?php elseif($statut == 'En préparation'): ?>
-                                    <span style="color: #e67e22; font-weight: bold; padding: 5px;">👨‍🍳 En préparation...</span>
+                                    <span class="status-text-cooking">👨‍🍳 En préparation...</span>
                                 
                                 <?php elseif($statut == 'Prête'): ?>
-                                    <?php 
-                                    // On vérifie si c'est à emporter
-                                    if(strpos(strtolower($cmd['type']), 'emporter') !== false): 
-                                    ?>
-                                        <button onclick="changerStatut('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, 'À récupérer')" style="background: #9b59b6; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">🛍️ Autoriser le Retrait</button>
+                                    <?php if(strpos(strtolower($cmd['type']), 'emporter') !== false): ?>
+                                        <button onclick="changerStatut('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, 'À récupérer')" class="btn-admin-allow">🛍️ Autoriser le Retrait</button>
                                     <?php else: ?>
-                                        <select onchange="assignerLivreur('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, this.value)" style="padding: 5px; border-radius: 4px;">
+                                        <select onchange="assignerLivreur('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, this.value)" class="select-admin-driver">
                                             <option value="">Assigner livreur...</option>
                                             <?php foreach($livreurs as $l): ?>
                                                 <option value="<?php echo $l['id']; ?>"><?php echo htmlspecialchars($l['informations']['prenom']); ?></option>
@@ -105,7 +98,7 @@ $toutes_les_commandes = array_reverse($toutes_les_commandes);
                                     <?php endif; ?>
 
                                 <?php elseif($statut == 'À récupérer'): ?>
-                                    <button onclick="changerStatut('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, 'Terminée')" style="background: #7f8c8d; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">✅ Commande Retirée</button>
+                                    <button onclick="changerStatut('<?php echo $user['informations']['email']; ?>', <?php echo $idx; ?>, 'Terminée')" class="btn-admin-done">✅ Commande Retirée</button>
                                 
                                 <?php endif; ?>
 
@@ -117,39 +110,38 @@ $toutes_les_commandes = array_reverse($toutes_les_commandes);
             </table>
         </section>
 
-        <section>
-            <h2 style="border-bottom: 3px solid #3498db; padding-bottom: 10px;">👥 Base de données Clients & Staff</h2>
+        <section class="admin-section-block">
+            <h2 class="admin-section-title-database">👥 Base de données Clients & Staff</h2>
             
-            <table style="width: 100%; border-collapse: collapse; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background-color: white; margin-top: 20px;">
-                <thead style="background-color: #f4f4f4; border-bottom: 2px solid #ddd; text-align: left;">
+            <table class="admin-table-database">
+                <thead class="admin-thead-db">
                     <tr>
-                        <th style="padding: 15px;">ID</th>
-                        <th style="padding: 15px;">Client / Staff</th>
-                        <th style="padding: 15px;">Rôle</th>
-                        <th style="padding: 15px; text-align: center;">Actions</th>
+                        <th>ID</th>
+                        <th>Client / Staff</th>
+                        <th>Rôle</th>
+                        <th class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($utilisateurs as $user): ?>
-                    <tr style="border-bottom: 1px solid #eee;">
-                        <td style="padding: 15px;"><?php echo htmlspecialchars($user['id']); ?></td>
-                        <td style="padding: 15px;">
+                    <tr class="admin-table-row">
+                        <td><?php echo htmlspecialchars($user['id']); ?></td>
+                        <td>
                             <strong><?php echo htmlspecialchars($user['informations']['prenom'] . ' ' . $user['informations']['nom']); ?></strong><br>
-                            <span style="font-size: 0.85em; color: #7f8c8d;"><?php echo htmlspecialchars($user['informations']['email']); ?></span>
+                            <span class="admin-client-email"><?php echo htmlspecialchars($user['informations']['email']); ?></span>
                         </td>
-                        <td style="padding: 15px;">
-                            <strong style="color: <?php echo ($user['role'] == 'admin' || $user['role'] == 'restaurateur') ? '#e74c3c' : '#27ae60'; ?>;">
+                        <td>
+                            <strong class="role-badge role-<?php echo htmlspecialchars($user['role']); ?>">
                                 <?php echo strtoupper(htmlspecialchars($user['role'])); ?>
                             </strong>
                         </td>
                         
-                        <td style="padding: 15px; text-align: center;">
+                        <td class="text-center">
                             <?php if($user['role'] == 'client'): 
-                                // On récupère la remise actuelle du client (0 si elle n'existe pas)
                                 $remise_actuelle = $user['informations']['remise'] ?? 0;
                             ?>
                                 
-                                <select onchange="changerRemise('<?php echo $user['id']; ?>', this.value)" style="padding: 5px; margin-right: 5px; border: 1px solid #ccc; border-radius: 4px; background-color: #f1c40f; font-weight: bold;">
+                                <select onchange="changerRemise('<?php echo $user['id']; ?>', this.value)" class="select-admin-remise">
                                     <option value="0" <?php if($remise_actuelle == 0) echo 'selected'; ?>>Pas de remise</option>
                                     <option value="10" <?php if($remise_actuelle == 10) echo 'selected'; ?>>Remise 10%</option>
                                     <option value="20" <?php if($remise_actuelle == 20) echo 'selected'; ?>>Remise 20%</option>
@@ -158,18 +150,18 @@ $toutes_les_commandes = array_reverse($toutes_les_commandes);
                                 <?php 
                                 $est_bloque = isset($user['bloque']) && $user['bloque'] === true; 
                                 $btn_text = $est_bloque ? "🔓 Débloquer" : "🚫 Bloquer";
-                                $btn_color = $est_bloque ? "#f39c12" : "#e74c3c"; 
+                                $btn_class = $est_bloque ? "btn-admin-unblock" : "btn-admin-block"; 
                                 ?>
-                                <button onclick="bloquerUtilisateur('<?php echo $user['id']; ?>')" style="padding: 6px 10px; background: <?php echo $btn_color; ?>; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                <button onclick="bloquerUtilisateur('<?php echo $user['id']; ?>')" class="<?php echo $btn_class; ?>">
                                     <?php echo $btn_text; ?>
                                 </button>
 
-                                <button onclick="supprimerUtilisateur('<?php echo $user['id']; ?>')" style="padding: 6px 10px; background: #c0392b; color: white; border: none; border-radius: 4px; cursor: pointer; margin-left: 5px;" title="Supprimer définitivement">
+                                <button onclick="supprimerUtilisateur('<?php echo $user['id']; ?>')" class="btn-admin-delete" title="Supprimer définitivement">
                                     🗑️
                                 </button>
                                 
                             <?php else: ?>
-                                <span style="color: #95a5a6; font-style: italic;">Non applicable</span>
+                                <span class="text-not-applicable">Non applicable</span>
                             <?php endif; ?>
                         </td>
                     </tr>

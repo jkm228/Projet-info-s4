@@ -11,15 +11,12 @@ $plats = json_decode($json_data, true);
         <section class="hero-section">
             <div class="hero-content">
                 <h1>Africa United</h1>
-                <div class="search-container">
-                    <input type="text" id="search-input" placeholder="Recherchez un plat (ex: Mafé, Yassa...)">
-                    <button type="button">🔍</button>
+                
                 </div>
-            </div>
         </section>
 
-        <section class="plats-section" style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
-            <h2 style="text-align: center; margin-bottom: 30px;">Nos Escales Gourmandes (Menus)</h2>
+        <section class="plats-section accueil-section-container">
+            <h2 class="accueil-main-title">Nos Escales Gourmandes (Menus)</h2>
             
             <div class="presentation-grid">
                 <?php 
@@ -31,15 +28,15 @@ $plats = json_decode($json_data, true);
                     if ($cat == 'menu'): 
                 ?>
                     <div class="menu-card">
-                        <div class="menu-flag"><?php echo $item['pays']; ?></div>
-                        <div class="menu-title bg-rouge"><?php echo $item['nom']; ?></div>
+                        <div class="menu-flag"><?php echo htmlspecialchars($item['pays']); ?></div>
+                        <div class="menu-title bg-rouge"><?php echo htmlspecialchars($item['nom']); ?></div>
                         
-                        <div class="menu-items" style="padding: 15px; text-align: left; font-size: 0.9em;">
-                            <ul style="list-style-type: none; padding-left: 0;">
+                        <div class="menu-items accueil-menu-items-box">
+                            <ul class="accueil-menu-list">
                                 <?php foreach($item['plats'] as $sous_plat): ?>
-                                    <li style="margin-bottom: 8px;">
-                                        <strong><?php echo $sous_plat['nom']; ?></strong> : <br>
-                                        <span style="color: #666; font-size: 0.85em;"><?php echo $sous_plat['description']; ?></span>
+                                    <li class="accueil-menu-item-li">
+                                        <strong><?php echo htmlspecialchars($sous_plat['nom']); ?></strong> : <br>
+                                        <span class="accueil-menu-item-desc"><?php echo htmlspecialchars($sous_plat['description']); ?></span>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>
@@ -47,7 +44,7 @@ $plats = json_decode($json_data, true);
                         
                         <div class="menu-footer">
                             <span class="menu-price"><?php echo number_format($item['prix'], 2); ?>€</span>
-                            <a href="panier.php?ajouter=<?php echo $item['id']; ?>" class="btn-commander" style="text-decoration: none; text-align: center; display: block; box-sizing: border-box;">Ajouter</a>
+                            <button type="button" onclick="ajouterAuPanier('<?php echo $item['id']; ?>')" class="btn-commander">Ajouter</button>
                         </div>
                     </div>
                 <?php 
@@ -56,7 +53,7 @@ $plats = json_decode($json_data, true);
                 ?>
             </div>
 
-            <div style="text-align: center; margin-top: 40px;">
+            <div class="accueil-more-link-zone">
                 <a href="presentation.php" class="btn-carte">Découvrir notre carte complète</a>
             </div>
         </section>

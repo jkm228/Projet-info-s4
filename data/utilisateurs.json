@@ -2,7 +2,7 @@
     {
         "id": "A-001",
         "login": "admin_boss",
-        "mot_de_passe": "admin123",
+        "mot_de_passe": "$2y$10$1KLRuuk0uV7QWMn93ZEMHuTlX7.51YiXxbtFR8gVLtlw\/wdQCy3xG",
         "role": "admin",
         "informations": {
             "nom": "Diop",
@@ -18,7 +18,7 @@
     {
         "id": "R-001",
         "login": "chef_cuistot",
-        "mot_de_passe": "resto123",
+        "mot_de_passe": "$2y$10$qdOUlI8MH6SSfjAFpXGufe0fJRo8kocAgp0nlbkL4JaGoc8iVNdaS",
         "role": "restaurateur",
         "informations": {
             "nom": "Kone",
@@ -34,7 +34,7 @@
     {
         "id": "L-001",
         "login": "livreur_1",
-        "mot_de_passe": "livreur123",
+        "mot_de_passe": "$2y$10$7E.CoHnfixw\/2VzO4RrAYOEf2ELJ\/d8UAq2h.iPagS0NR8W5vPReO",
         "role": "livreur",
         "informations": {
             "nom": "Dubois",
@@ -58,9 +58,9 @@
             "adresse_livraison": "64 avenue du Général Michel Bizot 75012 Paris ",
             "remise": 20
         },
-        "mot_de_passe": "Joseph-19032005",
+        "mot_de_passe": "$2y$10$1zlBSsovgombtY4dRH4J9u3t4hH\/2jkVnn1cxhv37uw1ow5y4Fu0C",
         "fidelite": {
-            "points": 164,
+            "points": 308,
             "historique_commandes": [
                 {
                     "date": "05\/04\/2026 à 15:17",
@@ -188,9 +188,78 @@
                         "Chapman (x1)"
                     ],
                     "note": 5
+                },
+                {
+                    "date_passage": "02\/06\/2026 à 20:53",
+                    "date_prevue": "Dès que possible",
+                    "type": "Livraison (Complément payé: 39.20€)",
+                    "statut": "Livrée",
+                    "total": 84,
+                    "articles": [
+                        "Thé à la menthe (x2)",
+                        "L'Escale Dakaroise (x2)",
+                        "L'Île Rouge (x1)",
+                        "Lagos By Night (x1)"
+                    ],
+                    "livreur_id": "L-001",
+                    "note": 5
+                },
+                {
+                    "date_passage": "02\/06\/2026 à 20:57",
+                    "date_prevue": "Dès que possible",
+                    "type": "À emporter",
+                    "statut": "Terminée",
+                    "total": 4,
+                    "articles": [
+                        "Jus de Litchi (x1)"
+                    ],
+                    "note": 2
+                },
+                {
+                    "date_passage": "03\/06\/2026 à 19:49",
+                    "date_prevue": "Dès que possible",
+                    "type": "Livraison (Complément payé: 19.20€)",
+                    "statut": "Livrée",
+                    "total": 57.599999999999994,
+                    "articles": [
+                        "Le Festin d'Addis (x2)",
+                        "Mystères du Nil (x1)"
+                    ],
+                    "livreur_id": "L-001",
+                    "note": 5
                 }
             ]
         },
         "bloque": false
+    },
+    {
+        "id": "USR9193",
+        "role": "client",
+        "mot_de_passe": "$2y$10$mw3lbIvQoCNESYL57g.zn.g7ino.ZV9rfWbTLG849tT3G.LAQQo7W",
+        "informations": {
+            "nom": "Dupont",
+            "prenom": "Jean",
+            "email": "jeandupont@gmail.com",
+            "telephone": "0767400503",
+            "adresse_livraison": "1 parvis maryse condé",
+            "remise": 0
+        },
+        "fidelite": {
+            "points": 48,
+            "historique_commandes": [
+                {
+                    "date_passage": "03\/06\/2026 à 12:32",
+                    "date_prevue": "Dès que possible",
+                    "type": "Livraison (Complément payé: 24.00€)",
+                    "statut": "Livrée",
+                    "total": 48,
+                    "articles": [
+                        "Le Festin d'Addis (x1)",
+                        "Mystères du Nil (x1)"
+                    ],
+                    "livreur_id": "L-001"
+                }
+            ]
+        }
     }
 ]

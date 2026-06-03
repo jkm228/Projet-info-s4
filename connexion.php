@@ -20,7 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $mdp_enregistre = $user['mot_de_passe'] ?? '';
             $email_enregistre = $user['informations']['email'] ?? '';
 
-            if ($email_enregistre === $email_saisi && $mdp_enregistre === $mdp_saisi) {
+            // 🔒 CORRECTIF SÉCURITÉ (PHASE 4) : Vérification du mot de passe haché
+            if ($email_enregistre === $email_saisi && password_verify($mdp_saisi, $mdp_enregistre)) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_prenom'] = $user['informations']['prenom'];
                 $_SESSION['user_role'] = $user['role'];
@@ -33,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 } elseif ($user['role'] === 'admin') {
                     header("Location: admin.php");
                 } else {
-                    header("Location: profil.php"); // Client
+                    // 👉 MODIFICATION ICI : On renvoie le client sur l'accueil
+                    header("Location: accueil.php"); 
                 }
                 exit();
             }
@@ -43,34 +45,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<main style="padding: 40px 20px; max-width: 500px; margin: 0 auto; min-height: 60vh;">
-    <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" class="dashboard-card">
-       <h1 style="text-align: center; margin-bottom: 20px; font-size: 28px; letter-spacing: 2px;">CONNEXION</h1>
+<main class="auth-container">
+    <div class="dashboard-card auth-card">
+       <h1 class="auth-title">CONNEXION</h1>
         
         <?php if (!empty($erreur)): ?>
-            <p style="color: #e74c3c; text-align: center; font-weight: bold; margin-bottom: 15px;"><?php echo $erreur; ?></p>
+            <p class="auth-error"><?php echo $erreur; ?></p>
         <?php endif; ?>
 
         <form action="connexion.php" method="POST">
-            <div style="margin-bottom: 15px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 5px;">Adresse E-mail :</label>
-                <input type="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            <div class="form-group-block">
+                <label class="form-label-bold">Adresse E-mail :</label>
+                <input type="email" name="email" required class="form-input-field">
             </div>
 
-            <div style="margin-bottom: 25px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 5px;">Mot de passe :</label>
-                <div style="position: relative; display: flex; align-items: center;">
-                    <input type="password" name="password" id="password" required style="width: 100%; padding: 10px; padding-right: 40px; border: 1px solid #ccc; border-radius: 5px;">
-                    <span id="togglePassword" style="position: absolute; right: 10px; cursor: pointer; font-size: 1.2em;">👁️</span>
+            <div class="form-group-block password-margin">
+                <label class="form-label-bold">Mot de passe :</label>
+                <div class="password-input-wrapper">
+                    <input type="password" name="password" id="password" required class="form-input-field padding-right-toggle">
+                    <span id="togglePassword" class="password-toggle-icon">👁️</span>
                 </div>
             </div>
 
-            <button type="submit" class="btn-submit" style="width: 100%; padding: 12px; font-size: 1.1em; background-color: #f1c40f; color: black; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">SE CONNECTER</button>
+            <button type="submit" class="btn-submit btn-auth-submit">SE CONNECTER</button>
         </form>
         
-        <p style="text-align: center; margin-top: 20px;">Pas encore de compte ? <a href="inscription.php" style="color: #e74c3c; font-weight: bold;">S'inscrire ici</a></p>
+        <p class="auth-redirect-text">Pas encore de compte ? <a href="inscription.php" class="auth-link-highlight">S'inscrire ici</a></p>
     </div>
 </main>
+
 <script>
     document.getElementById('togglePassword').addEventListener('click', function () {
         const passwordInput = document.getElementById('password');
@@ -79,4 +82,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         this.textContent = type === 'password' ? '👁️' : '🙈';
     });
 </script>
+
 <?php include 'includes/footer.php'; ?>
